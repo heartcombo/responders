@@ -1,0 +1,11 @@
+== Responders
+
+A set of responders to dry up your Rails 3 app
+
+== Generator
+
+This gem also includes a responders generator, so you can replace your scaffold generator by configuring your environment:
+
+  config.generators do |g|
+    g.scaffold_controller = :responders_controller
+  end
