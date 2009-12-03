@@ -31,7 +31,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # POST /<%= table_name %>.xml
   def create
     @<%= file_name %> = <%= orm_class.build(class_name, "params[:#{file_name}]") %>
-    @<%= orm_instance.save %>
+    <%= "flash[:notice] = '#{class_name} was successfully created.' if " if flash? %>@<%= orm_instance.save %>
     respond_with(@<%= file_name %>)
   end
 
@@ -39,7 +39,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # PUT /<%= table_name %>/1.xml
   def update
     @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
-    @<%= orm_instance.update_attributes("params[:#{file_name}]") %>
+    <%= "flash[:notice] = '#{class_name} was successfully updated.' if " if flash? %>@<%= orm_instance.update_attributes("params[:#{file_name}]") %>
     respond_with(@<%= file_name %>)
   end
 
