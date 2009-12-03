@@ -1,0 +1,20 @@
+en:
+  flash:
+    actions:
+      create:
+        success: "Resource created with success"
+        failure: "Resource could not be created"
+    addresses:
+      update:
+        success: "Nice! {{resource_name}} was updated with success!"
+        failure: "Oh no! We could not update your address!"
+      destroy:
+        success: "Successfully deleted the address at {{reference}}"
+    admin:
+      actions:
+        create:
+          success: "Admin created address with success"
+      addresses:
+        update:
+          success: "Admin updated address with success"
+
