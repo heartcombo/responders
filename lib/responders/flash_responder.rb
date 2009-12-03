@@ -51,11 +51,17 @@ module Responders
   #   flash.actions.create.status
   #
   module FlashResponder
+    def initialize(controller, resources, options={})
+      super
+      @flash = options.delete(:flash)
+    end
+
     def navigation_behavior(error)
       super
 
       unless get?
         status = has_errors? ? :failure : :success
+        return if @flash == false || controller.send(:flash)[status].present?
 
         resource_name = if resource.class.respond_to?(:human_name)
           resource.class.human_name
