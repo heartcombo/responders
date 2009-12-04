@@ -71,7 +71,8 @@ module Responders
 
         options = {
           :default => flash_defaults_by_namespace(status),
-          :resource_name => resource_name
+          :resource_name => resource_name,
+          :resource_sym  => resource_name.downcase
         }
 
         if controller.respond_to?(:interpolation_options, true)

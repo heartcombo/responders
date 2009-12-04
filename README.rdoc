@@ -1,6 +1,31 @@
 == Responders
 
-A set of responders to dry up your Rails 3 app
+A set of responders to dry up your Rails 3 app:
+
+* FlashResponder - Sets the flash based on the controller action and resource status.
+  For instance, if you do: respond_with(@post) on a POST request and the resource @post
+  does not contain errors, it will automatically set the flash message to
+  "Post was successfully created" as long as you configure your I18n file:
+
+	flash:
+	  actions:
+	    create:
+	      success: "{resource_name} was successfully created"
+		update:
+		  success: "{resource_name} was successfully updated"
+
+  In case the resource contains errors, you should use the failure key on I18n. This is
+  useful to dry up flash messages from your controllers. If you need a specific message
+  for a controller, let's say, for PostsController, you can also do:
+
+    flash:
+      posts:
+        create:
+          success: "Your post was created and will be published soon"
+
+* HttpCacheResponder - Automatically adds Last-Modified headers to API requests. This
+  allows clients to easily query the server if a resource changed and if the client tries
+  to retrieve a resource that has not been modified, it returns not_modified status.
 
 == Generator
 
