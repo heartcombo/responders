@@ -34,3 +34,11 @@ This gem also includes a responders controller generator, so your scaffold can b
   config.generators do |g|
     g.scaffold_controller = :responders_controller
   end
+
+== Bugs and Feedback
+
+If you discover any bugs or want to drop a line, feel free to create an issue on GitHub.
+
+http://github.com/plataformatec/responders/issues
+
+MIT License. Copyright 2009 Plataforma Tecnologia. http://blog.plataformatec.com.br
