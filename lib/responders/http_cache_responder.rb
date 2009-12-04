@@ -1,11 +1,12 @@
 module Responders
   # Set HTTP Last-Modified headers based on the given resource. It's used only
-  # on API behavior (to_format) and requires your clients to send IF_MODIFIED_SINCE
-  # header in requests.
+  # on API behavior (to_format) and is useful for a client to check in the server
+  # if a resource changed after a specific date or not.
   #
-  # This is not used in http requests because pages contains a lot information
-  # besides the resource information, as current_user, flash messages, widgets
-  # and so on. In such cases, the e-tag cache is more appropriate.
+  # This is not usually not used in html requests because pages contains a lot
+  # information besides the resource information, as current_user, flash messages,
+  # widgets... that are better handled with other strategies, as fragment caches and
+  # the digest of the body.
   #
   module HttpCacheResponder
     def initialize(controller, resources, options={})
