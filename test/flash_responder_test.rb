@@ -19,6 +19,7 @@ class AddressesController < ApplicationController
 
   def action
     options = params.slice(:flash)
+    flash[:success] = "Flash is set" if params[:set_flash]
     respond_with(@resource, options)
   end
   alias :new     :action
@@ -83,6 +84,11 @@ class FlashResponderTest < ActionController::TestCase
   def test_does_not_set_flash_if_flash_false_is_given
     post :create, :flash => false
     assert flash.empty?
+  end
+
+  def test_does_not_overwrite_the_flash_if_already_set
+    post :create, :set_flash => true
+    assert_equal "Flash is set", flash[:success]
   end
 end
 

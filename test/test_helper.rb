@@ -41,3 +41,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action'
 end
+
+class Model < Struct.new(:updated_at)
+  def to_xml(*args)
+    "<xml />"
+  end
+end

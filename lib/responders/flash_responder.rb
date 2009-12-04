@@ -59,9 +59,9 @@ module Responders
     def navigation_behavior(error)
       super
 
-      unless get?
+      unless get? || @flash == false
         status = has_errors? ? :failure : :success
-        return if @flash == false || controller.send(:flash)[status].present?
+        return if controller.send(:flash)[status].present?
 
         resource_name = if resource.class.respond_to?(:human_name)
           resource.class.human_name
@@ -84,7 +84,7 @@ module Responders
     end
 
   protected
-  
+
     def flash_defaults_by_namespace(status)
       defaults = []
       slices   = controller.controller_path.split('/')

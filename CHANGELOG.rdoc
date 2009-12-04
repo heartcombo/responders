@@ -1,4 +1,5 @@
 == 0.1
 
 * Added FlashResponder
+* Added HttpCacheResponder
 * Added responders generators
