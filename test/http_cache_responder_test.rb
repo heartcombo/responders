@@ -9,6 +9,7 @@ class HttpCacheController < ApplicationController
 
   def single
     options = params.slice(:http_cache)
+    response.last_modified = Time.utc(2008) if params[:last_modified]
     respond_with(Model.new(Time.utc(2009)), options)
   end
 
@@ -68,6 +69,18 @@ class HttpCacheResponderTest < ActionController::TestCase
   def test_does_not_use_cache_if_http_cache_is_false
     @request.env["HTTP_IF_MODIFIED_SINCE"] = Time.utc(2009, 6).httpdate
     get :single, :http_cache => false
+    assert_equal 200, @response.status
+  end
+
+  def test_does_not_set_cache_if_last_modified_already_set_in_response
+    get :single, :last_modified => true
+    assert_equal Time.utc(2008).httpdate, @response.headers["Last-Modified"]
+    assert_equal 200, @response.status
+  end
+
+  def test_does_not_use_cache_if_last_modified_already_set_in_response
+    @request.env["HTTP_IF_MODIFIED_SINCE"] = Time.utc(2009, 6).httpdate
+    get :single, :last_modified => true
     assert_equal 200, @response.status
   end
 

@@ -15,7 +15,7 @@ module Responders
     end
 
     def to_format
-      if get? && @http_cache != false
+      if get? && @http_cache != false && controller.response.last_modified.nil?
         timestamp = resources.flatten.map do |resource|
           resource.updated_at.utc if resource.respond_to?(:updated_at)
         end.compact.max
