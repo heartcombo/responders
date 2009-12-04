@@ -20,8 +20,7 @@ module Responders
           resource.updated_at.utc if resource.respond_to?(:updated_at)
         end.compact.max
 
-        controller.response.last_modified = timestamp
-
+        controller.response.last_modified = timestamp if timestamp
         if request.fresh?(controller.response)
           head :not_modified
           return
