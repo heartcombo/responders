@@ -16,6 +16,10 @@ class HttpCacheController < ApplicationController
   def collection
     respond_with [Model.new(Time.utc(2009)), Model.new(Time.utc(2008))]
   end
+
+  def empty
+    respond_with []
+  end
 end
 
 class HttpCacheResponderTest < ActionController::TestCase
@@ -87,6 +91,13 @@ class HttpCacheResponderTest < ActionController::TestCase
   def test_collection_chooses_the_latest_timestamp
     get :collection
     assert_equal Time.utc(2009).httpdate, @response.headers["Last-Modified"]
+    assert_match /xml/, @response.body
+    assert_equal 200, @response.status
+  end
+
+  def test_work_with_an_empty_array
+    get :empty
+    assert_nil @response.headers["Last-Modified"]
     assert_match /xml/, @response.body
     assert_equal 200, @response.status
   end
