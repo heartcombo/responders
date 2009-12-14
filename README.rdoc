@@ -11,8 +11,10 @@ A set of responders to dry up your Rails 3 app:
 	  actions:
 	    create:
 	      success: "{resource_name} was successfully created"
-		update:
-		  success: "{resource_name} was successfully updated"
+	    update:
+	      success: "{resource_name} was successfully updated"
+            destroy:
+              failure: "{resource_name} could not be destroyed"
 
   In case the resource contains errors, you should use the failure key on I18n. This is
   useful to dry up flash messages from your controllers. If you need a specific message
@@ -22,6 +24,9 @@ A set of responders to dry up your Rails 3 app:
       posts:
         create:
           success: "Your post was created and will be published soon"
+
+  This responder is activated in all non get requests and searches for the key :success
+  if the resource does not have errors and :failure otherwise.
 
 * HttpCacheResponder - Automatically adds Last-Modified headers to API requests. This
   allows clients to easily query the server if a resource changed and if the client tries
