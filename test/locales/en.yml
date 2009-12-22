@@ -10,11 +10,12 @@ en:
         failure: "Oh no! We could not update your address!"
       destroy:
         success: "Successfully deleted the address at {{reference}}"
+        notice: "Successfully deleted the chosen address at {{reference}}"
     admin:
       actions:
         create:
-          success: "Admin created address with success"
+          notice: "Admin created address with success"
       addresses:
         update:
-          success: "Admin updated address with success"
+          notice: "Admin updated address with success"
 

@@ -11,11 +11,14 @@ module Responders
   #   flash.cars.create.status
   #   flash.actions.create.status
   #
-  # The statuses can be :success (when the object can be created, updated
-  # or destroyed with success) or :failure (when the objecy cannot be created
-  # or updated).
+  # The statuses by default are :notice (when the object can be created, updated
+  # or destroyed with success) and :alert (when the objecy cannot be created
+  # or updated). Although they can be configured:
   #
-  # The resource_name given is available as interpolation option, this means you can set:
+  #   Responders::FlashResponder.status_keys = [ :sucess, :failure ]
+  #
+  # On I18n, the resource_name given is available as interpolation option,
+  # this means you can set:
   #
   #   flash:
   #     actions:
@@ -51,6 +54,9 @@ module Responders
   #   flash.actions.create.status
   #
   module FlashResponder
+    mattr_accessor :status_keys
+    @@status_keys = [ :notice, :alert ]
+
     def initialize(controller, resources, options={})
       super
       @flash = options.delete(:flash)
@@ -60,8 +66,8 @@ module Responders
       super
 
       unless get? || @flash == false
-        status = has_errors? ? :failure : :success
-        return if controller.send(:flash)[status].present?
+        status = Responders::FlashResponder.status_keys.send(has_errors? ? :last : :first)
+        return if controller.flash[status].present?
 
         resource_name = if resource.class.respond_to?(:human_name)
           resource.class.human_name
@@ -80,7 +86,7 @@ module Responders
         end
 
         message = ::I18n.t options[:default].shift, options
-        controller.send(:flash)[status] = message unless message.blank?
+        controller.flash[status] = message unless message.blank?
       end
     end
 

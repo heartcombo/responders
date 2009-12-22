@@ -48,6 +48,7 @@ class FlashResponderTest < ActionController::TestCase
   tests AddressesController
 
   def setup
+    Responders::FlashResponder.status_keys = [ :success, :failure ]
     @controller.stubs(:polymorphic_url).returns("/")
   end
 
@@ -96,21 +97,22 @@ class NamespacedFlashResponderTest < ActionController::TestCase
   tests Admin::AddressesController
 
   def setup
+    Responders::FlashResponder.status_keys = [ :notice, :alert ]
     @controller.stubs(:polymorphic_url).returns("/")
   end
 
   def test_sets_the_flash_message_based_on_the_current_controller
     put :update
-    assert_equal "Admin updated address with success", flash[:success]
+    assert_equal "Admin updated address with success", flash[:notice]
   end
 
   def test_sets_the_flash_message_based_on_namespace_actions
     post :create
-    assert_equal "Admin created address with success", flash[:success]
+    assert_equal "Admin created address with success", flash[:notice]
   end
 
   def test_fallbacks_to_non_namespaced_controller_flash_message
     delete :destroy
-    assert_equal "Successfully deleted the address at Ocean Avenue", flash[:success]
+    assert_equal "Successfully deleted the chosen address at Ocean Avenue", flash[:notice]
   end
 end

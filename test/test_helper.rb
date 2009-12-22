@@ -18,10 +18,10 @@ require 'mocha'
 ENV["RAILS_ENV"] = "test"
 RAILS_ROOT = "anywhere"
 
-require File.expand_path(File.dirname(__FILE__) + "/../../../rails/vendor/gems/environment")
+require File.expand_path(File.dirname(__FILE__) + "/../../rails/vendor/gems/environment")
 require 'active_support'
 require 'action_controller'
-require 'action_controller/testing/test_case'
+require 'action_controller/test_case'
 
 class ApplicationController < ActionController::Base
   respond_to :html, :xml
