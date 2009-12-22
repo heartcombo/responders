@@ -1,3 +1,7 @@
+== 0.2
+
+* Added Responders::FlashResponder.status_keys and default to [ :notice, :alert ]
+
 == 0.1
 
 * Added FlashResponder
