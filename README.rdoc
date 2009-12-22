@@ -7,14 +7,14 @@ A set of responders to dry up your Rails 3 app:
   does not contain errors, it will automatically set the flash message to
   "Post was successfully created" as long as you configure your I18n file:
 
-	flash:
-	  actions:
-	    create:
-	      success: "{resource_name} was successfully created"
-	    update:
-	      success: "{resource_name} was successfully updated"
-            destroy:
-              failure: "{resource_name} could not be destroyed"
+    flash:
+      actions:
+        create:
+          notice: "{resource_name} was successfully created"
+        update:
+          notice: "{resource_name} was successfully updated"
+        destroy:
+          alert: "{resource_name} could not be destroyed"
 
   In case the resource contains errors, you should use the failure key on I18n. This is
   useful to dry up flash messages from your controllers. If you need a specific message
@@ -23,10 +23,12 @@ A set of responders to dry up your Rails 3 app:
     flash:
       posts:
         create:
-          success: "Your post was created and will be published soon"
+          notice: "Your post was created and will be published soon"
 
-  This responder is activated in all non get requests and searches for the key :success
-  if the resource does not have errors and :failure otherwise.
+  This responder is activated in all non get requests. By default it will use the keys
+  :notice and :alert, but they can be changed as well:
+
+    Responders::FlashResponder.flash_keys = [ :success, :failure ]
 
 * HttpCacheResponder - Automatically adds Last-Modified headers to API requests. This
   allows clients to easily query the server if a resource changed and if the client tries

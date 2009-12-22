@@ -27,6 +27,10 @@ class AddressesController < ApplicationController
   alias :update  :action
   alias :destroy :action
 
+  def another
+    respond_with(@resource, :notice => "Yes, notice this!", :alert => "Warning, warning!")
+  end
+
 protected
 
   def interpolation_options
@@ -48,7 +52,7 @@ class FlashResponderTest < ActionController::TestCase
   tests AddressesController
 
   def setup
-    Responders::FlashResponder.status_keys = [ :success, :failure ]
+    Responders::FlashResponder.flash_keys = [ :success, :failure ]
     @controller.stubs(:polymorphic_url).returns("/")
   end
 
@@ -91,13 +95,25 @@ class FlashResponderTest < ActionController::TestCase
     post :create, :set_flash => true
     assert_equal "Flash is set", flash[:success]
   end
+
+  def test_sets_message_based_on_notice_key
+    Responders::FlashResponder.flash_keys = [ :notice, :alert ]
+    post :another
+    assert_equal "Yes, notice this!", flash[:notice]
+  end
+
+  def test_sets_message_based_on_alert_key
+    Responders::FlashResponder.flash_keys = [ :notice, :alert ]
+    post :another, :fail => true
+    assert_equal "Warning, warning!", flash[:alert]
+  end
 end
 
 class NamespacedFlashResponderTest < ActionController::TestCase
   tests Admin::AddressesController
 
   def setup
-    Responders::FlashResponder.status_keys = [ :notice, :alert ]
+    Responders::FlashResponder.flash_keys = [ :notice, :alert ]
     @controller.stubs(:polymorphic_url).returns("/")
   end
 

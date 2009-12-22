@@ -13,9 +13,7 @@ module Responders
   #
   # The statuses by default are :notice (when the object can be created, updated
   # or destroyed with success) and :alert (when the objecy cannot be created
-  # or updated). Although they can be configured:
-  #
-  #   Responders::FlashResponder.status_keys = [ :sucess, :failure ]
+  # or updated).
   #
   # On I18n, the resource_name given is available as interpolation option,
   # this means you can set:
@@ -23,7 +21,7 @@ module Responders
   #   flash:
   #     actions:
   #       create:
-  #         success: "Hooray! {{resource_name}} was successfully created!"
+  #         notice: "Hooray! {{resource_name}} was successfully created!"
   #
   # But sometimes, flash messages are not that simple. Going back
   # to cars example, you might want to say the brand of the car when it's
@@ -32,7 +30,7 @@ module Responders
   #   flash:
   #     cars:
   #       update:
-  #         success: "Hooray! You just tuned your {{car_brand}}!"
+  #         notice: "Hooray! You just tuned your {{car_brand}}!"
   #
   # Since :car_name is not available for interpolation by default, you have
   # to overwrite interpolation_options in your controller.
@@ -53,38 +51,55 @@ module Responders
   #   flash.cars.create.status
   #   flash.actions.create.status
   #
+  # == Options
+  #
+  # FlashResponder also accepts some options through respond_with API.
+  #
+  # * :flash - When set to false, no flash message is set.
+  #
+  #     respond_with(@user, :flash => true)
+  #
+  # * :notice - Supply the message to be set if the record has no errors.
+  # * :alert - Supply the message to be set if the record has errors.
+  #
+  #     respond_with(@user, :notice => "Hooray! Welcome!", :alert => "Woot! You failed.")
+  #
+  # == Configure status keys
+  #
+  # As said previously, FlashResponder by default use :notice and :alert
+  # keys. You can change that by setting the status_keys:
+  #
+  #   Responders::FlashResponder.flash_keys = [ :success, :failure ]
+  #
+  # However, the options :notice and :alert to respond_with are kept :notice
+  # and :alert.
+  #
   module FlashResponder
-    mattr_accessor :status_keys
-    @@status_keys = [ :notice, :alert ]
+    mattr_accessor :flash_keys
+    @@flash_keys = [ :notice, :alert ]
 
     def initialize(controller, resources, options={})
       super
-      @flash = options.delete(:flash)
+      @flash  = options.delete(:flash)
+      @notice = options.delete(:notice)
+      @alert  = options.delete(:alert)
     end
 
     def navigation_behavior(error)
       super
 
       unless get? || @flash == false
-        status = Responders::FlashResponder.status_keys.send(has_errors? ? :last : :first)
+        if has_errors?
+          controller.flash[:alert] ||= @alert if @alert
+          status = Responders::FlashResponder.flash_keys.last
+        else
+          controller.flash[:notice] ||= @notice if @notice
+          status = Responders::FlashResponder.flash_keys.first
+        end
+
         return if controller.flash[status].present?
 
-        resource_name = if resource.class.respond_to?(:human_name)
-          resource.class.human_name
-        else
-          resource.class.name.underscore.humanize
-        end
-
-        options = {
-          :default => flash_defaults_by_namespace(status),
-          :resource_name => resource_name,
-          :resource_sym  => resource_name.downcase
-        }
-
-        if controller.respond_to?(:interpolation_options, true)
-          options.merge!(controller.send(:interpolation_options))
-        end
-
+        options = mount_i18n_options(status)
         message = ::I18n.t options[:default].shift, options
         controller.flash[status] = message unless message.blank?
       end
@@ -92,7 +107,25 @@ module Responders
 
   protected
 
-    def flash_defaults_by_namespace(status)
+    def mount_i18n_options(status) #:nodoc:
+      resource_name = if resource.class.respond_to?(:human_name)
+        resource.class.human_name
+      else
+        resource.class.name.underscore.humanize
+      end
+
+      options = {
+        :default => flash_defaults_by_namespace(status),
+        :resource_name => resource_name,
+        :resource_sym  => resource_name.downcase
+      }
+
+      if controller.respond_to?(:interpolation_options, true)
+        options.merge!(controller.send(:interpolation_options))
+      end
+    end
+
+    def flash_defaults_by_namespace(status) #:nodoc:
       defaults = []
       slices   = controller.controller_path.split('/')
 
