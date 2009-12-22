@@ -36,6 +36,10 @@ A set of responders modules to dry up your Rails 3 app:
 
 == Configuring your own responder
 
+The first step is instal responders gem and configure it in your application:
+
+  sudo gem install responders
+
 Responders only provides a set of modules, to use them, you have to create your own
 responder. This can be done in an initializer for example:
 
@@ -46,7 +50,8 @@ responder. This can be done in an initializer for example:
 
 == Generator
 
-This gem also includes a responders controller generator, so your scaffold can be customized to use respond_with instead of default respond_to blocks just by configuring your environment:
+This gem also includes a responders controller generator, so your scaffold can be customized
+to use respond_with instead of default respond_to blocks just by configuring your environment:
 
   config.generators do |g|
     g.scaffold_controller = :responders_controller

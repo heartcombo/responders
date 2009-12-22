@@ -1,4 +1,4 @@
-== 0.2
+== 0.4
 
 * Added Responders::FlashResponder.flash_keys and default to [ :notice, :alert ]
 * Added support to respond_with(@resource, :notice => "Yes!", :alert => "No!")
