@@ -123,6 +123,8 @@ module Responders
       if controller.respond_to?(:interpolation_options, true)
         options.merge!(controller.send(:interpolation_options))
       end
+
+      options
     end
 
     def flash_defaults_by_namespace(status) #:nodoc:
