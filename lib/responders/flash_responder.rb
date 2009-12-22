@@ -85,10 +85,10 @@ module Responders
       @alert  = options.delete(:alert)
     end
 
-    def navigation_behavior(error)
+    def to_html
       super
 
-      unless get? || @flash == false
+      unless !respond_to?(:"to_#{format}") || get? || @flash == false
         if has_errors?
           controller.flash[:alert] ||= @alert if @alert
           status = Responders::FlashResponder.flash_keys.last

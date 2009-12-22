@@ -27,6 +27,12 @@ class AddressesController < ApplicationController
   alias :update  :action
   alias :destroy :action
 
+  def with_block
+    respond_with(@resource) do |format|
+      format.html { render :text => "Success!" }
+    end
+  end
+
   def another
     respond_with(@resource, :notice => "Yes, notice this!", :alert => "Warning, warning!")
   end
@@ -94,6 +100,11 @@ class FlashResponderTest < ActionController::TestCase
   def test_does_not_overwrite_the_flash_if_already_set
     post :create, :set_flash => true
     assert_equal "Flash is set", flash[:success]
+  end
+
+  def test_sets_flash_message_even_if_block_is_given
+    post :with_block
+    assert_equal "Resource with block created with success", flash[:success]
   end
 
   def test_sets_message_based_on_notice_key
