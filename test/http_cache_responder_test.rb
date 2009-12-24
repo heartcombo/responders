@@ -17,6 +17,12 @@ class HttpCacheController < ApplicationController
     respond_with [Model.new(Time.utc(2009)), Model.new(Time.utc(2008))]
   end
 
+  def new_record
+    model = Model.new(Time.utc(2009))
+    model.new_record = true
+    respond_with(model)
+  end
+
   def empty
     respond_with []
   end
@@ -99,6 +105,18 @@ class HttpCacheResponderTest < ActionController::TestCase
     get :empty
     assert_nil @response.headers["Last-Modified"]
     assert_match /xml/, @response.body
+    assert_equal 200, @response.status
+  end
+
+  def test_it_does_not_set_body_etag
+    get :collection
+    assert_nil @response.headers["ETag"]
+  end
+
+  def test_does_not_set_cache_for_new_records
+    get :new_record
+    assert_nil @response.headers["Last-Modified"]
+    assert_equal "<xml />", @response.body
     assert_equal 200, @response.status
   end
 end

@@ -43,6 +43,12 @@ ActionController::Routing::Routes.draw do |map|
 end
 
 class Model < Struct.new(:updated_at)
+  attr_writer :new_record
+
+  def new_record?
+    @new_record || false
+  end
+
   def to_xml(*args)
     "<xml />"
   end

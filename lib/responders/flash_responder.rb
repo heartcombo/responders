@@ -88,7 +88,7 @@ module Responders
     def to_html
       super
 
-      unless !respond_to?(:"to_#{format}") || get? || @flash == false
+      if set_i18n_flash?
         if has_errors?
           controller.flash[:alert] ||= @alert if @alert
           status = Responders::FlashResponder.flash_keys.last
@@ -106,6 +106,10 @@ module Responders
     end
 
   protected
+
+    def set_i18n_flash? #:nodoc:
+      !get? && @flash != false
+    end
 
     def mount_i18n_options(status) #:nodoc:
       resource_name = if resource.class.respond_to?(:human_name)
