@@ -87,27 +87,28 @@ module Responders
 
     def to_html
       super
-
-      if set_i18n_flash?
-        if has_errors?
-          controller.flash[:alert] ||= @alert if @alert
-          status = Responders::FlashResponder.flash_keys.last
-        else
-          controller.flash[:notice] ||= @notice if @notice
-          status = Responders::FlashResponder.flash_keys.first
-        end
-
-        return if controller.flash[status].present?
-
-        options = mount_i18n_options(status)
-        message = ::I18n.t options[:default].shift, options
-        controller.flash[status] = message unless message.blank?
-      end
+      set_flash_message! if set_flash_message?
     end
 
   protected
 
-    def set_i18n_flash? #:nodoc:
+    def set_flash_message!
+      if has_errors?
+        controller.flash[:alert] ||= @alert if @alert
+        status = Responders::FlashResponder.flash_keys.last
+      else
+        controller.flash[:notice] ||= @notice if @notice
+        status = Responders::FlashResponder.flash_keys.first
+      end
+
+      return if controller.flash[status].present?
+
+      options = mount_i18n_options(status)
+      message = ::I18n.t options[:default].shift, options
+      controller.flash[status] = message unless message.blank?
+    end
+
+    def set_flash_message? #:nodoc:
       !get? && @flash != false
     end
 

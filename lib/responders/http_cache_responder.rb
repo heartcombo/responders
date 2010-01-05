@@ -15,22 +15,22 @@ module Responders
     end
 
     def to_format
-      if do_http_cache?
-        timestamp = resources.flatten.map do |resource|
-          (resource.updated_at || Time.now).utc if resource.respond_to?(:updated_at)
-        end.compact.max
-
-        controller.response.last_modified = timestamp if timestamp
-        if request.fresh?(controller.response)
-          head :not_modified
-          return
-        end
-      end
-
+      return if do_http_cache? && do_http_cache!
       super
     end
 
   protected
+
+    def do_http_cache!
+      timestamp = resources.flatten.map do |resource|
+        (resource.updated_at || Time.now).utc if resource.respond_to?(:updated_at)
+      end.compact.max
+
+      controller.response.last_modified = timestamp if timestamp
+
+      head :not_modified if fresh = request.fresh?(controller.response)
+      fresh
+    end
 
     def do_http_cache?
       get? && @http_cache != false && !new_record? && controller.response.last_modified.nil?
