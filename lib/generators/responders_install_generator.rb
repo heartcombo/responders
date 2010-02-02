@@ -1,5 +1,5 @@
 class RespondersInstallGenerator < Rails::Generators::Base
-  desc "Creates an initializer file with default responder configuration"
+  desc "Creates an initializer with default responder configuration"
 
   def create_responder_initializer
     create_file "config/initializers/responders.rb", <<-FILE
