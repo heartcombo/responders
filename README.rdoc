@@ -26,7 +26,11 @@ A set of responders modules to dry up your Rails 3 app:
           notice: "Your post was created and will be published soon"
 
   This responder is activated in all non get requests. By default it will use the keys
-  :notice and :alert, but they can be changed as well:
+  :notice and :alert, but they can be changed in your application:
+
+	config.responders.flash_keys = [ :success, :failure ]
+
+  Or:
 
     Responders::FlashResponder.flash_keys = [ :success, :failure ]
 
@@ -51,11 +55,8 @@ responder. This can be done in an initializer for example:
 == Generator
 
 This gem also includes a responders controller generator, so your scaffold can be customized
-to use respond_with instead of default respond_to blocks just by configuring your environment:
-
-  config.generators do |g|
-    g.scaffold_controller = :responders_controller
-  end
+to use respond_with instead of default respond_to blocks. Installing this gem automatically
+sets the generator.
 
 == Bugs and Feedback
 

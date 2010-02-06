@@ -8,6 +8,7 @@ class #{Rails.application.class.name}Responder
   include HttpCacheResponder
 end
 
+ApplicationController.respond_to :html
 ApplicationController.responder = #{Rails.application.class.name}Responder
     FILE
   end
