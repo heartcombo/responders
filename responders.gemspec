@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{responders}
-  s.version = "0.4.3"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim"]
-  s.date = %q{2010-02-05}
+  s.date = %q{2010-02-06}
   s.description = %q{A set of Rails 3 responders to dry up your application}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
@@ -20,10 +20,10 @@ Gem::Specification.new do |s|
      "MIT-LICENSE",
      "README.rdoc",
      "Rakefile",
-     "lib/generators/USAGE",
-     "lib/generators/responders_controller_generator.rb",
+     "lib/generators/rails/USAGE",
+     "lib/generators/rails/responders_controller_generator.rb",
+     "lib/generators/rails/templates/controller.rb",
      "lib/generators/responders_install_generator.rb",
-     "lib/generators/templates/controller.rb",
      "lib/responders.rb",
      "lib/responders/flash_responder.rb",
      "lib/responders/http_cache_responder.rb",
