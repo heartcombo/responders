@@ -36,6 +36,10 @@ version.
   allows clients to easily query the server if a resource changed and if the client tries
   to retrieve a resource that has not been modified, it returns not_modified status.
 
+== Installation
+
+  sudo gem install responders --version=0.4.2
+
 == Bugs and Feedback
 
 If you discover any bugs or want to drop a line, feel free to create an issue on GitHub.
