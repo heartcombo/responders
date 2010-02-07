@@ -12,5 +12,5 @@ module Responders
         Responders::FlashResponder.flash_keys = config.responders.flash_keys 
       end
     end
-  end if defined?(::Rails::Railtie)
+  end
 end

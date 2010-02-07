@@ -22,6 +22,9 @@ require 'active_support'
 require 'action_controller'
 require 'action_dispatch/middleware/flash'
 
+require 'rails/railtie'
+require 'rails/backtrace_cleaner'
+
 class ApplicationController < ActionController::Base
   respond_to :html, :xml
 end

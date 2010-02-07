@@ -113,8 +113,8 @@ module Responders
     end
 
     def mount_i18n_options(status) #:nodoc:
-      resource_name = if resource.class.respond_to?(:human_name)
-        resource.class.human_name
+      resource_name = if resource.class.respond_to?(:model_name)
+        resource.class.model_name.human
       else
         resource.class.name.underscore.humanize
       end
@@ -122,7 +122,7 @@ module Responders
       options = {
         :default => flash_defaults_by_namespace(status),
         :resource_name => resource_name,
-        :resource_sym  => resource_name.downcase
+        :downcase_resource_name => resource_name.downcase
       }
 
       if controller.respond_to?(:interpolation_options, true)
