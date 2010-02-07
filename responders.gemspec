@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
      "lib/responders.rb",
      "lib/responders/flash_responder.rb",
      "lib/responders/http_cache_responder.rb",
+     "lib/responders/locales/en.yml",
      "lib/responders/version.rb"
   ]
   s.homepage = %q{http://github.com/plataformatec/responders}
