@@ -38,7 +38,7 @@ version.
 
 == Installation
 
-  sudo gem install responders --version=0.4.2
+  sudo gem install responders --version=0.4.4
 
 == Bugs and Feedback
 
