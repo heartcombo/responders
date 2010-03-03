@@ -13,11 +13,12 @@ to be used with Rails 2.3 together with Inherited Resources, please check this b
     flash:
       actions:
         create:
-          notice: "{resource_name} was successfully created"
+          notice: "{{resource_name}} was successfully created."
         update:
-          notice: "{resource_name} was successfully updated"
+          notice: "{{resource_name}} was successfully updated."
         destroy:
-          alert: "{resource_name} could not be destroyed"
+          notice: "{{resource_name}} was successfully destroyed."
+          alert: "{{resource_name}} could not be destroyed."
 
   In case the resource contains errors, you should use the failure key on I18n. This is
   useful to dry up flash messages from your controllers. If you need a specific message
