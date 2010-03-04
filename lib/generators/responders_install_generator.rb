@@ -7,7 +7,7 @@ class RespondersInstallGenerator < Rails::Generators::Base
 
   def create_responder_initializer
     create_file "config/initializers/responders.rb", <<-FILE
-class ApplicationResponder
+class ApplicationResponder < ActionController::Responder
   include Responders::FlashResponder
   include Responders::HttpCacheResponder
 end

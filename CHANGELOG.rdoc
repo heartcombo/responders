@@ -1,6 +1,6 @@
 == 0.5.1
 
-* ALso copy locale file on rails generator responders_install
+* Also copy locale file on rails generator responders_install
 
 == 0.5.0
 
