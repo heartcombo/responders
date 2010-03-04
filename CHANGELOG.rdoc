@@ -1,8 +1,4 @@
-== 0.5.1
-
-* Also copy locale file on rails generator responders_install
-
-== 0.5.0
+== 0.5
 
 * Added Railtie and better Rails 3 support
 
