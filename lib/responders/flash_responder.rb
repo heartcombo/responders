@@ -80,9 +80,10 @@ module Responders
 
     def initialize(controller, resources, options={})
       super
-      @flash  = options.delete(:flash)
-      @notice = options.delete(:notice)
-      @alert  = options.delete(:alert)
+      @flash     = options.delete(:flash)
+      @notice    = options.delete(:notice)
+      @alert     = options.delete(:alert)
+      @flash_now = options.delete(:flash_now)
     end
 
     def to_html
@@ -94,10 +95,10 @@ module Responders
 
     def set_flash_message!
       if has_errors?
-        controller.flash[:alert] ||= @alert if @alert
+        set_flash(:alert, @alert)
         status = Responders::FlashResponder.flash_keys.last
       else
-        controller.flash[:notice] ||= @notice if @notice
+        set_flash(:notice, @notice)
         status = Responders::FlashResponder.flash_keys.first
       end
 
@@ -105,7 +106,14 @@ module Responders
 
       options = mount_i18n_options(status)
       message = ::I18n.t options[:default].shift, options
-      controller.flash[status] = message unless message.blank?
+      set_flash(status, message)
+    end
+
+    def set_flash(key, value)
+      return if value.blank?
+      flash = controller.flash
+      flash = flash.now if @flash_now
+      flash[key] ||= value
     end
 
     def set_flash_message? #:nodoc:
