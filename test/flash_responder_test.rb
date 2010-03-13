@@ -18,7 +18,7 @@ class AddressesController < ApplicationController
   self.responder = FlashResponder
 
   def action
-    options = params.slice(:flash)
+    options = params.slice(:flash, :flash_now)
     flash[:success] = "Flash is set" if params[:set_flash]
     respond_with(@resource, options)
   end
@@ -105,6 +105,13 @@ class FlashResponderTest < ActionController::TestCase
   def test_sets_flash_message_even_if_block_is_given
     post :with_block
     assert_equal "Resource with block created with success", flash[:success]
+  end
+
+  def test_sets_flash_message_can_be_set_to_now
+    @now = {}
+    @controller.flash.expects(:now).returns(@now)
+    post :create, :flash_now => true
+    assert_equal "Resource created with success", @now[:success]
   end
 
   def test_sets_message_based_on_notice_key
