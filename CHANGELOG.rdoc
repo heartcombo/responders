@@ -1,6 +1,7 @@
 == 0.5
 
 * Added Railtie and better Rails 3 support
+* Added :flash_now as option
 
 == 0.4
 
