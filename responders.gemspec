@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{responders}
-  s.version = "0.4.4"
+  s.version = "0.4.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim"]
-  s.date = %q{2010-03-02}
+  s.date = %q{2010-03-13}
   s.description = %q{A set of Rails 3 responders to dry up your application}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/plataformatec/responders}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{A set of Rails 3 responders to dry up your application}
   s.test_files = [
     "test/flash_responder_test.rb",
