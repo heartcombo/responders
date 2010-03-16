@@ -60,6 +60,15 @@ Or, for your convenience, just do:
 
   rails generate responders_install
 
+== Controller method
+
+This gem also includes the controller method 'responders', which allows you to cherry-pick which responders
+you want included in your controller.
+
+  class InvitationsController < ApplicationController
+    responders :flash, :http_cache
+  end
+
 == Generator
 
 This gem also includes a responders controller generator, so your scaffold can be customized
