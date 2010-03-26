@@ -114,6 +114,18 @@ class FlashResponderTest < ActionController::TestCase
     assert_equal "Resource created with success", @now[:success]
   end
 
+  def test_sets_flash_message_can_be_set_to_now_only_on_success
+    @now = {}
+    @controller.flash.expects(:now).returns(@now)
+    post :create, :flash_now => :on_success
+    assert_equal "Resource created with success", @now[:success]
+  end
+
+  def test_sets_flash_message_can_be_set_to_now_only_on_failure
+    @controller.flash.expects(:now).never
+    post :create, :flash_now => :on_failure
+  end
+
   def test_sets_message_based_on_notice_key
     Responders::FlashResponder.flash_keys = [ :notice, :alert ]
     post :another
