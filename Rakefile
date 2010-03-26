@@ -29,7 +29,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "responders"
-    s.version = Responders::VERSION
+    s.version = Responders::VERSION.dup
     s.summary = "A set of Rails 3 responders to dry up your application"
     s.email = "contact@plataformatec.com.br"
     s.homepage = "http://github.com/plataformatec/responders"
