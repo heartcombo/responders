@@ -15,7 +15,8 @@ module Responders
     # Or a mix of both methods:
     #
     #    responders :flash, MyCustomResponder
-    def responders *responders
+    #
+    def responders(*responders)
       self.responder = responders.inject(Class.new(responder)) do |klass, responder|
         responder = case responder
           when Module
