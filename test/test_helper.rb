@@ -1,5 +1,10 @@
 require 'rubygems'
 
+gem 'activesupport', '3.0.0.beta2'
+gem 'activemodel', '3.0.0.beta2'
+gem 'actionpack', '3.0.0.beta2'
+gem 'railties', '3.0.0.beta2'
+
 begin
   gem "test-unit"
 rescue LoadError
@@ -33,8 +38,8 @@ I18n.reload!
 
 ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
 
-Responders::Router = ActionDispatch::Routing::RouteSet.new
-Responders::Router.draw do |map|
+Responders::Routes = ActionDispatch::Routing::RouteSet.new
+Responders::Routes.draw do |map|
   map.connect 'admin/:action', :controller => "admin/addresses"
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action'
@@ -42,7 +47,7 @@ end
 
 class ActiveSupport::TestCase
   setup do
-    @router = Responders::Router
+    @routes = Responders::Routes
   end
 end
 

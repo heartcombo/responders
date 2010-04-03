@@ -46,7 +46,7 @@ to be used with Rails 2.3 together with Inherited Resources, please check this b
 
 The first step is instal responders gem and configure it in your application:
 
-  sudo gem install responders
+  gem install responders
 
 Responders only provides a set of modules, to use them, you have to create your own
 responder. This can be done in an initializer for example:
@@ -62,8 +62,7 @@ Or, for your convenience, just do:
 
 == Controller method
 
-This gem also includes the controller method 'responders', which allows you to cherry-pick which responders
-you want included in your controller.
+This gem also includes the controller method 'responders', which allows you to cherry-pick which responders you want included in your controller.
 
   class InvitationsController < ApplicationController
     responders :flash, :http_cache
@@ -81,4 +80,4 @@ If you discover any bugs or want to drop a line, feel free to create an issue on
 
 http://github.com/plataformatec/responders/issues
 
-MIT License. Copyright 2009 Plataforma Tecnologia. http://blog.plataformatec.com.br
+MIT License. Copyright 2010 Plataforma Tecnologia. http://blog.plataformatec.com.br
