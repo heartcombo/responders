@@ -95,7 +95,7 @@ module Responders
 
     def to_js
       set_flash_message! if set_flash_message?
-      to_format
+      defined?(super) ? super : to_format
     end
 
   protected
