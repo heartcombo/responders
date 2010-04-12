@@ -17,9 +17,9 @@ class HttpCacheController < ApplicationController
     respond_with [Model.new(Time.utc(2009)), Model.new(Time.utc(2008))]
   end
 
-  def new_record
+  def not_persisted
     model = Model.new(Time.utc(2009))
-    model.new_record = true
+    model.persisted = false
     respond_with(model)
   end
 
@@ -82,18 +82,6 @@ class HttpCacheResponderTest < ActionController::TestCase
     assert_equal 200, @response.status
   end
 
-  def test_does_not_set_cache_if_last_modified_already_set_in_response
-    get :single, :last_modified => true
-    assert_equal Time.utc(2008).httpdate, @response.headers["Last-Modified"]
-    assert_equal 200, @response.status
-  end
-
-  def test_does_not_use_cache_if_last_modified_already_set_in_response
-    @request.env["HTTP_IF_MODIFIED_SINCE"] = Time.utc(2009, 6).httpdate
-    get :single, :last_modified => true
-    assert_equal 200, @response.status
-  end
-
   def test_collection_chooses_the_latest_timestamp
     get :collection
     assert_equal Time.utc(2009).httpdate, @response.headers["Last-Modified"]
@@ -114,7 +102,7 @@ class HttpCacheResponderTest < ActionController::TestCase
   end
 
   def test_does_not_set_cache_for_new_records
-    get :new_record
+    get :not_persisted
     assert_nil @response.headers["Last-Modified"]
     assert_equal "<xml />", @response.body
     assert_equal 200, @response.status

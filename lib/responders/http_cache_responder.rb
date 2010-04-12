@@ -23,22 +23,22 @@ module Responders
 
     def do_http_cache!
       timestamp = resources.flatten.map do |resource|
-        (resource.updated_at || Time.now).utc if resource.respond_to?(:updated_at)
+        next unless resource.respond_to?(:updated_at)
+        resource.updated_at.utc
       end.compact.max
 
-      controller.response.last_modified = timestamp if timestamp
+      controller.response.last_modified ||= timestamp if timestamp
 
       head :not_modified if fresh = request.fresh?(controller.response)
       fresh
     end
 
     def do_http_cache?
-      get? && @http_cache != false && ActionController::Base.perform_caching &&
-        !new_record? && controller.response.last_modified.nil?
+      get? && @http_cache != false && ActionController::Base.perform_caching && persisted?
     end
 
-    def new_record?
-      resource.respond_to?(:new_record?) && resource.new_record?
+    def persisted?
+      resource.respond_to?(:persisted?) ? resource.persisted? : true
     end
   end
 end
