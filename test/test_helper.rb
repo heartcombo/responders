@@ -1,20 +1,7 @@
 require 'rubygems'
+require 'bundler'
 
-gem 'activesupport', '3.0.0.beta3'
-gem 'activemodel', '3.0.0.beta3'
-gem 'actionpack', '3.0.0.beta3'
-gem 'railties', '3.0.0.beta3'
-
-begin
-  gem "test-unit"
-rescue LoadError
-end
-
-begin
-  gem "ruby-debug"
-  require 'ruby-debug'
-rescue LoadError
-end
+Bundler.setup
 
 require 'test/unit'
 require 'mocha'

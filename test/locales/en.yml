@@ -8,11 +8,11 @@ en:
         success: "Resource with block created with success"        
     addresses:
       update:
-        success: "Nice! {{resource_name}} was updated with success!"
+        success: "Nice! %{resource_name} was updated with success!"
         failure: "Oh no! We could not update your address!"
       destroy:
-        success: "Successfully deleted the address at {{reference}}"
-        notice: "Successfully deleted the chosen address at {{reference}}"
+        success: "Successfully deleted the address at %{reference}"
+        notice: "Successfully deleted the chosen address at %{reference}"
     admin:
       actions:
         create:
