@@ -1,6 +1,7 @@
 == 0.6
 
 * :js now sets the flash.now by default, instead of flash
+* Renamed responders_install generator to responders:install
 
 == 0.5
 

@@ -1,0 +1,33 @@
+module Responders
+  module Generators
+    class InstallGenerator < Rails::Generators::Base
+      def self.source_root
+        @_source_root ||= File.expand_path("..", __FILE__)
+      end
+
+      desc "Creates an initializer with default responder configuration and copy locale file"
+
+      def create_responder_file
+        create_file "lib/application_responder.rb", <<-RUBY
+class ApplicationResponder < ActionController::Responder
+  include Responders::FlashResponder
+  include Responders::HttpCacheResponder
+end
+        RUBY
+      end
+
+      def update_application_controller
+        prepend_file "app/controllers/application_controller.rb", %{require "application_responder"\n\n}
+        inject_into_class "app/controllers/application_controller.rb", "ApplicationController", <<-RUBY
+  self.responder = ApplicationResponder
+  respond_to :html
+
+        RUBY
+      end
+
+      def copy_locale
+        copy_file "../../responders/locales/en.yml", "config/locales/responders.en.yml"
+      end
+    end
+  end
+end

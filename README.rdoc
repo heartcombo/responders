@@ -58,7 +58,7 @@ responder. This can be done in an initializer for example:
 
 Or, for your convenience, just do:
 
-  rails generate responders_install
+  rails generate responders:install
 
 == Controller method
 
