@@ -5,7 +5,6 @@ module Responders
   autoload :HttpCacheResponder, 'responders/http_cache_responder'
 
   require 'responders/controller_method'
-  ActionController::Base.extend Responders::ControllerMethod
 
   class Railtie < ::Rails::Railtie
     config.responders = ActiveSupport::OrderedOptions.new
@@ -20,5 +19,5 @@ module Responders
         Responders::FlashResponder.flash_keys = app.config.responders.flash_keys
       end
     end
-  end if defined?(Rails::Railtie)
+  end
 end

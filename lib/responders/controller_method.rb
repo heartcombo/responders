@@ -33,3 +33,14 @@ module Responders
     end
   end
 end
+
+# Fix for Rails <= 3.0.0.beta3
+require "action_controller/metal/responder"
+
+class ActionController::Responder
+  def default_action
+    @action ||= ACTIONS_FOR_VERBS[request.request_method_symbol]
+  end
+end
+
+ActionController::Base.extend Responders::ControllerMethod
