@@ -2,6 +2,7 @@
 
 * :js now sets the flash.now by default, instead of flash
 * Renamed responders_install generator to responders:install
+* Added a fix for Rails 3.0.0.beta3
 
 == 0.5
 
