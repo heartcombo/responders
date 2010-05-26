@@ -22,7 +22,7 @@ module Responders
           when Module
             responder
           when String, Symbol
-            "#{responder.to_s.classify}Responder".constantize
+            "Responders::#{responder.to_s.classify}Responder".constantize
           else
             raise "responder has to be a string, a symbol or a module"
           end
