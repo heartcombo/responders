@@ -49,11 +49,22 @@ The first step is instal responders gem and configure it in your application:
   gem install responders
 
 Responders only provides a set of modules, to use them, you have to create your own
-responder. This can be done in an initializer for example:
+responder. This can be done inside the lib folder for example:
 
+  # lib/app_responder.rb
   class AppResponder < ActionController::Responder
     include Responders::FlashResponder
     include Responders::HttpCacheResponder
+  end
+
+And then you need to configure your application to use it:
+
+  # app/controllers/application_controller.rb
+  require "app_responder"
+
+  class ApplicationController < ActionController::Base
+    self.responder = AppResponder
+    respond_to :html
   end
 
 Or, for your convenience, just do:
