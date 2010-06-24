@@ -23,8 +23,7 @@ module Responders
 
     def do_http_cache!
       timestamp = resources.flatten.map do |resource|
-        next unless resource.respond_to?(:updated_at)
-        resource.updated_at.utc
+        resource.updated_at.try(:utc) if resource.respond_to?(:updated_at)
       end.compact.max
 
       controller.response.last_modified ||= timestamp if timestamp
