@@ -21,7 +21,7 @@ module Responders
   #   flash:
   #     actions:
   #       create:
-  #         notice: "Hooray! {{resource_name}} was successfully created!"
+  #         notice: "Hooray! %{resource_name} was successfully created!"
   #
   # But sometimes, flash messages are not that simple. Going back
   # to cars example, you might want to say the brand of the car when it's
@@ -30,7 +30,7 @@ module Responders
   #   flash:
   #     cars:
   #       update:
-  #         notice: "Hooray! You just tuned your {{car_brand}}!"
+  #         notice: "Hooray! You just tuned your %{car_brand}!"
   #
   # Since :car_name is not available for interpolation by default, you have
   # to overwrite interpolation_options in your controller.
