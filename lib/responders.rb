@@ -1,8 +1,9 @@
 require 'action_controller/base'
 
 module Responders
-  autoload :FlashResponder,     'responders/flash_responder'
-  autoload :HttpCacheResponder, 'responders/http_cache_responder'
+  autoload :FlashResponder,      'responders/flash_responder'
+  autoload :HttpCacheResponder,  'responders/http_cache_responder'
+  autoload :CollectionResponder, 'responders/collection_responder'
 
   require 'responders/controller_method'
 

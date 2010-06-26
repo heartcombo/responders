@@ -1,9 +1,7 @@
 module Responders
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      def self.source_root
-        @_source_root ||= File.expand_path("..", __FILE__)
-      end
+      source_root File.expand_path("..", __FILE__)
 
       desc "Creates an initializer with default responder configuration and copy locale file"
 
@@ -12,6 +10,10 @@ module Responders
 class ApplicationResponder < ActionController::Responder
   include Responders::FlashResponder
   include Responders::HttpCacheResponder
+
+  # Uncomment this responder if you want your resources to redirect to the collection
+  # path (index action) instead of the resource path for POST/PUT/DELETE requests.
+  # include Responders::CollectionResponder
 end
         RUBY
       end

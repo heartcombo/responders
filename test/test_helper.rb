@@ -40,7 +40,8 @@ class ActiveSupport::TestCase
   end
 end
 
-class Address
+class Model
+  include ActiveModel::Conversion
   include ActiveModel::Validations
 
   attr_accessor :persisted, :updated_at
@@ -58,4 +59,10 @@ class Address
     @persisted = true
     self.updated_at = updated_at
   end
+end
+
+class Address < Model
+end
+
+class User < Model
 end

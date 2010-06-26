@@ -3,9 +3,7 @@ require 'rails/generators/rails/scaffold_controller/scaffold_controller_generato
 module Rails
   module Generators
     class RespondersControllerGenerator < ScaffoldControllerGenerator
-      def self.source_root
-        @_source_root ||= File.expand_path("templates", File.dirname(__FILE__))
-      end
+      source_root File.expand_path("../templates", __FILE__)
 
     protected
 
