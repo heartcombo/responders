@@ -22,7 +22,7 @@ module Responders
           when Module
             responder
           when String, Symbol
-            "Responders::#{responder.to_s.classify}Responder".constantize
+            const_get("#{responder.to_s.classify}Responder")
           else
             raise "responder has to be a string, a symbol or a module"
           end
@@ -31,15 +31,6 @@ module Responders
         klass
       end
     end
-  end
-end
-
-# Fix for Rails <= 3.0.0.beta3
-require "action_controller/metal/responder"
-
-class ActionController::Responder
-  def default_action
-    @action ||= ACTIONS_FOR_VERBS[request.request_method_symbol]
   end
 end
 

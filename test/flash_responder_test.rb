@@ -1,14 +1,5 @@
 require 'test_helper'
 
-class Address
-  attr_accessor :errors
-  def self.human_name; 'Address'; end
-  
-  def initialize
-    @errors = {}
-  end
-end
-
 class FlashResponder < ActionController::Responder
   include Responders::FlashResponder
 end
@@ -16,6 +7,7 @@ end
 class AddressesController < ApplicationController
   before_filter :set_resource
   self.responder = FlashResponder
+
   respond_to :js, :only => :create
 
   def action
@@ -38,7 +30,7 @@ class AddressesController < ApplicationController
     respond_with(@resource, :notice => "Yes, notice this!", :alert => "Warning, warning!")
   end
 
-protected
+  protected
 
   def interpolation_options
     { :reference => 'Ocean Avenue' }
@@ -46,7 +38,7 @@ protected
 
   def set_resource
     @resource = Address.new
-    @resource.errors[:fail] = true if params[:fail]
+    @resource.errors[:fail] << "FAIL" if params[:fail]
   end
 end
 
@@ -109,29 +101,26 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def test_sets_now_flash_message_on_javascript_requests
-    @now = {}
-    @controller.flash.expects(:now).returns(@now)
     post :create, :format => :js
-    assert_equal "Resource created with success", @now[:success]
+    assert_equal "Resource created with success", flash[:success]
+    assert_flash_now :success
   end
 
   def test_sets_flash_message_can_be_set_to_now
-    @now = {}
-    @controller.flash.expects(:now).returns(@now)
     post :create, :flash_now => true
-    assert_equal "Resource created with success", @now[:success]
+    assert_equal "Resource created with success", @controller.flash.now[:success]
+    assert_flash_now :success
   end
 
   def test_sets_flash_message_can_be_set_to_now_only_on_success
-    @now = {}
-    @controller.flash.expects(:now).returns(@now)
     post :create, :flash_now => :on_success
-    assert_equal "Resource created with success", @now[:success]
+    assert_equal "Resource created with success", @controller.flash.now[:success]
+    assert_flash_now :success
   end
 
   def test_sets_flash_message_can_be_set_to_now_only_on_failure
-    @controller.flash.expects(:now).never
     post :create, :flash_now => :on_failure
+    assert_not_flash_now :success
   end
 
   def test_sets_message_based_on_notice_key
@@ -144,6 +133,17 @@ class FlashResponderTest < ActionController::TestCase
     Responders::FlashResponder.flash_keys = [ :notice, :alert ]
     post :another, :fail => true
     assert_equal "Warning, warning!", flash[:alert]
+  end
+
+  # If we have flash.now, it's always marked as used.
+  def assert_flash_now(k)
+    assert flash.instance_variable_get(:@used).include?(k.to_sym),
+     "Expected #{k} to be in flash.now, but it's not."
+  end
+
+  def assert_not_flash_now(k)
+    assert !flash.instance_variable_get(:@used).include?(k.to_sym),
+     "Expected #{k} to not be in flash.now, but it is."
   end
 end
 

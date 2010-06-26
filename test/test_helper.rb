@@ -2,7 +2,6 @@ require 'rubygems'
 require 'bundler'
 
 Bundler.setup
-
 require 'test/unit'
 require 'mocha'
 
@@ -11,6 +10,7 @@ ENV["RAILS_ENV"] = "test"
 
 require 'active_support'
 require 'action_controller'
+require 'active_model'
 require 'rails/railtie'
 
 class ApplicationController < ActionController::Base
@@ -32,20 +32,30 @@ Responders::Routes.draw do |map|
   map.connect ':controller/:action'
 end
 
+ActionController::Base.send :include, Responders::Routes.url_helpers
+
 class ActiveSupport::TestCase
   setup do
     @routes = Responders::Routes
   end
 end
 
-class Model < Struct.new(:updated_at)
-  attr_writer :persisted
+class Address
+  include ActiveModel::Validations
+
+  attr_accessor :persisted, :updated_at
+  alias :persisted? :persisted
 
   def persisted?
-    defined?(@persisted) ? @persisted : true
+    @persisted
   end
 
   def to_xml(*args)
     "<xml />"
+  end
+
+  def initialize(updated_at=nil)
+    @persisted = true
+    self.updated_at = updated_at
   end
 end

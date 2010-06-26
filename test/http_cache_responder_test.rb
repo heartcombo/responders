@@ -10,15 +10,15 @@ class HttpCacheController < ApplicationController
   def single
     options = params.slice(:http_cache)
     response.last_modified = Time.utc(2008) if params[:last_modified]
-    respond_with(Model.new(Time.utc(2009)), options)
+    respond_with(Address.new(Time.utc(2009)), options)
   end
 
   def collection
-    respond_with [Model.new(Time.utc(2009)), Model.new(Time.utc(2008))]
+    respond_with [Address.new(Time.utc(2009)), Address.new(Time.utc(2008))]
   end
 
   def not_persisted
-    model = Model.new(Time.utc(2009))
+    model = Address.new(Time.utc(2009))
     model.persisted = false
     respond_with(model)
   end
