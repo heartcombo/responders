@@ -22,7 +22,7 @@ module Responders
           when Module
             responder
           when String, Symbol
-            const_get("#{responder.to_s.classify}Responder")
+            Responders.const_get("#{responder.to_s.classify}Responder")
           else
             raise "responder has to be a string, a symbol or a module"
           end
