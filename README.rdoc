@@ -42,6 +42,8 @@ to be used with Rails 2.3 together with Inherited Resources, please check this b
   allows clients to easily query the server if a resource changed and if the client tries
   to retrieve a resource that has not been modified, it returns not_modified status.
 
+* CollectionResponder - Makes your create and update action redirect to the collection on success.
+
 == Configuring your own responder
 
 The first step is instal responders gem and configure it in your application:

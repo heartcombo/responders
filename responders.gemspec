@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{responders}
-  s.version = "0.6.1"
+  s.version = "0.6.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim"]
-  s.date = %q{2010-05-24}
+  s.date = %q{2010-07-26}
   s.description = %q{A set of Rails 3 responders to dry up your application}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.files = [
     "CHANGELOG.rdoc",
      "Gemfile",
+     "Gemfile.lock",
      "MIT-LICENSE",
      "README.rdoc",
      "Rakefile",
@@ -26,6 +27,7 @@ Gem::Specification.new do |s|
      "lib/generators/rails/templates/controller.rb",
      "lib/generators/responders/install_generator.rb",
      "lib/responders.rb",
+     "lib/responders/collection_responder.rb",
      "lib/responders/controller_method.rb",
      "lib/responders/flash_responder.rb",
      "lib/responders/http_cache_responder.rb",
@@ -35,10 +37,11 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/plataformatec/responders}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{A set of Rails 3 responders to dry up your application}
   s.test_files = [
-    "test/controller_method_test.rb",
+    "test/collection_responder_test.rb",
+     "test/controller_method_test.rb",
      "test/flash_responder_test.rb",
      "test/http_cache_responder_test.rb",
      "test/test_helper.rb"
@@ -48,7 +51,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
     else
     end
   else
