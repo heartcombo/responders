@@ -26,10 +26,9 @@ I18n.reload!
 ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
 
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
-Responders::Routes.draw do |map|
-  map.connect 'admin/:action', :controller => "admin/addresses"
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action'
+Responders::Routes.draw do
+  match '/admin/:action', :controller => "admin/addresses"
+  match '/:controller(/:action(/:id))'
 end
 
 ActionController::Base.send :include, Responders::Routes.url_helpers
