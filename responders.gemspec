@@ -9,19 +9,15 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jos\303\251 Valim"]
-  s.date = %q{2010-07-26}
+  s.date = %q{2010-08-09}
   s.description = %q{A set of Rails 3 responders to dry up your application}
   s.email = %q{contact@plataformatec.com.br}
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
   s.files = [
-    "CHANGELOG.rdoc",
-     "Gemfile",
-     "Gemfile.lock",
-     "MIT-LICENSE",
+    "MIT-LICENSE",
      "README.rdoc",
-     "Rakefile",
      "lib/generators/rails/USAGE",
      "lib/generators/rails/responders_controller_generator.rb",
      "lib/generators/rails/templates/controller.rb",

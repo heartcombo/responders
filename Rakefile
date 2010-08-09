@@ -27,14 +27,14 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name = "responders"
-    s.version = Responders::VERSION.dup
-    s.summary = "A set of Rails 3 responders to dry up your application"
-    s.email = "contact@plataformatec.com.br"
-    s.homepage = "http://github.com/plataformatec/responders"
+    s.name        = "responders"
+    s.version     = Responders::VERSION.dup
+    s.summary     = "A set of Rails 3 responders to dry up your application"
+    s.email       = "contact@plataformatec.com.br"
+    s.homepage    = "http://github.com/plataformatec/responders"
     s.description = "A set of Rails 3 responders to dry up your application"
-    s.authors = ['José Valim']
-    s.files =  FileList["[A-Z]*", "lib/**/*", "init.rb"]
+    s.authors     = ['José Valim']
+    s.files       = FileList["lib/**/*", "MIT-LICENSE", "README.rdoc"]
   end
 
   Jeweler::GemcutterTasks.new
