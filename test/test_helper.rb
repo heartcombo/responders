@@ -13,17 +13,11 @@ require 'action_controller'
 require 'active_model'
 require 'rails/railtie'
 
-class ApplicationController < ActionController::Base
-  respond_to :html, :xml
-end
-
-$:.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+$:.unshift File.expand_path('../../lib', __FILE__)
 require 'responders'
 
-I18n.load_path << File.join(File.dirname(__FILE__), 'locales', 'en.yml')
+I18n.load_path << File.expand_path('../locales/en.yml', __FILE__)
 I18n.reload!
-
-ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
 
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
 Responders::Routes.draw do
@@ -31,7 +25,12 @@ Responders::Routes.draw do
   match '/:controller(/:action(/:id))'
 end
 
-ActionController::Base.send :include, Responders::Routes.url_helpers
+class ApplicationController < ActionController::Base
+  include Responders::Routes.url_helpers
+
+  self.view_paths = File.join(File.dirname(__FILE__), 'views')
+  respond_to :html, :xml
+end
 
 class ActiveSupport::TestCase
   setup do
