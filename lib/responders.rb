@@ -9,7 +9,11 @@ module Responders
 
   class Railtie < ::Rails::Railtie
     config.responders = ActiveSupport::OrderedOptions.new
-    config.generators.scaffold_controller = :responders_controller
+    if config.respond_to?(:app_generators)
+      config.app_generators.scaffold_controller = :responders_controller
+    else
+      config.generators.scaffold_controller = :responders_controller
+    end
 
     # Add load paths straight to I18n, so engines and application can overwrite it.
     require 'active_support/i18n'
