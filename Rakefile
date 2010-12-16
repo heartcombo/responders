@@ -23,21 +23,3 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
-
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |s|
-    s.name        = "responders"
-    s.version     = Responders::VERSION.dup
-    s.summary     = "A set of Rails 3 responders to dry up your application"
-    s.email       = "contact@plataformatec.com.br"
-    s.homepage    = "http://github.com/plataformatec/responders"
-    s.description = "A set of Rails 3 responders to dry up your application"
-    s.authors     = ['José Valim']
-    s.files       = FileList["lib/**/*", "MIT-LICENSE", "README.rdoc"]
-  end
-
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install jeweler"
-end
