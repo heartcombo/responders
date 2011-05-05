@@ -132,6 +132,7 @@ module Responders
     end
 
     def mount_i18n_options(status) #:nodoc:
+      resource = resource.last if resource.is_a?(Array)
       resource_name = if resource.class.respond_to?(:model_name)
         resource.class.model_name.human
       else
