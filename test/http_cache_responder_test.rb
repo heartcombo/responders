@@ -17,6 +17,10 @@ class HttpCacheController < ApplicationController
     respond_with [Address.new(Time.utc(2009)), Address.new(Time.utc(2008))]
   end
 
+  def changing_collection
+    respond_with Address.all
+  end
+
   def not_persisted
     model = Address.new(Time.utc(2009))
     model.persisted = false
@@ -87,6 +91,19 @@ class HttpCacheResponderTest < ActionController::TestCase
     assert_equal Time.utc(2009).httpdate, @response.headers["Last-Modified"]
     assert_match /xml/, @response.body
     assert_equal 200, @response.status
+  end
+
+  def test_does_not_return_not_modified_if_collection_has_changed
+    #First request. Returns 2 items
+    Address.stubs(:all).returns [Address.new(Time.utc(2009)), Address.new(Time.utc(2008))]
+    get :changing_collection
+
+    #Second request. Returns 1 item, simulating scenario where a address was deleted
+    Address.stubs(:all).returns [Address.new(Time.utc(2009))]
+    @request.env["HTTP_IF_MODIFIED_SINCE"] = @response.headers["Last-Modified"]
+    get :changing_collection
+
+    assert_not_equal 304, @response.status
   end
 
   def test_work_with_an_empty_array
