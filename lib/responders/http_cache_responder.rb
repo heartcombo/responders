@@ -34,7 +34,7 @@ module Responders
 
     def do_http_cache?
       get? && @http_cache != false && ActionController::Base.perform_caching &&
-        !new_record? && controller.response.last_modified.nil?
+        !new_record? && controller.response.last_modified.nil? && resource.respond_to?(:updated_at)
     end
 
     def new_record?

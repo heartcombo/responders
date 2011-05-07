@@ -94,9 +94,9 @@ class HttpCacheResponderTest < ActionController::TestCase
     assert_equal 200, @response.status
   end
 
-  def test_collection_chooses_the_latest_timestamp
+  def test_collection_does_not_trigger_http_cache
     get :collection
-    assert_equal Time.utc(2009).httpdate, @response.headers["Last-Modified"]
+    assert_equal nil, @response.headers["Last-Modified"]
     assert_match /xml/, @response.body
     assert_equal 200, @response.status
   end
@@ -106,11 +106,6 @@ class HttpCacheResponderTest < ActionController::TestCase
     assert_nil @response.headers["Last-Modified"]
     assert_match /xml/, @response.body
     assert_equal 200, @response.status
-  end
-
-  def test_it_does_not_set_body_etag
-    get :collection
-    assert_nil @response.headers["ETag"]
   end
 
   def test_does_not_set_cache_for_new_records
