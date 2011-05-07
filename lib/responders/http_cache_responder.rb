@@ -22,7 +22,9 @@ module Responders
   protected
 
     def do_http_cache!
-      timestamp = resource.updated_at.try(:utc) if resource.respond_to?(:updated_at)
+      timestamp = resources.map do |resource|
+        resource.updated_at.try(:utc) if resource.respond_to?(:updated_at)
+      end.compact.max
 
       controller.response.last_modified ||= timestamp if timestamp
 
@@ -31,7 +33,8 @@ module Responders
     end
 
     def do_http_cache?
-      get? && @http_cache != false && ActionController::Base.perform_caching && persisted? && resourceful?
+      get? && @http_cache != false && ActionController::Base.perform_caching &&
+        persisted? && resourceful? && resource.respond_to?(:updated_at)
     end
 
     def persisted?
