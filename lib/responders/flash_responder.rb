@@ -132,11 +132,7 @@ module Responders
     end
 
     def mount_i18n_options(status) #:nodoc:
-      resource_name = if resource.class.respond_to?(:model_name)
-        resource.class.model_name.human
-      else
-        resource.class.name.underscore.humanize
-      end
+      resource_name = ::I18n.t("activerecord.models.#{resource.class.name.tableize.singularize}", :default => resource.class.name.underscore.humanize)
 
       options = {
         :default => flash_defaults_by_namespace(status),
