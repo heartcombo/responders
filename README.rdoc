@@ -50,6 +50,10 @@ The first step is instal responders gem and configure it in your application:
 
   gem install responders
 
+In your Gemfile, add this line:
+
+  gem "responders"
+
 Responders only provides a set of modules, to use them, you have to create your own
 responder. This can be done inside the lib folder for example:
 
