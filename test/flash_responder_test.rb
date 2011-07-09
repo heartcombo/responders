@@ -147,7 +147,6 @@ class FlashResponderTest < ActionController::TestCase
 
   def test_never_set_flash_now
     post :flexible, :fail => true, :responder_options => { :flash_now => false, :alert => "Warning" }
-    assert flash[:alert].present?, "Flash should be present"
     assert_not_flash_now :alert
   end
 
@@ -158,6 +157,7 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def assert_not_flash_now(k)
+    assert flash.has_key?(k), "Expected #{k} to be set"
     assert !flash.instance_variable_get(:@used).include?(k.to_sym),
      "Expected #{k} to not be in flash.now, but it is."
   end
