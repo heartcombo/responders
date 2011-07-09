@@ -34,6 +34,11 @@ class AddressesController < ApplicationController
     respond_with(@resource)
   end
 
+  def flexible
+    options = params[:responder_options] || {}
+    respond_with(@resource, options)
+  end
+
   protected
 
   def interpolation_options
@@ -157,6 +162,12 @@ class FlashResponderTest < ActionController::TestCase
   def test_sets_flash_now_on_failure_by_default
     post :another, :fail => true
     assert_flash_now :alert
+  end
+
+  def test_never_set_flash_now
+    post :flexible, :fail => true, :responder_options => { :flash_now => false, :alert => "Warning" }
+    assert flash[:alert].present?, "Flash should be present"
+    assert_not_flash_now :alert
   end
 
   # If we have flash.now, it's always marked as used.
