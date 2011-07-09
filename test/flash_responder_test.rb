@@ -135,6 +135,11 @@ class FlashResponderTest < ActionController::TestCase
     assert_equal "Warning, warning!", flash[:alert]
   end
 
+  def test_sets_flash_now_on_failure_by_default
+    post :another, :fail => true
+    assert_flash_now :alert
+  end
+
   # If we have flash.now, it's always marked as used.
   def assert_flash_now(k)
     assert flash.instance_variable_get(:@used).include?(k.to_sym),
