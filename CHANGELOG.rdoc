@@ -1,3 +1,8 @@
+== 0.7
+
+* Support Rails 3.1 onward
+* Support namespaced engines
+
 == 0.6
 
 * Allow engine detection in generators
