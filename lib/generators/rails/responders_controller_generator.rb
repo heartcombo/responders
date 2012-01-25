@@ -8,7 +8,17 @@ module Rails
     protected
 
       def flash?
-        !ApplicationController.responder.ancestors.include?(Responders::FlashResponder)
+        target = if defined?(Rails.application) && Rails.application.parent.const_defined?(:ApplicationController)
+          Rails.application.parent.const_get(:ApplicationController)
+        elsif defined?(::ApplicationController)
+          ::ApplicationController
+        end
+
+        if target
+          !target.responder.ancestors.include?(Responders::FlashResponder)
+        else
+          true
+        end
       end
     end
   end
