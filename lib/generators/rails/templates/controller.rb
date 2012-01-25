@@ -1,3 +1,4 @@
+<% module_namespacing do -%>
 class <%= controller_class_name %>Controller < ApplicationController
 <% unless options[:singleton] -%>
   # GET /<%= table_name %>
@@ -51,3 +52,4 @@ class <%= controller_class_name %>Controller < ApplicationController
     respond_with(@<%= file_name %>)
   end
 end
+<% end -%>
