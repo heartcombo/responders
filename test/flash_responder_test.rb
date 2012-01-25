@@ -115,7 +115,6 @@ class FlashResponderTest < ActionController::TestCase
   def test_sets_flash_message_can_be_set_to_now_only_on_success
     post :create, :flash_now => :on_success
     assert_equal "Resource created with success", @controller.flash.now[:success]
-    assert_flash_now :success
   end
 
   def test_sets_flash_message_can_be_set_to_now_only_on_failure
@@ -137,12 +136,12 @@ class FlashResponderTest < ActionController::TestCase
 
   # If we have flash.now, it's always marked as used.
   def assert_flash_now(k)
-    assert flash.instance_variable_get(:@used).include?(k.to_sym),
+    assert flash.instance_variable_get(:@used).to_a.include?(k.to_sym),
      "Expected #{k} to be in flash.now, but it's not."
   end
 
   def assert_not_flash_now(k)
-    assert !flash.instance_variable_get(:@used).include?(k.to_sym),
+    assert !flash.instance_variable_get(:@used).to_a.include?(k.to_sym),
      "Expected #{k} to not be in flash.now, but it is."
   end
 end

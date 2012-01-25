@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
-gem "rails", "~> 3.0.0"
+gemspec
+
 gem "mocha"
 
 if RUBY_VERSION < "1.9"
