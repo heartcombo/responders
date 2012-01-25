@@ -5,19 +5,13 @@ module Rails
     class RespondersControllerGenerator < ScaffoldControllerGenerator
       source_root File.expand_path("../templates", __FILE__)
 
-    protected
+      protected
 
       def flash?
-        target = if defined?(Rails.application) && Rails.application.parent.const_defined?(:ApplicationController)
-          Rails.application.parent.const_get(:ApplicationController)
-        elsif defined?(::ApplicationController)
-          ::ApplicationController
-        end
-
-        if target
-          !target.responder.ancestors.include?(Responders::FlashResponder)
+        if defined?(ApplicationController)
+          !ApplicationController.responder.ancestors.include?(Responders::FlashResponder)
         else
-          true
+          Rails.application.config.responders.flash_keys.blank?
         end
       end
     end
