@@ -9,6 +9,8 @@ en:
       with_html:
         failure:
           html: "<strong>OH NOES!</strong> You did it wrong!"
+        xss:
+          html: "<strong>Yay!</strong> %{xss}"
     addresses:
       update:
         success: "Nice! %{resource_name} was updated with success!"
