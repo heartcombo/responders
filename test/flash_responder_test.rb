@@ -30,10 +30,14 @@ class AddressesController < ApplicationController
     respond_with(@resource, :notice => "Yes, notice this!", :alert => "Warning, warning!")
   end
 
+  def with_html
+    respond_with(@resource)
+  end
+
   protected
 
   def interpolation_options
-    { :reference => 'Ocean Avenue' }
+    { :reference => 'Ocean Avenue', :xss => '<script>alert(1)</script>' }
   end
 
   def set_resource
@@ -132,6 +136,22 @@ class FlashResponderTest < ActionController::TestCase
     Responders::FlashResponder.flash_keys = [ :notice, :alert ]
     post :another, :fail => true
     assert_equal "Warning, warning!", flash[:alert]
+  end
+
+  def test_sets_html_using_controller_scope
+    post :with_html
+    assert_equal "<strong>Yay!</strong> You did it!", flash[:success]
+  end
+
+  def test_sets_html_using_actions_scope
+    post :with_html, :fail => true
+    assert_equal "<strong>OH NOES!</strong> You did it wrong!", flash[:failure]
+  end
+
+  def test_escapes_html_interpolations
+    Responders::FlashResponder.flash_keys = [ :xss, :xss ]
+    post :with_html
+    assert_equal "<strong>Yay!</strong> &lt;script&gt;alert(1)&lt;/script&gt;", flash[:xss]
   end
 
   # If we have flash.now, it's always marked as used.

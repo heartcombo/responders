@@ -32,11 +32,21 @@ to be used with Rails 2.3 together with Inherited Resources, please check this b
   This responder is activated in all non get requests. By default it will use the keys
   :notice and :alert, but they can be changed in your application:
 
-	config.responders.flash_keys = [ :success, :failure ]
+    config.responders.flash_keys = [ :success, :failure ]
 
   Or:
 
     Responders::FlashResponder.flash_keys = [ :success, :failure ]
+
+  You can also have embedded HTML. Just create a <tt>_html</tt> scope.
+
+    flash:
+      actions:
+        create:
+          alert_html: "<strong>OH NOES!</strong> You did it wrong!"
+      posts:
+        create:
+          notice_html: "<strong>Yay!</strong> You did it!"
 
 * HttpCacheResponder - Automatically adds Last-Modified headers to API requests. This
   allows clients to easily query the server if a resource changed and if the client tries
