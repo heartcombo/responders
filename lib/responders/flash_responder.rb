@@ -51,6 +51,12 @@ module Responders
   #   flash.cars.create.status
   #   flash.actions.create.status
   #
+  # You can also have flash messages with embedded HTML. Just create a scope that
+  # ends with <tt>.html</tt> as the scopes below:
+  #
+  #   flash.actions.create.notice.html
+  #   flash.cars.create.notice.html
+  #
   # == Options
   #
   # FlashResponder also accepts some options through respond_with API.
@@ -100,6 +106,10 @@ module Responders
 
   protected
 
+    def helper
+      @helper ||= Object.new.extend(ActionView::Helpers::TranslationHelper)
+    end
+
     def set_flash_message!
       if has_errors?
         set_flash(:alert, @alert)
@@ -112,7 +122,7 @@ module Responders
       return if controller.flash[status].present?
 
       options = mount_i18n_options(status)
-      message = ::I18n.t options[:default].shift, options
+      message = helper.t options[:default].shift, options
       set_flash(status, message)
     end
 
@@ -156,8 +166,15 @@ module Responders
       slices   = controller.controller_path.split('/')
 
       while slices.size > 0
-        defaults << :"flash.#{slices.fill(controller.controller_name, -1).join('.')}.#{controller.action_name}.#{status}"
-        defaults << :"flash.#{slices.fill(:actions, -1).join('.')}.#{controller.action_name}.#{status}"
+        controller_scope = :"flash.#{slices.fill(controller.controller_name, -1).join('.')}.#{controller.action_name}.#{status}"
+        actions_scope = :"flash.#{slices.fill(:actions, -1).join('.')}.#{controller.action_name}.#{status}"
+
+        defaults << :"#{controller_scope}.html"
+        defaults << controller_scope
+
+        defaults << :"#{actions_scope}.html"
+        defaults << actions_scope
+
         slices.shift
       end
 
