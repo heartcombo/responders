@@ -86,6 +86,9 @@ module Responders
     mattr_accessor :flash_keys
     @@flash_keys = [ :notice, :alert ]
 
+    mattr_reader :helper
+    @@helper = Object.new.extend(ActionView::Helpers::TranslationHelper)
+
     def initialize(controller, resources, options={})
       super
       @flash     = options.delete(:flash)
@@ -106,10 +109,6 @@ module Responders
 
   protected
 
-    def helper
-      @helper ||= Object.new.extend(ActionView::Helpers::TranslationHelper)
-    end
-
     def set_flash_message!
       if has_errors?
         set_flash(:alert, @alert)
@@ -122,7 +121,7 @@ module Responders
       return if controller.flash[status].present?
 
       options = mount_i18n_options(status)
-      message = helper.t options[:default].shift, options
+      message = Responders::FlashResponder.helper.t options[:default].shift, options
       set_flash(status, message)
     end
 
