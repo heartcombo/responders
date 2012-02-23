@@ -38,17 +38,15 @@ to be used with Rails 2.3 together with Inherited Resources, please check this b
 
     Responders::FlashResponder.flash_keys = [ :success, :failure ]
 
-  You can also have embedded HTML. Just create a <tt>.html</tt> scope.
+  You can also have embedded HTML. Just create a <tt>_html</tt> scope.
 
     flash:
       actions:
         create:
-          alert:
-            html: "<strong>OH NOES!</strong> You did it wrong!"
+          alert_html: "<strong>OH NOES!</strong> You did it wrong!"
       posts:
         create:
-          notice:
-            html: "<strong>Yay!</strong> You did it!"
+          notice_html: "<strong>Yay!</strong> You did it!"
 
 * HttpCacheResponder - Automatically adds Last-Modified headers to API requests. This
   allows clients to easily query the server if a resource changed and if the client tries

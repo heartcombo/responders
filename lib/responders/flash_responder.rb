@@ -52,10 +52,10 @@ module Responders
   #   flash.actions.create.status
   #
   # You can also have flash messages with embedded HTML. Just create a scope that
-  # ends with <tt>.html</tt> as the scopes below:
+  # ends with <tt>_html</tt> as the scopes below:
   #
-  #   flash.actions.create.notice.html
-  #   flash.cars.create.notice.html
+  #   flash.actions.create.notice_html
+  #   flash.cars.create.notice_html
   #
   # == Options
   #
@@ -168,10 +168,10 @@ module Responders
         controller_scope = :"flash.#{slices.fill(controller.controller_name, -1).join('.')}.#{controller.action_name}.#{status}"
         actions_scope = :"flash.#{slices.fill(:actions, -1).join('.')}.#{controller.action_name}.#{status}"
 
-        defaults << :"#{controller_scope}.html"
+        defaults << :"#{controller_scope}_html"
         defaults << controller_scope
 
-        defaults << :"#{actions_scope}.html"
+        defaults << :"#{actions_scope}_html"
         defaults << actions_scope
 
         slices.shift

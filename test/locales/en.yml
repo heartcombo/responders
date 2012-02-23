@@ -7,10 +7,8 @@ en:
       with_block:
         success: "Resource with block created with success"
       with_html:
-        failure:
-          html: "<strong>OH NOES!</strong> You did it wrong!"
-        xss:
-          html: "<strong>Yay!</strong> %{xss}"
+        failure_html: "<strong>OH NOES!</strong> You did it wrong!"
+        xss_html: "<strong>Yay!</strong> %{xss}"
     addresses:
       update:
         success: "Nice! %{resource_name} was updated with success!"
@@ -19,8 +17,7 @@ en:
         success: "Successfully deleted the address at %{reference}"
         notice: "Successfully deleted the chosen address at %{reference}"
       with_html:
-        success:
-          html: "<strong>Yay!</strong> You did it!"
+        success_html: "<strong>Yay!</strong> You did it!"
     admin:
       actions:
         create:
