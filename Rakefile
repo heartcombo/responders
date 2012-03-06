@@ -1,6 +1,7 @@
 # encoding: UTF-8
 
-require 'rake'
+require 'bundler/gem_tasks'
+
 require 'rake/testtask'
 require 'rdoc/task'
 require File.join(File.dirname(__FILE__), 'lib', 'responders', 'version')
