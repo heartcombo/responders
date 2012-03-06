@@ -4,6 +4,4 @@ gemspec
 
 gem "mocha"
 
-if RUBY_VERSION < "1.9"
-	gem "ruby-debug"
-end
+gem "ruby-debug", :platform => :mri_18
