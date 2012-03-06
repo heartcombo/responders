@@ -166,7 +166,7 @@ module Responders
 
       while slices.size > 0
         controller_scope = :"flash.#{slices.fill(controller.controller_name, -1).join('.')}.#{controller.action_name}.#{status}"
-        actions_scope = :"flash.#{slices.fill(:actions, -1).join('.')}.#{controller.action_name}.#{status}"
+        actions_scope = :"flash.#{slices.fill('actions', -1).join('.')}.#{controller.action_name}.#{status}"
 
         defaults << :"#{controller_scope}_html"
         defaults << controller_scope
