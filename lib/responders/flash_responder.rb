@@ -94,7 +94,7 @@ module Responders
       @flash     = options.delete(:flash)
       @notice    = options.delete(:notice)
       @alert     = options.delete(:alert)
-      @flash_now = options.delete(:flash_now)
+      @flash_now = options.delete(:flash_now) { :on_failure }
     end
 
     def to_html
