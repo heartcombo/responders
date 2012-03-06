@@ -5,10 +5,14 @@ to be used with Rails 2.3 together with Inherited Resources, please check this b
 
 http://github.com/plataformatec/responders/tree/v0.4
 
-* **FlashResponder** - Sets the flash based on the controller action and resource status.
-  For instance, if you do: `respond_with(@post)` on a POST request and the resource `@post`
-  does not contain errors, it will automatically set the flash message to
-  `"Post was successfully created"` as long as you configure your I18n file:
+## Responders Types
+
+### FlashResponder
+
+Sets the flash based on the controller action and resource status.
+For instance, if you do: `respond_with(@post)` on a POST request and the resource `@post`
+does not contain errors, it will automatically set the flash message to
+`"Post was successfully created"` as long as you configure your I18n file:
 
 ```yaml
   flash:
@@ -22,9 +26,9 @@ http://github.com/plataformatec/responders/tree/v0.4
         alert: "%{resource_name} could not be destroyed."
 ```
 
-  In case the resource contains errors, you should use the failure key on I18n. This is
-  useful to dry up flash messages from your controllers. If you need a specific message
-  for a controller, let's say, for `PostsController`, you can also do:
+In case the resource contains errors, you should use the failure key on I18n. This is
+useful to dry up flash messages from your controllers. If you need a specific message
+for a controller, let's say, for `PostsController`, you can also do:
 
 ```yaml
   flash:
@@ -33,20 +37,20 @@ http://github.com/plataformatec/responders/tree/v0.4
         notice: "Your post was created and will be published soon"
 ```
 
-  This responder is activated in all non get requests. By default it will use the keys
-  `:notice` and `:alert`, but they can be changed in your application:
+This responder is activated in all non get requests. By default it will use the keys
+`:notice` and `:alert`, but they can be changed in your application:
 
 ```ruby
 config.responders.flash_keys = [ :success, :failure ]
 ```
 
-  Or:
+Or:
 
 ```ruby
     Responders::FlashResponder.flash_keys = [ :success, :failure ]
 ```
 
-  You can also have embedded HTML. Just create a `_html` scope.
+You can also have embedded HTML. Just create a `_html` scope.
 
 ```yaml
   flash:
@@ -58,11 +62,15 @@ config.responders.flash_keys = [ :success, :failure ]
         notice_html: "<strong>Yay!</strong> You did it!"
 ```
 
-* **HttpCacheResponder** - Automatically adds Last-Modified headers to API requests. This
-  allows clients to easily query the server if a resource changed and if the client tries
-  to retrieve a resource that has not been modified, it returns not_modified status.
+### HttpCacheResponder
 
-* **CollectionResponder** - Makes your create and update action redirect to the collection on success.
+Automatically adds Last-Modified headers to API requests. This
+allows clients to easily query the server if a resource changed and if the client tries
+to retrieve a resource that has not been modified, it returns not_modified status.
+
+### CollectionResponder
+
+Makes your create and update action redirect to the collection on success.
 
 ## Configuring your own responder
 
