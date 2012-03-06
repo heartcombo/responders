@@ -1,3 +1,7 @@
+== 0.8
+
+* Allow embedded HTML in flash messages
+
 == 0.7
 
 * Support Rails 3.1 onward
