@@ -4,7 +4,6 @@ rvm:
   - ree
   - jruby-18mode
 gemfile:
-  - gemfiles/Gemfile-rails.3.0.x
   - gemfiles/Gemfile-rails.3.1.x
   - Gemfile
 notifications:
