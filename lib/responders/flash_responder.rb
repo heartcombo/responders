@@ -83,11 +83,13 @@ module Responders
   # and :alert.
   #
   module FlashResponder
-    mattr_accessor :flash_keys
-    @@flash_keys = [ :notice, :alert ]
+    class << self
+      attr_accessor :flash_keys, :namespace_lookup, :helper
+    end
 
-    mattr_reader :helper
-    @@helper = Object.new.extend(ActionView::Helpers::TranslationHelper)
+    self.flash_keys = [ :notice, :alert ]
+    self.namespace_lookup = false
+    self.helper = Object.new.extend(ActionView::Helpers::TranslationHelper)
 
     def initialize(controller, resources, options={})
       super
@@ -163,8 +165,9 @@ module Responders
     def flash_defaults_by_namespace(status) #:nodoc:
       defaults = []
       slices   = controller.controller_path.split('/')
+      lookup   = Responders::FlashResponder.namespace_lookup
 
-      while slices.size > 0
+      begin
         controller_scope = :"flash.#{slices.fill(controller.controller_name, -1).join('.')}.#{controller.action_name}.#{status}"
         actions_scope = :"flash.#{slices.fill('actions', -1).join('.')}.#{controller.action_name}.#{status}"
 
@@ -175,7 +178,7 @@ module Responders
         defaults << actions_scope
 
         slices.shift
-      end
+      end while slices.size > 0 && lookup
 
       defaults << ""
     end

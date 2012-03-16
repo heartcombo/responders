@@ -201,7 +201,15 @@ class NamespacedFlashResponderTest < ActionController::TestCase
   end
 
   def test_fallbacks_to_non_namespaced_controller_flash_message
+    Responders::FlashResponder.namespace_lookup = true
     delete :destroy
     assert_equal "Successfully deleted the chosen address at Ocean Avenue", flash[:notice]
+  ensure
+    Responders::FlashResponder.namespace_lookup = false
+  end
+
+  def test_does_not_fallbacks_to_non_namespaced_controller_flash_message_if_disabled
+    delete :destroy
+    assert_equal nil, flash[:notice]
   end
 end

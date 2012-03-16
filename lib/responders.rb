@@ -9,6 +9,9 @@ module Responders
 
   class Railtie < ::Rails::Railtie
     config.responders = ActiveSupport::OrderedOptions.new
+    config.responders.flash_keys = [ :notice, :alert ]
+    config.responders.namespace_lookup = false
+
     if config.respond_to?(:app_generators)
       config.app_generators.scaffold_controller = :responders_controller
     else
@@ -20,9 +23,8 @@ module Responders
     I18n.load_path << File.expand_path('../responders/locales/en.yml', __FILE__)
 
     initializer "responders.flash_responder" do |app|
-      if app.config.responders.flash_keys
-        Responders::FlashResponder.flash_keys = app.config.responders.flash_keys
-      end
+      Responders::FlashResponder.flash_keys = app.config.responders.flash_keys
+      Responders::FlashResponder.namespace_lookup = app.config.responders.namespace_lookup
     end
   end
 end
