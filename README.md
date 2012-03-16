@@ -44,12 +44,6 @@ This responder is activated in all non get requests. By default it will use the 
 config.responders.flash_keys = [ :success, :failure ]
 ```
 
-Or:
-
-```ruby
-    Responders::FlashResponder.flash_keys = [ :success, :failure ]
-```
-
 You can also have embedded HTML. Just create a `_html` scope.
 
 ```yaml

@@ -1,3 +1,7 @@
+## 0.9
+
+* Disable namespace lookup by default
+
 ## 0.8
 
 * Allow embedded HTML in flash messages
