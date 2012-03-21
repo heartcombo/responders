@@ -126,6 +126,15 @@ This gem also includes a responders controller generator, so your scaffold can b
 to use `respond_with` instead of default `respond_to` blocks. Installing this gem automatically
 sets the generator.
 
+## Examples
+
+Want more examples ? Check out this blog posts:
+
+* [One in Three: Inherited Resources, Has Scope and Responders](http://blog.plataformatec.com.br/2009/12/one-in-three-inherited-resources-has-scope-and-responders/)
+* [Embracing REST with mind, body and soul](http://blog.plataformatec.com.br/2009/08/embracing-rest-with-mind-body-and-soul/)
+* [Three reasons to love ActionController::Responder](http://weblog.rubyonrails.org/2009/8/31/three-reasons-love-responder/)
+* [My five favorite things about Rails 3](http://www.engineyard.com/blog/2009/my-five-favorite-things-about-rails-3/)
+
 ## Bugs and Feedback
 
 If you discover any bugs or want to drop a line, feel free to create an issue on GitHub.
