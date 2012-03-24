@@ -1,4 +1,8 @@
-## 0.9
+## 0.9.1
+
+* Fix bug with namespace lookup
+
+## 0.9.0
 
 * Disable namespace lookup by default
 
