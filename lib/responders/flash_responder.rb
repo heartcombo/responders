@@ -169,7 +169,9 @@ module Responders
 
       begin
         controller_scope = :"flash.#{slices.fill(controller.controller_name, -1).join('.')}.#{controller.action_name}.#{status}"
-        actions_scope = :"flash.#{slices.fill('actions', -1).join('.')}.#{controller.action_name}.#{status}"
+
+        actions_scope = lookup ? slices.fill('actions', -1).join('.') : :actions
+        actions_scope = :"flash.#{actions_scope}.#{controller.action_name}.#{status}"
 
         defaults << :"#{controller_scope}_html"
         defaults << controller_scope
@@ -180,12 +182,7 @@ module Responders
         slices.shift
       end while slices.size > 0 && lookup
 
-      action_scope = :"flash.actions.#{controller.action_name}.#{status}"
-      defaults << :"#{action_scope}_html"
-      defaults << action_scope
-
       defaults << ""
-      defaults.uniq
     end
   end
 end

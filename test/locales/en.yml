@@ -9,8 +9,6 @@ en:
       with_html:
         failure_html: "<strong>OH NOES!</strong> You did it wrong!"
         xss_html: "<strong>Yay!</strong> %{xss}"
-      destroy:
-        notice: 'Resource was successfully destroyed.'
     addresses:
       update:
         success: "Nice! %{resource_name} was updated with success!"

@@ -2,7 +2,8 @@ source :rubygems
 
 gemspec
 
-gem 'railties', :git => 'git://github.com/rails/rails', :branch => '3-2-stable'
+# Fixed 3.2.1 because 3.2.2 is broken
+gem 'railties', '3.2.1'
 
 gem 'mocha'
 

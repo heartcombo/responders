@@ -196,8 +196,11 @@ class NamespacedFlashResponderTest < ActionController::TestCase
   end
 
   def test_sets_the_flash_message_based_on_namespace_actions
+    Responders::FlashResponder.namespace_lookup = true
     post :create
     assert_equal "Admin created address with success", flash[:notice]
+  ensure
+    Responders::FlashResponder.namespace_lookup = false
   end
 
   def test_fallbacks_to_non_namespaced_controller_flash_message
@@ -208,8 +211,13 @@ class NamespacedFlashResponderTest < ActionController::TestCase
     Responders::FlashResponder.namespace_lookup = false
   end
 
+  def test_does_not_fallbacks_to_namespaced_actions_if_disabled
+    post :create
+    assert_equal "Address was successfully created.", flash[:notice]
+  end
+
   def test_does_not_fallbacks_to_non_namespaced_controller_flash_message_if_disabled
-    delete :destroy
-    assert_equal "Resource was successfully destroyed.", flash[:notice]
+    post :new
+    assert_equal nil, flash[:notice]
   end
 end
