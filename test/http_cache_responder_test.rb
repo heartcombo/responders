@@ -63,15 +63,15 @@ class HttpCacheResponderTest < ActionController::TestCase
   end
 
   def test_does_not_set_cache_unless_get_requests
-    put :single
+    post :single
     assert_nil @response.headers["Last-Modified"]
-    assert_equal 204, @response.status
+    assert_equal 201, @response.status
   end
 
   def test_does_not_use_cache_unless_get_requests
     @request.env["HTTP_IF_MODIFIED_SINCE"] = Time.utc(2009, 6).httpdate
-    put :single
-    assert_equal 204, @response.status
+    post :single
+    assert_equal 201, @response.status
   end
 
   def test_does_not_set_cache_if_http_cache_is_false
