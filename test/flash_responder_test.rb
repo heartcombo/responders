@@ -210,6 +210,6 @@ class NamespacedFlashResponderTest < ActionController::TestCase
 
   def test_does_not_fallbacks_to_non_namespaced_controller_flash_message_if_disabled
     delete :destroy
-    assert_equal nil, flash[:notice]
+    assert_equal "Resource was successfully destroyed.", flash[:notice]
   end
 end

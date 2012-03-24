@@ -180,7 +180,12 @@ module Responders
         slices.shift
       end while slices.size > 0 && lookup
 
+      action_scope = :"flash.actions.#{controller.action_name}.#{status}"
+      defaults << :"#{action_scope}_html"
+      defaults << action_scope
+
       defaults << ""
+      defaults.uniq
     end
   end
 end
