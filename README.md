@@ -68,7 +68,7 @@ Makes your create and update action redirect to the collection on success.
 
 ## Configuring your own responder
 
-The first step is instal responders gem and configure it in your application:
+The first step is to install the responders gem and configure it in your application:
 
 ```console
 gem install responders
