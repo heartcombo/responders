@@ -113,11 +113,11 @@ module Responders
 
     def set_flash_message!
       if has_errors?
-        set_flash(:alert, @alert)
         status = Responders::FlashResponder.flash_keys.last
+        set_flash(status, @alert)
       else
-        set_flash(:notice, @notice)
         status = Responders::FlashResponder.flash_keys.first
+        set_flash(status, @notice)
       end
 
       return if controller.flash[status].present?
