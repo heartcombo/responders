@@ -131,6 +131,16 @@ class FlashResponderTest < ActionController::TestCase
     assert_not_flash_now :success
   end
 
+  def test_sets_message_based_on_notice_key_with_custom_keys
+    post :another
+    assert_equal "Yes, notice this!", flash[:success]
+  end
+
+  def test_sets_message_based_on_alert_key_with_custom_keys
+    post :another, :fail => true
+    assert_equal "Warning, warning!", flash[:failure]
+  end
+
   def test_sets_message_based_on_notice_key
     Responders::FlashResponder.flash_keys = [ :notice, :alert ]
     post :another
@@ -161,12 +171,12 @@ class FlashResponderTest < ActionController::TestCase
 
   def test_sets_flash_now_on_failure_by_default
     post :another, :fail => true
-    assert_flash_now :alert
+    assert_flash_now :failure
   end
 
   def test_never_set_flash_now
     post :flexible, :fail => true, :responder_options => { :flash_now => false, :alert => "Warning" }
-    assert_not_flash_now :alert
+    assert_not_flash_now :failure
   end
 
   # If we have flash.now, it's always marked as used.
