@@ -16,7 +16,7 @@ module BarResponder
   end
 end
 
-module BazResponder
+module PeopleResponder
   def to_html
     @resource << "baz"
     super
@@ -35,7 +35,7 @@ class PeopleController < ApplicationController
 end
 
 class SpecialPeopleController < PeopleController
-  responders :baz
+  responders :people
 end
 
 class ControllerMethodTest < ActionController::TestCase
