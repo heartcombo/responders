@@ -56,6 +56,8 @@ You can also have embedded HTML. Just create a `_html` scope.
         notice_html: "<strong>Yay!</strong> You did it!"
 ```
 
+See also the `namespace_lookup` option to search the full hierarchy of possible keys.
+
 ### HttpCacheResponder
 
 Automatically adds Last-Modified headers to API requests. This
