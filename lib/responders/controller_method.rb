@@ -2,7 +2,7 @@ module Responders
   module ControllerMethod
     # Adds the given responders to the current controller's responder, allowing you to cherry-pick
     # which responders you want per controller.
-    # 
+    #
     #   class InvitationsController < ApplicationController
     #     responders :flash, :http_cache
     #   end
@@ -26,7 +26,7 @@ module Responders
           else
             raise "responder has to be a string, a symbol or a module"
           end
-        
+
         klass.send(:include, responder)
         klass
       end
