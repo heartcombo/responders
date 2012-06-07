@@ -16,7 +16,7 @@ module BarResponder
   end
 end
 
-module BazResponder
+module PeopleResponder
   def to_html
     @resource << "baz"
     super
@@ -25,7 +25,7 @@ end
 
 class PeopleController < ApplicationController
   responders :foo, BarResponder
-  
+
   def index
     @array = []
     respond_with(@array) do |format|
@@ -35,7 +35,7 @@ class PeopleController < ApplicationController
 end
 
 class SpecialPeopleController < PeopleController
-  responders :baz
+  responders :people
 end
 
 class ControllerMethodTest < ActionController::TestCase
@@ -49,7 +49,7 @@ class ControllerMethodTest < ActionController::TestCase
     get :index
     assert assigns(:array).include? "foo"
   end
-  
+
   def test_bar_responder_gets_added
     get :index
     assert assigns(:array).include? "bar"
@@ -58,11 +58,11 @@ end
 
 class ControllerMethodInheritanceTest < ActionController::TestCase
   tests SpecialPeopleController
-  
+
   def setup
-    @controller.stubs(:polymorphic_url).returns("/") 
+    @controller.stubs(:polymorphic_url).returns("/")
   end
-  
+
   def test_responder_is_inherited
     get :index
     assert assigns(:array).include? "foo"
