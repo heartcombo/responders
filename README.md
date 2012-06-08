@@ -1,9 +1,6 @@
 # Responders
 
-A set of responders modules to dry up your Rails 3 app. If you are interested in the version
-to be used with Rails 2.3 together with Inherited Resources, please check this branch instead:
-
-http://github.com/plataformatec/responders/tree/v0.4
+A set of responders modules to dry up your Rails 3+ app.
 
 ## Responders Types
 
