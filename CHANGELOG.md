@@ -1,3 +1,7 @@
+## 0.9.2
+
+* Properly inflect custom responders names
+
 ## 0.9.1
 
 * Fix bug with namespace lookup
