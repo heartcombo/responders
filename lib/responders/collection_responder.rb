@@ -21,7 +21,7 @@ module Responders
       klass = resources.last.class
 
       if klass.respond_to?(:model_name)
-        resources[0...-1] << klass.model_name.plural.to_sym
+        resources[0...-1] << klass.model_name.route_key.to_sym
       else
         resources
       end
