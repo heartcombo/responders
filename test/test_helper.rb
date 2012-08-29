@@ -64,3 +64,12 @@ end
 
 class User < Model
 end
+
+module MyEngine
+  def self.use_relative_model_naming?
+    true
+  end
+
+  class Business < Model
+  end
+end

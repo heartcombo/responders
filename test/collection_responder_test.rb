@@ -26,6 +26,10 @@ class CollectionController < ApplicationController
   def with_location
     respond_with Address.new, :location => "given_location"
   end
+
+  def isolated_namespace
+    respond_with MyEngine::Business.new
+  end
 end
 
 class CollectionResponderTest < ActionController::TestCase
@@ -58,5 +62,11 @@ class CollectionResponderTest < ActionController::TestCase
     @controller.expects(:admin_addresses_url).returns("admin_addresses_url")
     post :only_symbols
     assert_redirected_to "admin_addresses_url"
+  end
+
+  def test_collection_respects_isolated_namespace
+    @controller.expects(:businesses_url).returns("businesses_url")
+    post :isolated_namespace
+    assert_redirected_to "businesses_url"
   end
 end
