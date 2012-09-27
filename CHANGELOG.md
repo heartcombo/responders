@@ -1,3 +1,7 @@
+## 0.9.3
+
+* Fix url generation for namespaced models
+
 ## 0.9.2
 
 * Properly inflect custom responders names
