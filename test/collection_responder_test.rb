@@ -30,6 +30,10 @@ class CollectionController < ApplicationController
   def isolated_namespace
     respond_with MyEngine::Business.new
   end
+
+  def uncountable
+    respond_with News.new
+  end
 end
 
 class CollectionResponderTest < ActionController::TestCase
@@ -68,5 +72,11 @@ class CollectionResponderTest < ActionController::TestCase
     @controller.expects(:businesses_url).returns("businesses_url")
     post :isolated_namespace
     assert_redirected_to "businesses_url"
+  end
+
+  def test_collection_respects_uncountable_resource
+    @controller.expects(:news_index_url).returns("news_index_url")
+    post :uncountable
+    assert_redirected_to "news_index_url"
   end
 end

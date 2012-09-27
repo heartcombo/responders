@@ -21,6 +21,7 @@ I18n.reload!
 
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
 Responders::Routes.draw do
+  resources :news
   match '/admin/:action', :controller => "admin/addresses"
   match '/:controller(/:action(/:id))'
 end
@@ -63,6 +64,9 @@ class Address < Model
 end
 
 class User < Model
+end
+
+class News < Model
 end
 
 module MyEngine
