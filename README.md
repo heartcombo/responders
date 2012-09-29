@@ -24,7 +24,8 @@ does not contain errors, it will automatically set the flash message to
 ```
 
 In case the resource contains errors, you should use the failure key on I18n. This is
-useful to dry up flash messages from your controllers. If you need a specific message
+useful to dry up flash messages from your controllers. Note: by default alerts for `update`
+and `destroy` actions are commented in generated I18n file. If you need a specific message
 for a controller, let's say, for `PostsController`, you can also do:
 
 ```yaml
