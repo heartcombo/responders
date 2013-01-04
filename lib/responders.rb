@@ -8,7 +8,7 @@ module Responders
   require 'responders/controller_method'
 
   class Railtie < ::Rails::Railtie
-    config.responders = ActiveSupport::OrderedOptions.new
+    config.responders = Responders::FlashResponder
     config.responders.flash_keys = [ :notice, :alert ]
     config.responders.namespace_lookup = false
 
