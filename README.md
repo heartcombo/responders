@@ -120,6 +120,29 @@ class InvitationsController < ApplicationController
 end
 ```
 
+## Interpolation Options
+
+You can pass in extra interpolation options for the translation by adding an `interpolation_options` method to your controller:
+
+```ruby
+class InvitationsController < ApplicationController
+  responders :flash, :http_cache
+  
+  def create
+    @invitation = Invitation.create(params[:invitation])
+    respond_with @invitation
+  end  
+  
+  private
+  
+  def interpolation_options
+    { resource_name: @invitation.email }
+  end
+end
+```
+
+Now you would see the message "bob@bob.com was successfully created" instead of the default "Invitation was successfully created."
+
 ## Generator
 
 This gem also includes a responders controller generator, so your scaffold can be customized
