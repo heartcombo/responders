@@ -1,10 +1,9 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gemspec
 
-# Fixed 3.2.1 because 3.2.2 is broken
-gem 'railties', '~> 3.2.3'
-
-gem 'mocha'
-
-gem 'ruby-debug', :platform => :mri_18
+group :test do
+  gem 'mocha'
+  gem 'activemodel', '~> 4.0.0.beta1'
+  gem 'ruby-debug', :platform => :mri_18
+end
