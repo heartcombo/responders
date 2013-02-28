@@ -22,8 +22,8 @@ I18n.reload!
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
 Responders::Routes.draw do
   resources :news
-  match '/admin/:action', :controller => "admin/addresses"
-  match '/:controller(/:action(/:id))'
+  get '/admin/:action', :controller => "admin/addresses"
+  get '/:controller(/:action(/:id))'
 end
 
 class ApplicationController < ActionController::Base
