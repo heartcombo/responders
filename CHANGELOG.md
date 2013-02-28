@@ -1,6 +1,6 @@
 ## Unreleased
 
-* Support for Rails 4.0 onward, please use 0.9.3 version for Rails 3
+* Support for Rails 4.0 onward
 
 ## 0.9.3
 
