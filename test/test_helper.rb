@@ -11,6 +11,7 @@ ENV["RAILS_ENV"] = "test"
 require 'active_support'
 require 'action_controller'
 require 'active_model'
+require 'rails/engine'
 require 'rails/railtie'
 
 $:.unshift File.expand_path('../../lib', __FILE__)
@@ -22,8 +23,8 @@ I18n.reload!
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
 Responders::Routes.draw do
   resources :news
-  match '/admin/:action', :controller => "admin/addresses"
-  match '/:controller(/:action(/:id))'
+  get '/admin/:action', :controller => "admin/addresses"
+  get '/:controller(/:action(/:id))'
 end
 
 class ApplicationController < ActionController::Base
@@ -36,6 +37,17 @@ end
 class ActiveSupport::TestCase
   setup do
     @routes = Responders::Routes
+  end
+end
+
+module ActionDispatch
+  class Flash
+    class FlashHash
+      def used_keys
+        # Rails 3 || Rails 4
+        @used || @discard
+      end
+    end
   end
 end
 
@@ -70,10 +82,8 @@ class News < Model
 end
 
 module MyEngine
-  def self.use_relative_model_naming?
-    true
-  end
-
-  class Business < Model
+  class Business < Rails::Engine
+    isolate_namespace MyEngine
+    extend ActiveModel::Naming
   end
 end

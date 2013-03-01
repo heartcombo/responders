@@ -28,7 +28,7 @@ class CollectionController < ApplicationController
   end
 
   def isolated_namespace
-    respond_with MyEngine::Business.new
+    respond_with MyEngine::Business
   end
 
   def uncountable
