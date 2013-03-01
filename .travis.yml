@@ -3,8 +3,10 @@ rvm:
   - 1.9.3
   - ree
   - jruby-18mode
+  - 2.0.0
 gemfile:
   - gemfiles/Gemfile-rails.3.1.x
+  - gemfiles/Gemfile-rails.3.2.x
   - Gemfile
 notifications:
   recipients:

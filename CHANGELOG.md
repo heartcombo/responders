@@ -1,3 +1,7 @@
+## Unreleased
+
+* Support for Rails 4.0 onward
+
 ## 0.9.3
 
 * Fix url generation for namespaced models

@@ -51,7 +51,7 @@ class HttpCacheResponderTest < ActionController::TestCase
     @request.env["HTTP_IF_MODIFIED_SINCE"] = Time.utc(2009, 6).httpdate
     get :single
     assert_equal 304, @response.status
-    assert_equal " ", @response.body
+    assert_includes [" ", ""], @response.body
   end
 
   def test_refreshes_last_modified_if_cache_is_expired
