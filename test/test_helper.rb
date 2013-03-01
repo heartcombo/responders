@@ -40,6 +40,17 @@ class ActiveSupport::TestCase
   end
 end
 
+module ActionDispatch
+  class Flash
+    class FlashHash
+      def used_keys
+        # Rails 3 || Rails 4
+        @used || @discard
+      end
+    end
+  end
+end
+
 class Model
   include ActiveModel::Conversion
   include ActiveModel::Validations

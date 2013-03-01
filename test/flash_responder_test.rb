@@ -181,13 +181,13 @@ class FlashResponderTest < ActionController::TestCase
 
   # If we have flash.now, it's always marked as used.
   def assert_flash_now(k)
-    assert flash.instance_variable_get(:@discard).to_a.include?(k.to_sym),
+    assert flash.used_keys.include?(k.to_sym),
      "Expected #{k} to be in flash.now, but it's not."
   end
 
   def assert_not_flash_now(k)
     assert flash[k], "Expected #{k} to be set"
-    assert !flash.instance_variable_get(:@discard).include?(k.to_sym),
+    assert !flash.used_keys.include?(k.to_sym),
      "Expected #{k} to not be in flash.now, but it is."
   end
 end
