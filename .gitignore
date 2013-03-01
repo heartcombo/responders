@@ -2,4 +2,3 @@
 .bundle
 *.lock
 pkg/*
-.ruby-version
