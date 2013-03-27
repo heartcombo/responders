@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/plataformatec/responders"
   s.description = "A set of Rails responders to dry up your application"
   s.authors     = ['José Valim']
+  s.license     = "MIT"
 
   s.rubyforge_project = "responders"
 
