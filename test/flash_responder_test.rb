@@ -174,6 +174,12 @@ class FlashResponderTest < ActionController::TestCase
     assert_flash_now :failure
   end
 
+  def test_does_not_set_flash_message_to_now_with_errors_and_redirect
+    delete :with_html, :fail => true
+    assert_not_flash_now :failure
+    assert_equal "<strong>OH NOES!</strong> You did it wrong!", flash[:failure]
+  end
+
   def test_never_set_flash_now
     post :flexible, :fail => true, :responder_options => { :flash_now => false, :alert => "Warning" }
     assert_not_flash_now :failure
