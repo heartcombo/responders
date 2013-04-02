@@ -135,7 +135,9 @@ module Responders
     end
 
     def set_flash_now?
-      (@flash_now == true) || (has_errors? ? @flash_now == :on_failure : @flash_now == :on_success) || (format == :js)
+      return true if @flash_now == true || format == :js
+
+      default_action && (has_errors? ? @flash_now == :on_failure : @flash_now == :on_success)
     end
 
     def set_flash_message? #:nodoc:
