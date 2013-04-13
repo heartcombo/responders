@@ -10,13 +10,13 @@ Gem::Specification.new do |s|
   s.email       = "contact@plataformatec.com.br"
   s.homepage    = "http://github.com/plataformatec/responders"
   s.description = "A set of Rails responders to dry up your application"
-  s.authors     = ['José Valim']
+  s.authors     = ["José Valim"]
   s.license     = "MIT"
 
   s.rubyforge_project = "responders"
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
+  s.test_files    = Dir["test/**/*"]
   s.require_paths = ["lib"]
 
   s.add_dependency "railties", ">= 3.1"
