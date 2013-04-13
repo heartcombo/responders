@@ -1,6 +1,7 @@
 ## Unreleased
 
 * Support for Rails 4.0 onward
+* Fix flash message on destroy failure. Fixes #61
 
 ## 0.9.3
 
