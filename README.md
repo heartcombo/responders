@@ -1,5 +1,9 @@
 # Responders
 
+[![Gem Version](https://fury-badge.herokuapp.com/rb/responders.png)](http://badge.fury.io/rb/responders)
+[![Build Status](https://api.travis-ci.org/plataformatec/responders.png?branch=master)](http://travis-ci.org/plataformatec/responders)
+[![Code Climate](https://codeclimate.com/github/plataformatec/responders.png)](https://codeclimate.com/github/plataformatec/responders)
+
 A set of responders modules to dry up your Rails 3+ app.
 
 ## Responders Types
