@@ -1,3 +1,3 @@
 module Responders
-  VERSION = "0.9.3".freeze
+  VERSION = "1.0.0.rc".freeze
 end
