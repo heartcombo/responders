@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Drop support for Rails 3.1 and Ruby 1.8, keep support for Rails 3.2
 * Support for Rails 4.0 onward
 * Fix flash message on destroy failure. Fixes #61
 
