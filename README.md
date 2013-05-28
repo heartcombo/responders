@@ -153,6 +153,20 @@ This gem also includes a responders controller generator, so your scaffold can b
 to use `respond_with` instead of default `respond_to` blocks. Installing this gem automatically
 sets the generator.
 
+## Using with Devise
+
+When using responders with Devise, use the responders I18n file for resource flash messages. 
+For example, the following would be used for setting the flash when creating a session:
+
+```yaml
+en:
+  flash:
+    users:
+      sessions:
+        create:
+          notice: "Welcome back!"
+```
+
 ## Examples
 
 Want more examples ? Check out this blog posts:
