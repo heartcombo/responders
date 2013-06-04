@@ -12,7 +12,7 @@ module Responders
   #   flash.actions.create.status
   #
   # The statuses by default are :notice (when the object can be created, updated
-  # or destroyed with success) and :alert (when the objecy cannot be created
+  # or destroyed with success) and :alert (when the object cannot be created
   # or updated).
   #
   # On I18n, the resource_name given is available as interpolation option,
