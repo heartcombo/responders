@@ -29,7 +29,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   def update
     @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
-    <%= "flash[:notice] = '#{class_name} was successfully updated.' if " if flash? %>@<%= orm_instance.update_attributes("params[:#{file_name}]") %>
+    <%= "flash[:notice] = '#{class_name} was successfully updated.' if " if flash? %>@<%= orm_instance_update("params[:#{file_name}]") %>
     respond_with(@<%= file_name %>)
   end
 
