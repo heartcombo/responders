@@ -14,6 +14,14 @@ module Rails
           Rails.application.config.responders.flash_keys.blank?
         end
       end
+
+      def orm_instance_update(params)
+        if orm_instance.respond_to?(:update)
+          orm_instance.update params
+        else
+          orm_instance.update_attributes params
+        end
+      end
     end
   end
 end
