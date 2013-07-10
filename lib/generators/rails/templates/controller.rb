@@ -1,5 +1,7 @@
 <% module_namespacing do -%>
 class <%= controller_class_name %>Controller < ApplicationController
+  <%= controller_before_filter %> :set_<%= file_name %>, only: [:show, :edit, :update, :destroy]
+
 <% unless options[:singleton] -%>
   def index
     @<%= table_name %> = <%= orm_class.all(class_name) %>
@@ -8,7 +10,6 @@ class <%= controller_class_name %>Controller < ApplicationController
 <% end -%>
 
   def show
-    @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
     respond_with(@<%= file_name %>)
   end
 
@@ -18,25 +19,37 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def edit
-    @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
   end
 
   def create
-    @<%= file_name %> = <%= orm_class.build(class_name, "params[:#{file_name}]") %>
+    @<%= file_name %> = <%= orm_class.build(class_name, attributes_params) %>
     <%= "flash[:notice] = '#{class_name} was successfully created.' if " if flash? %>@<%= orm_instance.save %>
     respond_with(@<%= file_name %>)
   end
 
   def update
-    @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
-    <%= "flash[:notice] = '#{class_name} was successfully updated.' if " if flash? %>@<%= orm_instance_update("params[:#{file_name}]") %>
+    <%= "flash[:notice] = '#{class_name} was successfully updated.' if " if flash? %>@<%= orm_instance_update(attributes_params) %>
     respond_with(@<%= file_name %>)
   end
 
   def destroy
-    @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
     @<%= orm_instance.destroy %>
     respond_with(@<%= file_name %>)
   end
+
+  private
+    def set_<%= file_name %>
+      @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
+    end
+    <%- if strong_parameters_defined? -%>
+
+    def <%= "#{file_name}_params" %>
+      <%- if attributes_names.empty? -%>
+      params[:<%= file_name %>]
+      <%- else -%>
+      params.require(:<%= file_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
+      <%- end -%>
+    end
+    <%- end -%>
 end
 <% end -%>
