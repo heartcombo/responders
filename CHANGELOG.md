@@ -1,3 +1,8 @@
+## master
+
+* Improve controller generator to work closer to the Rails 4 one, and make it
+  compatible with strong parameters.
+
 ## 1.0.0.rc
 
 * Drop support for Rails 3.1 and Ruby 1.8, keep support for Rails 3.2
