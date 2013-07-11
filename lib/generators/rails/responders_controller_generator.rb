@@ -24,7 +24,7 @@ module Rails
       end
 
       def controller_before_filter
-        if defined?(ApplicationController) && ApplicationController.respond_to?(:before_action)
+        if ActionController::Base.respond_to?(:before_action)
           "before_action"
         else
           "before_filter"
