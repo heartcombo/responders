@@ -131,14 +131,14 @@ You can pass in extra interpolation options for the translation by adding an `in
 ```ruby
 class InvitationsController < ApplicationController
   responders :flash, :http_cache
-  
+
   def create
     @invitation = Invitation.create(params[:invitation])
     respond_with @invitation
-  end  
-  
+  end
+
   private
-  
+
   def interpolation_options
     { resource_name: @invitation.email }
   end
