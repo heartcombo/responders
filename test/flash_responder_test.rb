@@ -51,6 +51,12 @@ class AddressesController < ApplicationController
   end
 end
 
+class PolymorphicAddesssController < AddressesController
+  def create
+    respond_with(User.new, Address.new)
+  end
+end
+
 module Admin
   class AddressesController < ::AddressesController
   end
@@ -235,5 +241,19 @@ class NamespacedFlashResponderTest < ActionController::TestCase
   def test_does_not_fallbacks_to_non_namespaced_controller_flash_message_if_disabled
     post :new
     assert_equal nil, flash[:notice]
+  end
+end
+
+class PolymorhicFlashResponderTest < ActionController::TestCase
+  tests PolymorphicAddesssController
+
+  def setup
+    Responders::FlashResponder.flash_keys = [ :notice, :alert ]
+    @controller.stubs(:polymorphic_url).returns("/")
+  end
+
+  def test_polymorhic_respond_with
+    post :create
+    assert_equal "Address was successfully created.", flash[:notice]
   end
 end
