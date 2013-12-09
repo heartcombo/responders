@@ -16,6 +16,7 @@ require 'rails/railtie'
 $:.unshift File.expand_path('../../lib', __FILE__)
 require 'responders'
 
+I18n.enforce_available_locales = true
 I18n.load_path << File.expand_path('../locales/en.yml', __FILE__)
 I18n.reload!
 
