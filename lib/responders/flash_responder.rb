@@ -89,7 +89,10 @@ module Responders
 
     self.flash_keys = [ :notice, :alert ]
     self.namespace_lookup = false
-    self.helper = Object.new.extend(ActionView::Helpers::TranslationHelper)
+    self.helper = Object.new.extend(
+      ActionView::Helpers::TranslationHelper,
+      ActionView::Helpers::TagHelper
+    )
 
     def initialize(controller, resources, options={})
       super
