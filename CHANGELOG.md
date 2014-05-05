@@ -1,3 +1,7 @@
+## Unreleased
+
+* Support Rails 4.1.
+
 ## 1.0.0
 
 * Improve controller generator to work closer to the Rails 4 one, and make it

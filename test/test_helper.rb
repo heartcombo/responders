@@ -1,7 +1,5 @@
-require 'bundler'
-
-Bundler.setup
-require 'test/unit'
+require 'bundler/setup'
+require 'minitest/autorun'
 require 'mocha/setup'
 
 # Configure Rails

@@ -191,9 +191,10 @@ class FlashResponderTest < ActionController::TestCase
     assert_not_flash_now :failure
   end
 
-  # If we have flash.now, it's always marked as used.
+  # If we have flash.now, it's always marked as used. Rails 4.1 has string keys,
+  # whereas 3.2 and 4.0 has symbols, so we need to test both.
   def assert_flash_now(k)
-    assert flash.used_keys.include?(k.to_sym),
+    assert flash.used_keys.include?(k.to_sym) || flash.used_keys.include?(k.to_s),
      "Expected #{k} to be in flash.now, but it's not."
   end
 
