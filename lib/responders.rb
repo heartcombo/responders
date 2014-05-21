@@ -4,6 +4,7 @@ module Responders
   autoload :FlashResponder,      'responders/flash_responder'
   autoload :HttpCacheResponder,  'responders/http_cache_responder'
   autoload :CollectionResponder, 'responders/collection_responder'
+  autoload :LocationResponder,   'responders/location_responder'
 
   require 'responders/controller_method'
 
