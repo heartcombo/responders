@@ -60,6 +60,24 @@ You can also have embedded HTML. Just create a `_html` scope.
 
 See also the `namespace_lookup` option to search the full hierarchy of possible keys.
 
+### Location Responder
+
+This responder allows you to use callable objects as the redirect location.
+Useful when you want to use the `respond_with` method with
+a custom route that requires persisted objects, but the validation may fail.
+
+```ruby
+class ThingsController < ApplicationController
+  responders :location, :flash
+  respond_to :html
+
+  def create
+    @thing = Things.create(params[:thing])
+    respond_with @thing, location: -> { thing_path(@thing) }
+  end
+end
+```
+
 ### HttpCacheResponder
 
 Automatically adds Last-Modified headers to API requests. This
