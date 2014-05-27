@@ -1,4 +1,4 @@
-## Unreleased
+## 1.1.0
 
 * Support Rails 4.1.
 * Allow callable objects as the location.
