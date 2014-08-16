@@ -1,5 +1,10 @@
 require 'action_controller/base'
 
+module ActionController
+  autoload :Responder, 'action_controller/responder'
+  autoload :RespondWith, 'action_controller/respond_with'
+end
+
 module Responders
   autoload :FlashResponder,      'responders/flash_responder'
   autoload :HttpCacheResponder,  'responders/http_cache_responder'
@@ -10,7 +15,7 @@ module Responders
 
   class Railtie < ::Rails::Railtie
     config.responders = ActiveSupport::OrderedOptions.new
-    config.responders.flash_keys = [ :notice, :alert ]
+    config.responders.flash_keys = [:notice, :alert]
     config.responders.namespace_lookup = false
 
     if config.respond_to?(:app_generators)
@@ -28,4 +33,8 @@ module Responders
       Responders::FlashResponder.namespace_lookup = app.config.responders.namespace_lookup
     end
   end
+end
+
+ActiveSupport.on_load(:action_controller) do
+  include ActionController::RespondWith
 end
