@@ -135,9 +135,14 @@ module ActionController #:nodoc:
       @options = options
       @action = options.delete(:action)
       @default_response = options.delete(:default_response)
+
+      if options[:location].respond_to?(:call)
+        location = options.delete(:location)
+        options[:location] = location.call unless has_errors?
+      end
     end
 
-    delegate :head, :render, :redirect_to,   :to => :controller
+    delegate :head, :render, :redirect_to, :to => :controller
     delegate :get?, :post?, :patch?, :put?, :delete?, :to => :request
 
     # Undefine :to_json and :to_yaml since it's defined on Object

@@ -4,8 +4,6 @@ rvm:
   - 2.0.0
   - 2.1.1
 gemfile:
-  - gemfiles/Gemfile-rails.3.2.x
-  - gemfiles/Gemfile-rails.4.0.x
   - Gemfile
 notifications:
   email: false
