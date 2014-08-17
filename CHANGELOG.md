@@ -1,3 +1,9 @@
+## 2.0.0
+
+* Import `respond_with` and class-level `respond_to` from Rails
+* Support only Rails ~> 4.2
+* `Responders::LocationResponder` is now included by in the default responder (and therefore deprecated)
+
 ## 1.1.0
 
 * Support Rails 4.1.
