@@ -1,5 +1,9 @@
 ## 1.1.0
 
+* Lock Rails requirement to < 4.2.
+
+## 1.1.0
+
 * Support Rails 4.1.
 * Allow callable objects as the location.
 

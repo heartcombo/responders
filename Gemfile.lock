@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    responders (1.1.0)
-      railties (>= 3.2, < 5)
+    responders (1.1.1)
+      railties (>= 3.2, < 4.2)
 
 GEM
   remote: https://rubygems.org/
