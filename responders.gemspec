@@ -19,5 +19,5 @@ Gem::Specification.new do |s|
   s.test_files    = Dir["test/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "railties", ">= 3.2", "< 5"
+  s.add_dependency "railties", ">= 3.2", "< 4.2"
 end
