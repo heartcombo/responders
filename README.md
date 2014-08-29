@@ -60,7 +60,7 @@ You can also have embedded HTML. Just create a `_html` scope.
 
 See also the `namespace_lookup` option to search the full hierarchy of possible keys.
 
-### Location Responder
+### LocationResponder
 
 This responder allows you to use callable objects as the redirect location.
 Useful when you want to use the `respond_with` method with
