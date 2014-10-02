@@ -34,7 +34,7 @@ module Responders
 
     def do_http_cache?
       get? && @http_cache != false && ActionController::Base.perform_caching &&
-        persisted? && resourceful? && resource.respond_to?(:updated_at)
+        persisted? && resource.respond_to?(:updated_at)
     end
 
     def persisted?

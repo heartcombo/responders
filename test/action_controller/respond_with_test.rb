@@ -4,8 +4,6 @@ class Customer < Struct.new(:name, :id)
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  undef_method :to_json
-
   def to_xml(options={})
     if options[:builder]
       options[:builder].name name
@@ -201,9 +199,9 @@ class RespondWithControllerTest < ActionController::TestCase
     assert_equal "<name>david</name>", @response.body
 
     @request.accept = "application/json"
-    assert_raise ActionView::MissingTemplate do
-      get :using_resource
-    end
+    get :using_resource
+    assert_equal "application/json", @response.content_type
+    assert_equal "{\"name\":\"david\",\"id\":13}", @response.body
   end
 
   def test_using_resource_with_js_simply_tries_to_render_the_template
