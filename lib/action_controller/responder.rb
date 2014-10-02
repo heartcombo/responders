@@ -187,8 +187,8 @@ module ActionController #:nodoc:
       else
         display_errors
       end
-    rescue ActionView::MissingTemplate => e
-      api_behavior(e)
+    rescue ActionView::MissingTemplate
+      api_behavior
     end
 
   protected
@@ -205,8 +205,7 @@ module ActionController #:nodoc:
     end
 
     # This is the common behavior for formats associated with APIs, such as :xml and :json.
-    def api_behavior(error)
-      raise error unless resourceful?
+    def api_behavior
       raise MissingRenderer.new(format) unless has_renderer?
 
       if get?
@@ -216,12 +215,6 @@ module ActionController #:nodoc:
       else
         head :no_content
       end
-    end
-
-    # Checks whether the resource responds to the current format or not.
-    #
-    def resourceful?
-      resource.respond_to?("to_#{format}")
     end
 
     # Returns the resource location by retrieving it from the options or
