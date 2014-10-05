@@ -72,7 +72,7 @@ class ThingsController < ApplicationController
   respond_to :html
 
   def create
-    @thing = Things.create(params[:thing])
+    @thing = Thing.create(params[:thing])
     respond_with @thing, location: -> { thing_path(@thing) }
   end
 end
