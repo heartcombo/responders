@@ -1,4 +1,4 @@
-require 'action_controller/base'
+require 'action_controller'
 
 module ActionController
   autoload :Responder, 'action_controller/responder'
