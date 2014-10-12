@@ -1,4 +1,4 @@
-require 'action_controller/base'
+require 'action_controller'
 
 module Responders
   autoload :FlashResponder,      'responders/flash_responder'
