@@ -1,4 +1,5 @@
 require 'action_controller'
+require 'rails/railtie'
 
 module ActionController
   autoload :Responder, 'action_controller/responder'
