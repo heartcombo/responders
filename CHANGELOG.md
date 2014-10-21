@@ -1,3 +1,9 @@
+## 2.0.1
+
+* Require "rails/railtie" explicitly before using it
+* Require "action_controller" explicitly before using it
+* Remove unecessary and limitting `resourceful?` check that required models to implement `to_#{format}` (such checks are responsibility of the rendering layer)
+
 ## 2.0.0
 
 * Import `respond_with` and class-level `respond_to` from Rails
