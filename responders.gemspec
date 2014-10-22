@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "responders"
 
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
-  s.test_files    = Dir["test/**/*"]
   s.require_paths = ["lib"]
 
   s.add_dependency "railties", ">= 4.2.0.alpha", "< 5"
