@@ -2,6 +2,8 @@
 class <%= controller_class_name %>Controller < ApplicationController
   <%= controller_before_filter %> :set_<%= file_name %>, only: [:show, :edit, :update, :destroy]
 
+  respond_to :html
+
 <% unless options[:singleton] -%>
   def index
     @<%= table_name %> = <%= orm_class.all(class_name) %>
