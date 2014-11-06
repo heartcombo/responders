@@ -7,17 +7,14 @@ class <%= controller_class_name %>Controller < ApplicationController
 <% unless options[:singleton] -%>
   def index
     @<%= table_name %> = <%= orm_class.all(class_name) %>
-    respond_with(@<%= table_name %>)
   end
 <% end -%>
 
   def show
-    respond_with(@<%= file_name %>)
   end
 
   def new
     @<%= file_name %> = <%= orm_class.build(class_name) %>
-    respond_with(@<%= file_name %>)
   end
 
   def edit
