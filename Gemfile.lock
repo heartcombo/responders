@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    responders (1.1.1)
+    responders (1.1.2)
       railties (>= 3.2, < 4.2)
 
 GEM

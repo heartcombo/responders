@@ -1,4 +1,10 @@
-## 1.1.0
+## 1.1.2
+
+* Improve support for namespaced models on the scaffold generator.
+* Add default `respond_to` in scaffold template.
+* Fix require of Action Controller.
+
+## 1.1.1
 
 * Lock Rails requirement to < 4.2.
 
