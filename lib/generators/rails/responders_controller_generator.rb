@@ -15,32 +15,8 @@ module Rails
         end
       end
 
-      def orm_instance_update(params)
-        if orm_instance.respond_to?(:update)
-          orm_instance.update params
-        else
-          orm_instance.update_attributes params
-        end
-      end
-
-      def controller_before_filter
-        if ActionController::Base.respond_to?(:before_action)
-          "before_action"
-        else
-          "before_filter"
-        end
-      end
-
       def attributes_params
-        if strong_parameters_defined?
-          "#{file_name}_params"
-        else
-          "params[:#{file_name}]"
-        end
-      end
-
-      def strong_parameters_defined?
-        defined?(ActionController::StrongParameters)
+        "#{singular_table_name}_params"
       end
     end
   end

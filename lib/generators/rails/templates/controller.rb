@@ -34,7 +34,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def update
-    <%= "flash[:notice] = '#{class_name} was successfully updated.' if " if flash? %>@<%= orm_instance_update(attributes_params) %>
+    <%= "flash[:notice] = '#{class_name} was successfully updated.' if " if flash? %>@<%= orm_instance.update(attributes_params) %>
     respond_with(@<%= singular_table_name %>)
   end
 
