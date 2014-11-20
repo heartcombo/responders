@@ -106,7 +106,7 @@ Responders only provides a set of modules, to use them, you have to create your 
 responder. This can be done inside the lib folder for example:
 
 ```ruby
-# lib/app_responder.rb
+# lib/application_responder.rb
 class AppResponder < ActionController::Responder
   include Responders::FlashResponder
   include Responders::HttpCacheResponder
