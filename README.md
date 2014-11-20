@@ -117,7 +117,7 @@ And then you need to configure your application to use it:
 
 ```ruby
 # app/controllers/application_controller.rb
-require "app_responder"
+require "application_responder"
 
 class ApplicationController < ActionController::Base
   self.responder = AppResponder
