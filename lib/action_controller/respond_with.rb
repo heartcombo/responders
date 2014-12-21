@@ -194,7 +194,7 @@ module ActionController #:nodoc:
       mimes = collect_mimes_from_class_level()
       collector = ActionController::MimeResponds::Collector.new(mimes, request.variant)
       block.call(collector) if block_given?
-      
+
       if format = collector.negotiate_format(request)
         _process_format(format)
         options = resources.size == 1 ? {} : resources.extract_options!

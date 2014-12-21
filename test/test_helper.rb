@@ -32,6 +32,8 @@ class ApplicationController < ActionController::Base
 end
 
 class ActiveSupport::TestCase
+  self.test_order = :random
+
   setup do
     @routes = Responders::Routes
   end
