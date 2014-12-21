@@ -66,9 +66,11 @@ This responder allows you to use callable objects as the redirect location.
 Useful when you want to use the `respond_with` method with
 a custom route that requires persisted objects, but the validation may fail.
 
+Note: this responder is included by default, and doesn't need to be included on the top of your controller:
+
 ```ruby
 class ThingsController < ApplicationController
-  responders :location, :flash
+  responders :flash
   respond_to :html
 
   def create
