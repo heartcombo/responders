@@ -18,6 +18,14 @@ end
         RUBY
       end
 
+      def update_application
+        inject_into_class "config/application.rb", "Application", <<-RUBY
+    # Use the responders controller from the responders gem
+    config.app_generators.scaffold_controller :responders_controller
+
+        RUBY
+      end
+
       def update_application_controller
         prepend_file "app/controllers/application_controller.rb", %{require "application_responder"\n\n}
         inject_into_class "app/controllers/application_controller.rb", "ApplicationController", <<-RUBY

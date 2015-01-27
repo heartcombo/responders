@@ -4,7 +4,18 @@
 [![Build Status](https://api.travis-ci.org/plataformatec/responders.png?branch=master)](http://travis-ci.org/plataformatec/responders)
 [![Code Climate](https://codeclimate.com/github/plataformatec/responders.png)](https://codeclimate.com/github/plataformatec/responders)
 
-A set of responders modules to dry up your Rails 3.2+ app.
+A set of responders modules to dry up your Rails 4.2+ app.
+
+## Installation
+
+Add the responders gem to your Gemfile:
+
+    gem "responders"
+
+Update your bundle and run the install generator:
+
+    $ bundle install
+    $ rails g responders:install
 
 ## Responders Types
 
@@ -92,20 +103,9 @@ end
 
 ## Configuring your own responder
 
-The first step is to install the responders gem and configure it in your application:
-
-```console
-gem install responders
-```
-
-In your Gemfile, add this line:
-
-```ruby
-gem 'responders'
-```
-
-Responders only provides a set of modules, to use them, you have to create your own
-responder. This can be done inside the lib folder for example:
+Responders only provides a set of modules and to use them you have to create your own
+responder. After you run the install command, the following responder will be
+generated in your application:
 
 ```ruby
 # lib/application_responder.rb
@@ -115,7 +115,7 @@ class AppResponder < ActionController::Responder
 end
 ```
 
-And then you need to configure your application to use it:
+Your application also needs to be configured to use it:
 
 ```ruby
 # app/controllers/application_controller.rb
@@ -125,12 +125,6 @@ class ApplicationController < ActionController::Base
   self.responder = AppResponder
   respond_to :html
 end
-```
-
-Or, for your convenience, just do:
-
-```console
-rails generate responders:install
 ```
 
 ## Controller method
@@ -170,17 +164,14 @@ Now you would see the message "bob@bob.com was successfully created" instead of 
 ## Generator
 
 This gem also includes a responders controller generator, so your scaffold can be customized
-to use `respond_with` instead of default `respond_to` blocks. Installing this gem automatically
-sets the generator.
+to use `respond_with` instead of default `respond_to` blocks. From 2.1, you need to explicitly opt-in to use this generator by adding the following to your `config/application.rb`:
 
-To use default rails scaffold_controller add `config.app_generators.scaffold_controller :scaffold_controller`
-to `config/application.rb`.
+    config.app_generators.scaffold_controller :responders_controller
 
 ## Examples
 
 Want more examples ? Check out this blog posts:
 
-* [One in Three: Inherited Resources, Has Scope and Responders](http://blog.plataformatec.com.br/2009/12/one-in-three-inherited-resources-has-scope-and-responders/)
 * [Embracing REST with mind, body and soul](http://blog.plataformatec.com.br/2009/08/embracing-rest-with-mind-body-and-soul/)
 * [Three reasons to love ActionController::Responder](http://weblog.rubyonrails.org/2009/8/31/three-reasons-love-responder/)
 * [My five favorite things about Rails 3](http://www.engineyard.com/blog/2009/my-five-favorite-things-about-rails-3/)
