@@ -17,6 +17,10 @@ Update your bundle and run the install generator:
     $ bundle install
     $ rails g responders:install
 
+If you are including this gem to support backwards compatibilty for responders in previous releases of Rails, you only need to include the gem and bundle. 
+
+    $ bundle install
+
 ## Responders Types
 
 ### FlashResponder
