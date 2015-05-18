@@ -175,7 +175,9 @@ module ActionController #:nodoc:
     # Also, a hash passed to +respond_with+ immediately after the specified
     # resource(s) is interpreted as a set of options relevant to all
     # formats. Any option accepted by +render+ can be used, e.g.
+    #
     #   respond_with @people, status: 200
+    #
     # However, note that these options are ignored after an unsuccessful attempt
     # to save a resource, e.g. when automatically rendering <tt>:new</tt>
     # after a post request.
