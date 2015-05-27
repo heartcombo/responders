@@ -34,4 +34,6 @@ module Responders
   end
 end
 
-ActionController::Base.extend Responders::ControllerMethod
+ActiveSupport.on_load(:action_controller) do
+  ActionController::Base.extend Responders::ControllerMethod
+end
