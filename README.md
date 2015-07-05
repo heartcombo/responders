@@ -105,6 +105,22 @@ class ThingsController < ApplicationController
 end
 ```
 
+**Dealing with namespaced routes**
+
+In order for the LocationResponder to find the correct route helper for namespaced routes you need to pass the namespaces to `respond_with`:
+
+```ruby
+class Api::V1::ThingsController < ApplicationController
+  respond_to :json
+
+  # POST /api/v1/things
+  def create
+    @thing = Thing.create(thing_params)
+    respond_with :api, :v1, @thing
+  end
+end
+```
+
 ## Configuring your own responder
 
 Responders only provides a set of modules and to use them you have to create your own
