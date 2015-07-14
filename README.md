@@ -113,7 +113,7 @@ generated in your application:
 
 ```ruby
 # lib/application_responder.rb
-class AppResponder < ActionController::Responder
+class ApplicationResponder < ActionController::Responder
   include Responders::FlashResponder
   include Responders::HttpCacheResponder
 end
@@ -126,7 +126,7 @@ Your application also needs to be configured to use it:
 require "application_responder"
 
 class ApplicationController < ActionController::Base
-  self.responder = AppResponder
+  self.responder = ApplicationResponder
   respond_to :html
 end
 ```
