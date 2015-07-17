@@ -233,7 +233,7 @@ module ActionController #:nodoc:
       if @default_response
         @default_response.call(options)
       else
-        controller.default_render(options)
+        controller.render(options)
       end
     end
 
