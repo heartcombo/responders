@@ -52,7 +52,7 @@ end
 
 class RespondWithController < ApplicationController
   class CustomerWithJson < Customer
-    def to_json; super; end
+    def to_json(*); super; end
   end
 
   respond_to :html, :json, :touch
@@ -69,13 +69,13 @@ class RespondWithController < ApplicationController
 
   def using_resource_with_block
     respond_with(resource) do |format|
-      format.csv { render :text => "CSV" }
+      format.csv { render :body => "CSV" }
     end
   end
 
   def using_resource_with_overwrite_block
     respond_with(resource) do |format|
-      format.html { render :text => "HTML" }
+      format.html { render :body => "HTML" }
     end
   end
 
@@ -105,7 +105,7 @@ class RespondWithController < ApplicationController
   end
 
   def using_resource_with_responder
-    responder = proc { |c, r, o| c.render :text => "Resource name is #{r.first.name}" }
+    responder = proc { |c, r, o| c.render :body => "Resource name is #{r.first.name}" }
     respond_with(resource, :responder => responder)
   end
 
@@ -117,7 +117,7 @@ class RespondWithController < ApplicationController
 
   def using_responder_with_respond
     responder = Class.new(ActionController::Responder) do
-      def respond; @controller.render :text => "respond #{format}"; end
+      def respond; @controller.render :body => "respond #{format}"; end
     end
     respond_with(resource, :responder => responder)
   end
@@ -145,7 +145,7 @@ class InheritedRespondWithController < RespondWithController
 
   def index
     respond_with(resource) do |format|
-      format.json { render :text => "JSON" }
+      format.json { render :body => "JSON" }
     end
   end
 end
@@ -408,7 +408,6 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_for_put_with_xml_yields_no_content_on_success
     @request.accept = "application/xml"
     put :using_resource
-    assert_equal "application/xml", @response.content_type
     assert_equal 204, @response.status
     assert_equal "", @response.body
   end
@@ -416,7 +415,6 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_for_put_with_json_yields_no_content_on_success
     @request.accept = "application/json"
     put :using_resource_with_json
-    assert_equal "application/json", @response.content_type
     assert_equal 204, @response.status
     assert_equal "", @response.body
   end
@@ -458,7 +456,6 @@ class RespondWithControllerTest < ActionController::TestCase
     Customer.any_instance.stubs(:destroyed?).returns(true)
     @request.accept = "application/xml"
     delete :using_resource
-    assert_equal "application/xml", @response.content_type
     assert_equal 204, @response.status
     assert_equal "", @response.body
   end
@@ -467,7 +464,6 @@ class RespondWithControllerTest < ActionController::TestCase
     Customer.any_instance.stubs(:destroyed?).returns(true)
     @request.accept = "application/json"
     delete :using_resource_with_json
-    assert_equal "application/json", @response.content_type
     assert_equal 204, @response.status
     assert_equal "", @response.body
   end
@@ -640,7 +636,7 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_using_resource_with_set_responder
-    RespondWithController.responder = proc { |c, r, o| c.render :text => "Resource name is #{r.first.name}" }
+    RespondWithController.responder = proc { |c, r, o| c.render :body => "Resource name is #{r.first.name}" }
     get :using_resource
     assert_equal "Resource name is david", @response.body
   ensure
@@ -679,7 +675,12 @@ end
 
 class LocationsController < ApplicationController
   respond_to :html
-  before_filter :set_resource
+  # TODO: Remove this when we drop support for Rails 4.2.
+  if respond_to?(:before_action)
+    before_action :set_resource
+  else
+    before_filter :set_resource
+  end
 
   def create
     respond_with @resource, location: -> { 'given_location' }
@@ -704,7 +705,7 @@ class LocationResponderTest < ActionController::TestCase
   end
 
   def test_renders_page_on_fail
-    post :create, fail: true
+    post :create, params: { fail: true }
     assert @response.body.include?('new.html.erb')
   end
 
