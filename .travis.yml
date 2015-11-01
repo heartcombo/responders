@@ -8,8 +8,7 @@ gemfile:
   - Gemfile
 notifications:
   email: false
-  campfire:
+  slack:
     on_success: change
     on_failure: always
-    rooms:
-      - secure: "OjKNotUAyQ+Hcv3NH8kbeE8/oCC+TtHZ7NCCXQ+m9ZpgapXjVhKdxCDEhd8z\nmbYlndGtoTI3DpVHtJuuuBM0JrKdRU+EXf3EmmlNXhQDr9xg6VO6GrlY9n3S\nQhO2AThRF4LpiE3g2Bpr4gq+lGrRPf5maN7Wt1WCpoaibi6FScM="
+    secure: Qr9/3LRW22qAoJ/9mynVKiI1p/AVIdW4GqcaymMjC6KH46EUwtbB4DxBa3K+gfBYOcfDKDe0vt3TUL/FMCgchqHum5QaNrAfSLj6k363sZqqW+dEuEMJO2e+QsIQUexBnDDQIJNSnr5DqoQ5+npZ8YwzWeAp8nRUs5uYI/RlXXo=
