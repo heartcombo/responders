@@ -1,3 +1,7 @@
+## 2.1.1
+
+* Added support for Rails 5.
+
 ## 2.1.0
 
 * No longer automatically set the responders generator as many projects may use this gem as a dependency. When upgrading, users will need to add `config.app_generators.scaffold_controller :responders_controller` to their application. The `responders:install` generator has been updated to automatically insert it in new applications

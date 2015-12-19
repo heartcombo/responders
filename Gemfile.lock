@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    responders (2.1.0)
+    responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
 
 GEM
@@ -36,12 +36,12 @@ GEM
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     metaclass (0.0.4)
-    mini_portile (0.6.2)
+    mini_portile2 (2.0.0)
     minitest (5.5.1)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.7.1)
+      mini_portile2 (~> 2.0.0.rc2)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
