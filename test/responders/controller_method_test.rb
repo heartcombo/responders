@@ -29,7 +29,7 @@ class PeopleController < ApplicationController
   def index
     @array = []
     respond_with(@array) do |format|
-      format.html { render :text => "Success!" }
+      format.html { render :body => "Success!" }
     end
   end
 end

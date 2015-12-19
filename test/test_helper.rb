@@ -39,6 +39,33 @@ class ActiveSupport::TestCase
   end
 end
 
+if ActionPack::VERSION::STRING >= '5.0.0'
+  require 'rails-controller-testing'
+else
+  # TODO: Remove this compatibility monkeypatch when we drop support for Rails 4.2.
+  class ActionController::TestCase
+    def post(action, options = {})
+      params = options.delete(:params) || {}
+      super(action, params.merge(options))
+    end
+
+    def put(action, options = {})
+      params = options.delete(:params) || {}
+      super(action, params.merge(options))
+    end
+
+    def delete(action, options = {})
+      params = options.delete(:params) || {}
+      super(action, params.merge(options))
+    end
+
+    def get(action, options = {})
+      params = options.delete(:params) || {}
+      super(action, params.merge(options))
+    end
+  end
+end
+
 module ActionDispatch
   class Flash
     class FlashHash

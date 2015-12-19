@@ -7,10 +7,13 @@ end
 class HttpCacheController < ApplicationController
   self.responder = HttpCacheResponder
 
+  HTTP_CACHE_PARAM_VALUES = { 'false' => false }
+
   def single
-    options = params.slice(:http_cache)
+    http_cache = HTTP_CACHE_PARAM_VALUES[params[:http_cache].to_s]
+
     response.last_modified = Time.utc(2008) if params[:last_modified]
-    respond_with(Address.new(Time.utc(2009)), options)
+    respond_with(Address.new(Time.utc(2009)), :http_cache => http_cache)
   end
 
   def nested
@@ -75,14 +78,14 @@ class HttpCacheResponderTest < ActionController::TestCase
   end
 
   def test_does_not_set_cache_if_http_cache_is_false
-    get :single, :http_cache => false
+    get :single, :params => { :http_cache => false }
     assert_nil @response.headers["Last-Modified"]
     assert_equal 200, @response.status
   end
 
   def test_does_not_use_cache_if_http_cache_is_false
     @request.env["HTTP_IF_MODIFIED_SINCE"] = Time.utc(2009, 6).httpdate
-    get :single, :http_cache => false
+    get :single, :params => { :http_cache => false }
     assert_equal 200, @response.status
   end
 
