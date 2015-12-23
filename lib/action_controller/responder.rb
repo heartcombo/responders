@@ -182,7 +182,9 @@ module ActionController #:nodoc:
     # responds to :to_format and display it.
     #
     def to_format
-      if get? || !has_errors? || response_overridden?
+      if ActionPack::VERSION::MAJOR >= 5 && controller.is_a?(ActionController::API)
+        api_behavior
+      elsif get? || !has_errors? || response_overridden?
         default_render
       else
         display_errors
