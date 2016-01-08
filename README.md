@@ -188,6 +188,34 @@ to use `respond_with` instead of default `respond_to` blocks. From 2.1, you need
 
     config.app_generators.scaffold_controller :responders_controller
 
+#Failure handling
+
+Responders don't use `valid?` to check for errors in models to figure out if
+the request was successfull or not, and relies on your controllers to call
+`save` or `create` to trigger the validations.
+
+```ruby
+def create
+  @widget = Widget.new(widget_params)
+  # @widget will be a valid record for responders, as we haven't called `save`
+  # on it, and will always redirect to the `widgets_path`.
+  respond_with @widget, location: -> { widgets_path }
+end
+```
+
+Responders will check if the `errors` object in your model is empty or not. Take
+this in consideration when implementing different actions or writing test
+assertions on this behavior for your controllers.
+
+```ruby
+def create
+  @widget = Widget.new(widget_params)
+  @widget.errors.add(:base, :invalid)
+  # `respond_with` will render the `new` template again.
+  respond_with @widget
+end
+```
+
 ## Examples
 
 Want more examples ? Check out this blog posts:
