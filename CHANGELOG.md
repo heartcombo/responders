@@ -1,3 +1,10 @@
+## HEAD
+
+* Added the `verify_request_format!` method, that can be used as a `before_action`
+  callback to prevent your actions from being invoked when the controller does
+  not respond to the request mime type, preventing the execution of complex
+  queries or creating/deleting records from your app.
+
 ## 2.1.2
 
 * Fix rendering when using `ActionController::API`. (by @eLod)

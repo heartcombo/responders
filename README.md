@@ -17,7 +17,7 @@ Update your bundle and run the install generator:
     $ bundle install
     $ rails g responders:install
 
-If you are including this gem to support backwards compatibilty for responders in previous releases of Rails, you only need to include the gem and bundle. 
+If you are including this gem to support backwards compatibilty for responders in previous releases of Rails, you only need to include the gem and bundle.
 
     $ bundle install
 
@@ -188,7 +188,7 @@ to use `respond_with` instead of default `respond_to` blocks. From 2.1, you need
 
     config.app_generators.scaffold_controller :responders_controller
 
-#Failure handling
+## Failure handling
 
 Responders don't use `valid?` to check for errors in models to figure out if
 the request was successfull or not, and relies on your controllers to call
@@ -214,6 +214,29 @@ def create
   # `respond_with` will render the `new` template again.
   respond_with @widget
 end
+```
+
+## Verifying request formats
+
+`respond_with` will raise an `ActionController::UnknownFormat` if the request
+mime type was not configured through the class level `respond_to`, but the
+action will still be executed and any side effects (like creating a new record)
+will still occur. To raise the `UnknownFormat` exception before your action
+is invoked you can set the `verify_request_format!` method as a `before_action`
+on your controller.
+
+```ruby
+class WidgetsController < ApplicationController
+  respond_to :json
+  before_action :verify_request_format!
+
+  # POST /widgets.html won't reach the `create` action.
+  def create
+    widget = Widget.create(widget_params)
+    respond_with widget
+  end
+end
+
 ```
 
 ## Examples
