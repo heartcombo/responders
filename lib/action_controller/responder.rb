@@ -182,10 +182,12 @@ module ActionController #:nodoc:
     # responds to :to_format and display it.
     #
     def to_format
-      if get? || !has_errors? || response_overridden?
+      if !get? && has_errors? && !response_overridden?
+        display_errors
+      elsif has_view_rendering? || response_overridden?
         default_render
       else
-        display_errors
+        api_behavior
       end
     rescue ActionView::MissingTemplate
       api_behavior
@@ -271,6 +273,10 @@ module ActionController #:nodoc:
     # Check whether the necessary Renderer is available
     def has_renderer?
       Renderers::RENDERERS.include?(format)
+    end
+
+    def has_view_rendering?
+      controller.class.include? ActionView::Rendering
     end
 
     # By default, render the <code>:edit</code> action for HTML requests with errors, unless
