@@ -1,54 +1,5 @@
 require 'test_helper'
-
-class Customer < Struct.new(:name, :id)
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
-
-  def to_xml(options={})
-    if options[:builder]
-      options[:builder].name name
-    else
-      "<name>#{name}</name>"
-    end
-  end
-
-  def to_js(options={})
-    "name: #{name.inspect}"
-  end
-  alias :to_text :to_js
-
-  def errors
-    []
-  end
-
-  def persisted?
-    id.present?
-  end
-end
-
-class ValidatedCustomer < Customer
-  def errors
-    if name =~ /Sikachu/i
-      []
-    else
-      [{:name => "is invalid"}]
-    end
-  end
-end
-
-module Quiz
-  class Question < Struct.new(:name, :id)
-    extend ActiveModel::Naming
-    include ActiveModel::Conversion
-
-    def persisted?
-      id.present?
-    end
-  end
-
-  class Store < Question
-  end
-end
+require 'support/models'
 
 class RespondWithController < ApplicationController
   class CustomerWithJson < Customer
@@ -163,21 +114,6 @@ class CsvRespondWithController < ApplicationController
     respond_with(RespondWithCsv.new)
   end
 end
-
-class ApiRespondWithController < ActionController::API
-  respond_to :json
-
-  def index
-    respond_with [
-      Customer.new('Foo', 1),
-      Customer.new('Bar', 2),
-    ]
-  end
-
-  def create
-    respond_with Customer.new('Foo', 1), location: 'http://test.host/'
-  end
-end if ActionPack::VERSION::MAJOR >= 5
 
 class EmptyRespondWithController < ApplicationController
   clear_respond_to
@@ -672,28 +608,6 @@ class RespondWithControllerTest < ActionController::TestCase
       get :index
     end
   end
-
-  def test_api_controller_without_view_rendering
-    @controller = ApiRespondWithController.new
-    @request.accept = 'application/json'
-
-    get :index
-    assert_equal 200, @response.status
-    expected = [{name: 'Foo', id: 1}, {name: 'Bar', id: 2}]
-    assert_equal expected.to_json, @response.body
-
-    post :create
-    assert_equal 201, @response.status
-    expected = {name: 'Foo', id: 1}
-    assert_equal expected.to_json, @response.body
-
-    errors = {name: ['invalid']}
-    Customer.any_instance.stubs(:errors).returns(errors)
-    post :create
-    assert_equal 422, @response.status
-    expected = {errors: errors}
-    assert_equal expected.to_json, @response.body
-  end if ActionPack::VERSION::MAJOR >= 5
 
   private
     def with_test_route_set
