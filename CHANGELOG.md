@@ -1,3 +1,8 @@
+## 2.1.2
+
+* Fix rendering when using `ActionController::API`. (by @eLod)
+* Added API controller template for the controller generator. (by @vestimir)
+
 ## 2.1.1
 
 * Added support for Rails 5.
