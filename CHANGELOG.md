@@ -1,4 +1,4 @@
-## HEAD
+## 2.2.0
 
 * Added the `verify_request_format!` method, that can be used as a `before_action`
   callback to prevent your actions from being invoked when the controller does
