@@ -40,14 +40,14 @@ module ActionController #:nodoc:
         only_actions   = Array(options.delete(:only)).map(&:to_s)
         except_actions = Array(options.delete(:except)).map(&:to_s)
 
-        new = mimes_for_respond_to.dup
+        hash = mimes_for_respond_to.dup
         mimes.each do |mime|
           mime = mime.to_sym
-          new[mime]          = {}
-          new[mime][:only]   = only_actions   unless only_actions.empty?
-          new[mime][:except] = except_actions unless except_actions.empty?
+          hash[mime]          = {}
+          hash[mime][:only]   = only_actions   unless only_actions.empty?
+          hash[mime][:except] = except_actions unless except_actions.empty?
         end
-        self.mimes_for_respond_to = new.freeze
+        self.mimes_for_respond_to = hash.freeze
       end
 
       # Clear all mime types in <tt>respond_to</tt>.
@@ -193,7 +193,7 @@ module ActionController #:nodoc:
           "formats your controller responds to in the class level."
       end
 
-      mimes = collect_mimes_from_class_level()
+      mimes = collect_mimes_from_class_level
       collector = ActionController::MimeResponds::Collector.new(mimes, request.variant)
       block.call(collector) if block_given?
 
@@ -208,7 +208,24 @@ module ActionController #:nodoc:
       end
     end
 
-  protected
+    protected
+
+    # Before action callback that can be used to prevent requests that do not
+    # match the mime types defined through <tt>respond_to</tt> from being executed.
+    #
+    #   class PeopleController < ApplicationController
+    #     respond_to :html, :xml, :json
+    #
+    #     before_action :verify_request_format!
+    #   end
+    def verify_request_format!
+      mimes = collect_mimes_from_class_level
+      collector = ActionController::MimeResponds::Collector.new(mimes, request.variant)
+
+      unless collector.negotiate_format(request)
+        raise ActionController::UnknownFormat
+      end
+    end
 
     # Collect mimes declared in the class method respond_to valid for the
     # current action.
