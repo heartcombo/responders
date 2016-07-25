@@ -6,7 +6,7 @@ class ThingsController < ApplicationController
   respond_to :js
   respond_to :html, :only => [:show, :new]
 
-  before_action :verify_request_format!
+  before_action :verify_requested_format!
 
   attr_reader :called
 
@@ -20,7 +20,7 @@ class ThingsController < ApplicationController
   alias :new :action
 end
 
-class VerifyRequestFormatTest < ActionController::TestCase
+class VerifyRequestedFormatTest < ActionController::TestCase
   tests ThingsController
 
   def test_strict_mode_shouldnt_call_action

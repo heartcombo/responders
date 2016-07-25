@@ -1,3 +1,7 @@
+## Unreleased
+
+* `verify_request_format!` is aliased to `verify_requested_format!` now.
+
 ## 2.2.0
 
 * Added the `verify_request_format!` method, that can be used as a `before_action`

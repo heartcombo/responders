@@ -222,13 +222,13 @@ end
 mime type was not configured through the class level `respond_to`, but the
 action will still be executed and any side effects (like creating a new record)
 will still occur. To raise the `UnknownFormat` exception before your action
-is invoked you can set the `verify_request_format!` method as a `before_action`
+is invoked you can set the `verify_requested_format!` method as a `before_action`
 on your controller.
 
 ```ruby
 class WidgetsController < ApplicationController
   respond_to :json
-  before_action :verify_request_format!
+  before_action :verify_requested_format!
 
   # POST /widgets.html won't reach the `create` action.
   def create

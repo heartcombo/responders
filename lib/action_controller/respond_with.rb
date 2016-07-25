@@ -216,9 +216,9 @@ module ActionController #:nodoc:
     #   class PeopleController < ApplicationController
     #     respond_to :html, :xml, :json
     #
-    #     before_action :verify_request_format!
+    #     before_action :verify_requested_format!
     #   end
-    def verify_request_format!
+    def verify_requested_format!
       mimes = collect_mimes_from_class_level
       collector = ActionController::MimeResponds::Collector.new(mimes, request.variant)
 
@@ -226,6 +226,8 @@ module ActionController #:nodoc:
         raise ActionController::UnknownFormat
       end
     end
+
+    alias :verify_request_format! :verify_requested_format!
 
     # Collect mimes declared in the class method respond_to valid for the
     # current action.
