@@ -147,12 +147,6 @@ module Responders
     end
 
     def mount_i18n_options(status) #:nodoc:
-      resource_name = if resource.class.respond_to?(:model_name)
-        resource.class.model_name.human
-      else
-        resource.class.name.underscore.humanize
-      end
-
       options = {
         :default => flash_defaults_by_namespace(status),
         :resource_name => resource_name,
@@ -164,6 +158,14 @@ module Responders
       end
 
       options
+    end
+
+    def resource_name
+      if resource.class.respond_to?(:model_name)
+        resource.class.model_name.human
+      else
+        resource.class.name.underscore.humanize
+      end
     end
 
     def flash_defaults_by_namespace(status) #:nodoc:
