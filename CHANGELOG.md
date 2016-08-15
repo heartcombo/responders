@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 2.3.0
+
 * `verify_request_format!` is aliased to `verify_requested_format!` now.
 * Implementing the `interpolation_options` method on your controller is deprecated
   in favor of naming it `flash_interpolation_options` instead.
