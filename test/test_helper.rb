@@ -43,6 +43,9 @@ end
 
 if ActionPack::VERSION::STRING >= '5.0.0'
   require 'rails-controller-testing'
+
+  ActionController::TestCase.include Rails::Controller::Testing::TestProcess
+  ActionController::TestCase.include Rails::Controller::Testing::TemplateAssertions
 else
   # TODO: Remove this compatibility monkeypatch when we drop support for Rails 4.2.
   class ActionController::TestCase
