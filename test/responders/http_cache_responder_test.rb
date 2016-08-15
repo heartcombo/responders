@@ -98,14 +98,14 @@ class HttpCacheResponderTest < ActionController::TestCase
   def test_works_for_nested_resources
     get :nested
     assert_equal Time.utc(2009).httpdate, @response.headers["Last-Modified"]
-    assert_match /xml/, @response.body
+    assert_match(/xml/, @response.body)
     assert_equal 200, @response.status
   end
 
   def test_work_with_an_empty_array
     get :empty
     assert_nil @response.headers["Last-Modified"]
-    assert_match /xml/, @response.body
+    assert_match(/xml/, @response.body)
     assert_equal 200, @response.status
   end
 

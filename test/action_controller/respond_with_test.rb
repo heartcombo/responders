@@ -617,7 +617,9 @@ class RespondWithControllerTest < ActionController::TestCase
           resources :quiz_stores do
             resources :customers
           end
-          get ":controller/:action"
+          ActiveSupport::Deprecation.silence do
+            get ':controller/:action'
+          end
         end
         yield
       end

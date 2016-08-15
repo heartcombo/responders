@@ -20,8 +20,10 @@ I18n.reload!
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
 Responders::Routes.draw do
   resources :news
-  get '/admin/:action', :controller => "admin/addresses"
-  get '/:controller(/:action(/:id))'
+  ActiveSupport::Deprecation.silence do
+    get '/admin/:action', controller: 'admin/addresses'
+    get '/:controller(/:action(/:id))'
+  end
 end
 
 class ApplicationController < ActionController::Base
