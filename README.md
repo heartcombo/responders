@@ -160,7 +160,7 @@ end
 
 ## Interpolation Options
 
-You can pass in extra interpolation options for the translation by adding an `interpolation_options` method to your controller:
+You can pass in extra interpolation options for the translation by adding an `flash_interpolation_options` method to your controller:
 
 ```ruby
 class InvitationsController < ApplicationController
@@ -173,7 +173,7 @@ class InvitationsController < ApplicationController
 
   private
 
-  def interpolation_options
+  def flash_interpolation_options
     { resource_name: @invitation.email }
   end
 end

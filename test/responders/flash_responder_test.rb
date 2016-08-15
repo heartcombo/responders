@@ -62,7 +62,7 @@ class AddressesController < ApplicationController
 
   protected
 
-  def interpolation_options
+  def flash_interpolation_options
     { :reference => 'Ocean Avenue', :xss => '<script>alert(1)</script>' }
   end
 

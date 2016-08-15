@@ -33,9 +33,9 @@ module Responders
   #         notice: "Hooray! You just tuned your %{car_brand}!"
   #
   # Since :car_name is not available for interpolation by default, you have
-  # to overwrite interpolation_options in your controller.
+  # to overwrite `flash_interpolation_options` in your controller.
   #
-  #   def interpolation_options
+  #   def flash_interpolation_options
   #     { :car_brand => @car.brand }
   #   end
   #
@@ -153,11 +153,21 @@ module Responders
         :downcase_resource_name => resource_name.downcase
       }
 
-      if controller.respond_to?(:interpolation_options, true)
-        options.merge!(controller.send(:interpolation_options))
+      controller_options = controller_interpolation_options
+      if controller_options
+        options.merge!(controller_options)
       end
 
       options
+    end
+
+    def controller_interpolation_options
+      if controller.respond_to?(:flash_interpolation_options, true)
+        controller.send(:flash_interpolation_options)
+      elsif controller.respond_to?(:interpolation_options, true)
+        ActiveSupport::Deprecation.warn("[responders] `#{controller.class}#interpolation_options` is deprecated, please rename it to `flash_interpolation_options`.")
+        controller.send(:interpolation_options)
+      end
     end
 
     def resource_name
