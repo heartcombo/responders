@@ -10,6 +10,7 @@ rvm:
 gemfile:
   - Gemfile
   - gemfiles/Gemfile-rails.5.0.x
+  - gemfiles/Gemfile-rails.4.2.x
 matrix:
   exclude:
   - rvm: 1.9.3
@@ -18,6 +19,12 @@ matrix:
     gemfile: gemfiles/Gemfile-rails.5.0.x
   - rvm: 2.1.5
     gemfile: gemfiles/Gemfile-rails.5.0.x
+  - rvm: 1.9.3
+    gemfile: Gemfile
+  - rvm: 2.0.0
+    gemfile: Gemfile
+  - rvm: 2.1.5
+    gemfile: Gemfile
 notifications:
   email: false
   slack:

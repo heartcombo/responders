@@ -2,5 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'activemodel', '4.2.1'
+gem 'activemodel'
 gem 'mocha'
+gem 'rails-controller-testing'
