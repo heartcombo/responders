@@ -70,8 +70,7 @@ module ActionDispatch
   class Flash
     class FlashHash
       def used_keys
-        # Rails 3 || Rails 4
-        @used || @discard
+        @discard
       end
     end
   end
