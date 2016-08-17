@@ -129,7 +129,8 @@ module ActionController #:nodoc:
     def initialize(controller, resources, options={})
       @controller = controller
       @request = @controller.request
-      @format = @controller.formats.first
+      
+      @format = @controller.formats.detect{|f| Renderers::RENDERERS.include?(f) } || @controller.formats.first
       @resource = resources.last
       @resources = resources
       @options = options

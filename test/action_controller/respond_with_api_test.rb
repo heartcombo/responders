@@ -40,5 +40,15 @@ if defined?(ActionController::API)
       expected = { errors: errors }
       assert_equal expected.to_json, @response.body
     end
+
+    def test_uses_backup_render_if_request_comes_in_with_multiple_accepts
+      @request.headers["ACCEPT"] = 'application/x-mpac,application/json; q=0.5'
+      get :index
+
+      assert_equal "application/json", @response.content_type
+      assert_equal 200, @response.status
+      expected = [{ name: 'Foo', id: 1 }, { name: 'Bar', id: 2 }]
+      assert_equal expected.to_json, @response.body
+    end
   end
 end

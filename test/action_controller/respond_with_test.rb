@@ -601,6 +601,16 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
+  def test_uses_backup_render_if_request_comes_in_with_multiple_accepts
+    @controller = InheritedRespondWithController.new
+    @request.headers["ACCEPT"] = 'application/x-mpac,application/json; q=0.5' 
+    get :index
+
+    assert_equal "application/json", @response.content_type
+    assert_equal 200, @response.status
+    assert_equal "JSON", response.body
+  end
+
   def test_error_is_raised_if_no_respond_to_is_declared_and_respond_with_is_called
     @controller = EmptyRespondWithController.new
     @request.accept = "*/*"
