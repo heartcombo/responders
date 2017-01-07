@@ -135,6 +135,7 @@ module ActionController #:nodoc:
       @options = options
       @action = options.delete(:action)
       @default_response = options.delete(:default_response)
+      @default_error_status = options.delete(:default_error_status) || :ok
 
       if options[:location].respond_to?(:call)
         location = options.delete(:location)
@@ -200,7 +201,7 @@ module ActionController #:nodoc:
       if get?
         raise error
       elsif has_errors? && default_action
-        render :action => default_action
+        render action: default_action, status: @default_error_status
       else
         redirect_to navigation_location
       end
