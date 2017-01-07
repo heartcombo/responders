@@ -66,6 +66,10 @@ class RespondWithController < ApplicationController
     end
   end
 
+  def using_resource_with_default_error_status
+    respond_with(resource, :default_error_status => :unprocessable_entity)
+  end
+
   def using_responder_with_respond
     responder = Class.new(ActionController::Responder) do
       def respond; @controller.render :body => "respond #{format}"; end
@@ -222,6 +226,16 @@ class RespondWithControllerTest < ActionController::TestCase
     @request.accept = "text/javascript"
     assert_raises(ActionController::UnknownFormat) do
       get :using_resource_with_overwrite_block
+    end
+  end
+
+  def test_using_default_error_status_yields_custom_status_on_failure
+    with_test_route_set do
+      errors = { :name => :invalid }
+      Customer.any_instance.stubs(:errors).returns(errors)
+      post :using_resource_with_default_error_status
+
+      assert_response :unprocessable_entity
     end
   end
 
