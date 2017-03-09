@@ -1,5 +1,11 @@
 ## Unreleased
 
+* `respond_with` now accepts a new kwargs called `:render` which goes straight to the `render`
+   call after an unsuccessful post request. Usefull if for example you need to render a template
+   which is outside of controller's path eg:
+
+   `respond_with resource, render: { template: 'path/to/template' }`
+
 ## 2.3.0
 
 * `verify_request_format!` is aliased to `verify_requested_format!` now.

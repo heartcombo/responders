@@ -66,6 +66,13 @@ class RespondWithController < ApplicationController
     end
   end
 
+  def using_resource_with_rendering_options
+    rendering_options = { template: 'addresses/edit', status: :unprocessable_entity }
+    respond_with(resource, render: rendering_options) do |format|
+      format.html { raise ActionView::MissingTemplate.new([], "bar", ["foo"], {}, false) }
+    end
+  end
+
   def using_responder_with_respond
     responder = Class.new(ActionController::Responder) do
       def respond; @controller.render :body => "respond #{format}"; end
@@ -480,6 +487,15 @@ class RespondWithControllerTest < ActionController::TestCase
 
     post :using_resource_with_action
     assert_equal "foo - #{[:html].to_s}", @controller.response.body
+  end
+
+  def test_using_resource_with_rendering_options
+    Customer.any_instance.stubs(:errors).returns(name: :invalid)
+
+    post :using_resource_with_rendering_options
+
+    assert_response :unprocessable_entity
+    assert_equal 'edit.html.erb', @controller.response.body
   end
 
   def test_respond_as_responder_entry_point

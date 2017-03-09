@@ -182,11 +182,17 @@ module ActionController #:nodoc:
     # to save a resource, e.g. when automatically rendering <tt>:new</tt>
     # after a post request.
     #
-    # Two additional options are relevant specifically to +respond_with+ -
+    # Three additional options are relevant specifically to +respond_with+ -
     # 1. <tt>:location</tt> - overwrites the default redirect location used after
     #    a successful html +post+ request.
     # 2. <tt>:action</tt> - overwrites the default render action used after an
     #    unsuccessful html +post+ request.
+    # 3. <tt>:render</tt> - allows to pass any options directly to the <tt>:render<tt/>
+    #    call after unsuccessful html +post+ request. Usefull if for example you
+    #    need to render a template which is outside of controller's path or you
+    #    want to override the default http <tt>:status</tt> code, e.g.
+    #
+    #    response_with(resource, render: { template: 'path/to/template', status: 422 })
     def respond_with(*resources, &block)
       if self.class.mimes_for_respond_to.empty?
         raise "In order to use respond_with, first you need to declare the " \
