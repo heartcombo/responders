@@ -1,4 +1,4 @@
-## Unreleased
+## 2.4.0
 
 * `respond_with` now accepts a new kwargs called `:render` which goes straight to the `render`
    call after an unsuccessful post request. Usefull if for example you need to render a template
