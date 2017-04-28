@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "railties", ">= 4.2.0", "< 5.3"
+  s.add_dependency "actionpack", ">= 4.2.0", "< 5.3"
 end

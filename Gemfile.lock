@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     responders (2.3.0)
+      actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
 
 GEM
@@ -77,4 +78,4 @@ DEPENDENCIES
   responders!
 
 BUNDLED WITH
-   1.13.7
+   1.14.6
