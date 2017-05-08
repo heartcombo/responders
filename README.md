@@ -239,6 +239,20 @@ end
 
 ```
 
+## Using with Devise
+
+When using responders with Devise, use the responders I18n file for resource flash messages. 
+For example, the following would be used for setting the flash when creating a session:
+
+```yaml
+en:
+  flash:
+    users:
+      sessions:
+        create:
+          notice: "Welcome back!"
+```
+
 ## Examples
 
 Want more examples ? Check out this blog posts:
