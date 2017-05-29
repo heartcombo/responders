@@ -77,8 +77,8 @@ module ActionController #:nodoc:
     # the mime-type can be selected by explicitly setting <tt>request.format</tt> in
     # the controller.
     #
-    # If an acceptable format is not identified, the application returns a
-    # '406 - not acceptable' status. Otherwise, the default response is to render
+    # If an acceptable format is not identified, an `ActionController::UnknownFormat`
+    # exception is raised. Otherwise, the default response is to render
     # a template named after the current action and the selected format,
     # e.g. <tt>index.html.erb</tt>. If no template is available, the behavior
     # depends on the selected format:
