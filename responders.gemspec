@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.summary     = "A set of Rails responders to dry up your application"
   s.email       = "contact@plataformatec.com.br"
-  s.homepage    = "http://github.com/plataformatec/responders"
+  s.homepage    = "https://github.com/plataformatec/responders"
   s.description = "A set of Rails responders to dry up your application"
   s.authors     = ["José Valim"]
   s.license     = "MIT"
