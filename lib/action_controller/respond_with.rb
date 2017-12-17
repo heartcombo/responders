@@ -192,7 +192,7 @@ module ActionController #:nodoc:
     #    need to render a template which is outside of controller's path or you
     #    want to override the default http <tt>:status</tt> code, e.g.
     #
-    #    response_with(resource, render: { template: 'path/to/template', status: 422 })
+    #    respond_with(resource, render: { template: 'path/to/template', status: 422 })
     def respond_with(*resources, &block)
       if self.class.mimes_for_respond_to.empty?
         raise "In order to use respond_with, first you need to declare the " \
