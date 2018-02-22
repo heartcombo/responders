@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "railties", ">= 4.2.0", "< 5.3"
-  s.add_dependency "actionpack", ">= 4.2.0", "< 5.3"
+  s.add_dependency "railties", ">= 4.2.0", "< 6.0"
+  s.add_dependency "actionpack", ">= 4.2.0", "< 6.0"
 end
