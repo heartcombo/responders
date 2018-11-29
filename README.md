@@ -241,7 +241,7 @@ end
 
 ## Examples
 
-Want more examples ? Check out this blog posts:
+Want more examples ? Check out these blog posts:
 
 * [Embracing REST with mind, body and soul](http://blog.plataformatec.com.br/2009/08/embracing-rest-with-mind-body-and-soul/)
 * [Three reasons to love ActionController::Responder](http://weblog.rubyonrails.org/2009/8/31/three-reasons-love-responder/)
