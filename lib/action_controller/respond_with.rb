@@ -37,8 +37,8 @@ module ActionController #:nodoc:
       def respond_to(*mimes)
         options = mimes.extract_options!
 
-        only_actions   = Array(options.delete(:only)).map(&:to_s)
-        except_actions = Array(options.delete(:except)).map(&:to_s)
+        only_actions   = Array(options.delete(:only)).map(&:to_sym)
+        except_actions = Array(options.delete(:except)).map(&:to_sym)
 
         hash = mimes_for_respond_to.dup
         mimes.each do |mime|
@@ -238,7 +238,7 @@ module ActionController #:nodoc:
     # Collect mimes declared in the class method respond_to valid for the
     # current action.
     def collect_mimes_from_class_level #:nodoc:
-      action = action_name.to_s
+      action = action_name.to_sym
 
       self.class.mimes_for_respond_to.keys.select do |mime|
         config = self.class.mimes_for_respond_to[mime]
