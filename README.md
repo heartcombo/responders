@@ -179,7 +179,7 @@ class InvitationsController < ApplicationController
 end
 ```
 
-Now you would see the message "bob@bob.com was successfully created" instead of the default "Invitation was successfully created."
+Now you would see the message "name@example.com was successfully created" instead of the default "Invitation was successfully created."
 
 ## Generator
 
