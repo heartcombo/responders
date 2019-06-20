@@ -12,6 +12,14 @@ gemfile:
   - gemfiles/Gemfile-rails.5.1.x
   - gemfiles/Gemfile-rails.5.0.x
   - gemfiles/Gemfile-rails.4.2.x
+before_install:
+  - git clone https://github.com/bundler/bundler /tmp/bundler
+  - cd /tmp/bundler
+  - gem install rake
+  - gem install ronn
+  - bin/rake install:local
+install:
+  - bundle install --jobs=3 --retry=3 --path=vendor/bundle
 matrix:
   exclude:
   - rvm: 2.4.6
