@@ -13,8 +13,6 @@ Gem::Specification.new do |s|
   s.authors     = ["José Valim"]
   s.license     = "MIT"
 
-  s.rubyforge_project = "responders"
-
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
   s.require_paths = ["lib"]
 
