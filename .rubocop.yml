@@ -1,0 +1,10 @@
+---
+
+AllCops:
+  DisabledByDefault: true
+
+  DisplayCopNames: true
+
+  DisplayStyleGuide: true
+
+  TargetRubyVersion: 2.0
