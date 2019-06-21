@@ -558,12 +558,12 @@ class RespondWithControllerTest < ActionController::TestCase
     post :using_resource_with_status_and_location
     assert_equal errors.to_xml, @response.body
     assert_equal 422, @response.status
-    assert_equal nil, @response.location
+    assert_nil @response.location
 
     put :using_resource_with_status_and_location
     assert_equal errors.to_xml, @response.body
     assert_equal 422, @response.status
-    assert_equal nil, @response.location
+    assert_nil @response.location
   end
 
   def test_using_invalid_resource_with_template
@@ -575,12 +575,12 @@ class RespondWithControllerTest < ActionController::TestCase
     post :using_invalid_resource_with_template
     assert_equal errors.to_xml, @response.body
     assert_equal 422, @response.status
-    assert_equal nil, @response.location
+    assert_nil @response.location
 
     put :using_invalid_resource_with_template
     assert_equal errors.to_xml, @response.body
     assert_equal 422, @response.status
-    assert_equal nil, @response.location
+    assert_nil @response.location
   end
 
   def test_using_options_with_template
