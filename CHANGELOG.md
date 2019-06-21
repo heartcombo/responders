@@ -1,3 +1,8 @@
+## 3.0.0
+
+* Remove support for Rails 4.2
+* Remove support for Ruby < 2.4
+
 ## 2.4.1
 
 * Add support for Rails 6 beta
