@@ -18,8 +18,6 @@ matrix:
     gemfile: gemfiles/Gemfile-rails.6.0.x
   - rvm: 2.6.3
     gemfile: gemfiles/Gemfile-rails.4.2.x
-  - rvm: 2.6.3
-    gemfile: Gemfile
 notifications:
   email: false
   slack:
