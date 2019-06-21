@@ -253,4 +253,4 @@ If you discover any bugs or want to drop a line, feel free to create an issue on
 
 http://github.com/plataformatec/responders/issues
 
-MIT License. Copyright 2009-2016 Plataformatec. http://plataformatec.com.br
+MIT License. Copyright 2009-2019 Plataformatec. http://plataformatec.com.br
