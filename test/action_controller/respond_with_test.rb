@@ -153,19 +153,19 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource
     @request.accept = "application/xml"
     get :using_resource
-    assert_equal "application/xml", @response.content_type
+    assert_equal "application/xml", @response.media_type
     assert_equal "<name>david</name>", @response.body
 
     @request.accept = "application/json"
     get :using_resource
-    assert_equal "application/json", @response.content_type
+    assert_equal "application/json", @response.media_type
     assert_equal "{\"name\":\"david\",\"id\":13}", @response.body
   end
 
   def test_using_resource_with_js_simply_tries_to_render_the_template
     @request.accept = "text/javascript"
     get :using_resource
-    assert_equal "text/javascript", @response.content_type
+    assert_equal "text/javascript", @response.media_type
     assert_equal "alert(\"Hi\");", @response.body
   end
 
@@ -179,12 +179,12 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_hash_resource
     @request.accept = "application/xml"
     get :using_hash_resource
-    assert_equal "application/xml", @response.content_type
+    assert_equal "application/xml", @response.media_type
     assert_equal "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<hash>\n  <name>david</name>\n</hash>\n", @response.body
 
     @request.accept = "application/json"
     get :using_hash_resource
-    assert_equal "application/json", @response.content_type
+    assert_equal "application/json", @response.media_type
     assert @response.body.include?("result")
     assert @response.body.include?('"name":"david"')
     assert @response.body.include?('"id":13')
@@ -200,23 +200,23 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_with_block
     @request.accept = "*/*"
     get :using_resource_with_block
-    assert_equal "text/html", @response.content_type
+    assert_equal "text/html", @response.media_type
     assert_equal 'Hello world!', @response.body
 
     @request.accept = "text/csv"
     get :using_resource_with_block
-    assert_equal "text/csv", @response.content_type
+    assert_equal "text/csv", @response.media_type
     assert_equal "CSV", @response.body
 
     @request.accept = "application/xml"
     get :using_resource
-    assert_equal "application/xml", @response.content_type
+    assert_equal "application/xml", @response.media_type
     assert_equal "<name>david</name>", @response.body
   end
 
   def test_using_resource_with_overwrite_block
     get :using_resource_with_overwrite_block
-    assert_equal "text/html", @response.content_type
+    assert_equal "text/html", @response.media_type
     assert_equal "HTML", @response.body
   end
 
@@ -235,7 +235,7 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_for_post_with_html_redirects_on_success
     with_test_route_set do
       post :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 302, @response.status
       assert_equal "http://www.example.com/customers/13", @response.location
       assert @response.redirect?
@@ -247,7 +247,7 @@ class RespondWithControllerTest < ActionController::TestCase
       errors = { :name => :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 200, @response.status
       assert_equal "New world!\n", @response.body
       assert_nil @response.location
@@ -258,7 +258,7 @@ class RespondWithControllerTest < ActionController::TestCase
     with_test_route_set do
       @request.accept = "application/xml"
       post :using_resource
-      assert_equal "application/xml", @response.content_type
+      assert_equal "application/xml", @response.media_type
       assert_equal 201, @response.status
       assert_equal "<name>david</name>", @response.body
       assert_equal "http://www.example.com/customers/13", @response.location
@@ -271,7 +271,7 @@ class RespondWithControllerTest < ActionController::TestCase
       errors = { :name => :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
-      assert_equal "application/xml", @response.content_type
+      assert_equal "application/xml", @response.media_type
       assert_equal 422, @response.status
       assert_equal errors.to_xml, @response.body
       assert_nil @response.location
@@ -284,7 +284,7 @@ class RespondWithControllerTest < ActionController::TestCase
       errors = { :name => :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
-      assert_equal "application/json", @response.content_type
+      assert_equal "application/json", @response.media_type
       assert_equal 422, @response.status
       errors = {:errors => errors}
       assert_equal errors.to_json, @response.body
@@ -295,7 +295,7 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_for_patch_with_html_redirects_on_success
     with_test_route_set do
       patch :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 302, @response.status
       assert_equal "http://www.example.com/customers/13", @response.location
       assert @response.redirect?
@@ -307,7 +307,7 @@ class RespondWithControllerTest < ActionController::TestCase
       errors = { :name => :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       patch :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 200, @response.status
       assert_equal "Edit world!\n", @response.body
       assert_nil @response.location
@@ -320,7 +320,7 @@ class RespondWithControllerTest < ActionController::TestCase
       Customer.any_instance.stubs(:errors).returns(errors)
       @request.env["rack.methodoverride.original_method"] = "POST"
       patch :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 200, @response.status
       assert_equal "Edit world!\n", @response.body
       assert_nil @response.location
@@ -330,7 +330,7 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_for_put_with_html_redirects_on_success
     with_test_route_set do
       put :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 302, @response.status
       assert_equal "http://www.example.com/customers/13", @response.location
       assert @response.redirect?
@@ -343,7 +343,7 @@ class RespondWithControllerTest < ActionController::TestCase
       Customer.any_instance.stubs(:errors).returns(errors)
       put :using_resource
 
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 200, @response.status
       assert_equal "Edit world!\n", @response.body
       assert_nil @response.location
@@ -356,7 +356,7 @@ class RespondWithControllerTest < ActionController::TestCase
       Customer.any_instance.stubs(:errors).returns(errors)
       @request.env["rack.methodoverride.original_method"] = "POST"
       put :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 200, @response.status
       assert_equal "Edit world!\n", @response.body
       assert_nil @response.location
@@ -382,7 +382,7 @@ class RespondWithControllerTest < ActionController::TestCase
     errors = { :name => :invalid }
     Customer.any_instance.stubs(:errors).returns(errors)
     put :using_resource
-    assert_equal "application/xml", @response.content_type
+    assert_equal "application/xml", @response.media_type
     assert_equal 422, @response.status
     assert_equal errors.to_xml, @response.body
     assert_nil @response.location
@@ -393,7 +393,7 @@ class RespondWithControllerTest < ActionController::TestCase
     errors = { :name => :invalid }
     Customer.any_instance.stubs(:errors).returns(errors)
     put :using_resource
-    assert_equal "application/json", @response.content_type
+    assert_equal "application/json", @response.media_type
     assert_equal 422, @response.status
     errors = {:errors => errors}
     assert_equal errors.to_json, @response.body
@@ -404,7 +404,7 @@ class RespondWithControllerTest < ActionController::TestCase
     with_test_route_set do
       Customer.any_instance.stubs(:destroyed?).returns(true)
       delete :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 302, @response.status
       assert_equal "http://www.example.com/customers", @response.location
     end
@@ -432,7 +432,7 @@ class RespondWithControllerTest < ActionController::TestCase
       Customer.any_instance.stubs(:errors).returns(errors)
       Customer.any_instance.stubs(:destroyed?).returns(false)
       delete :using_resource
-      assert_equal "text/html", @response.content_type
+      assert_equal "text/html", @response.media_type
       assert_equal 302, @response.status
       assert_equal "http://www.example.com/customers", @response.location
     end
@@ -441,7 +441,7 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_with_parent_for_get
     @request.accept = "application/xml"
     get :using_resource_with_parent
-    assert_equal "application/xml", @response.content_type
+    assert_equal "application/xml", @response.media_type
     assert_equal 200, @response.status
     assert_equal "<name>david</name>", @response.body
   end
@@ -451,7 +451,7 @@ class RespondWithControllerTest < ActionController::TestCase
       @request.accept = "application/xml"
 
       post :using_resource_with_parent
-      assert_equal "application/xml", @response.content_type
+      assert_equal "application/xml", @response.media_type
       assert_equal 201, @response.status
       assert_equal "<name>david</name>", @response.body
       assert_equal "http://www.example.com/quiz_stores/11/customers/13", @response.location
@@ -459,7 +459,7 @@ class RespondWithControllerTest < ActionController::TestCase
       errors = { :name => :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
-      assert_equal "application/xml", @response.content_type
+      assert_equal "application/xml", @response.media_type
       assert_equal 422, @response.status
       assert_equal errors.to_xml, @response.body
       assert_nil @response.location
@@ -469,7 +469,7 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_with_collection
     @request.accept = "application/xml"
     get :using_resource_with_collection
-    assert_equal "application/xml", @response.content_type
+    assert_equal "application/xml", @response.media_type
     assert_equal 200, @response.status
     assert_match(/<name>david<\/name>/, @response.body)
     assert_match(/<name>jamis<\/name>/, @response.body)
@@ -520,7 +520,7 @@ class RespondWithControllerTest < ActionController::TestCase
     @controller = InheritedRespondWithController.new
     @request.accept = "*/*"
     get :index
-    assert_equal "application/xml", @response.content_type
+    assert_equal "application/xml", @response.media_type
     assert_equal "<name>david</name>", @response.body
   end
 
