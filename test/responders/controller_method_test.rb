@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 ActionController::Base.extend Responders::ControllerMethod
 
@@ -29,7 +31,7 @@ class PeopleController < ApplicationController
   def index
     @array = []
     respond_with(@array) do |format|
-      format.html { render :body => "Success!" }
+      format.html { render body: "Success!" }
     end
   end
 end

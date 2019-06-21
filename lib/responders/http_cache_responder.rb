@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Responders
   # Set HTTP Last-Modified headers based on the given resource. It's used only
   # on API behavior (to_format) and is useful for a client to check in the server
@@ -9,7 +11,7 @@ module Responders
   # the digest of the body.
   #
   module HttpCacheResponder
-    def initialize(controller, resources, options={})
+    def initialize(controller, resources, options = {})
       super
       @http_cache = options.delete(:http_cache)
     end

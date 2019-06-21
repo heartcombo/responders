@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 
 class Customer < Struct.new(:name, :id)
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  def to_xml(options={})
+  def to_xml(options = {})
     if options[:builder]
       options[:builder].name name
     else
@@ -11,7 +12,7 @@ class Customer < Struct.new(:name, :id)
     end
   end
 
-  def to_js(options={})
+  def to_js(options = {})
     "name: #{name.inspect}"
   end
   alias :to_text :to_js
@@ -30,7 +31,7 @@ class ValidatedCustomer < Customer
     if name =~ /Sikachu/i
       []
     else
-      [{:name => "is invalid"}]
+      [{ name: "is invalid" }]
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Responders
   module ControllerMethod
     # Adds the given responders to the current controller's responder, allowing you to cherry-pick
@@ -18,7 +20,8 @@ module Responders
     #
     def responders(*responders)
       self.responder = responders.inject(Class.new(responder)) do |klass, responder|
-        responder = case responder
+        responder = \
+          case responder
           when Module
             responder
           when String, Symbol

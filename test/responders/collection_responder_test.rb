@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class CollectionResponder < ActionController::Responder
   include Responders::CollectionResponder
@@ -24,7 +26,7 @@ class CollectionController < ApplicationController
   end
 
   def with_location
-    respond_with Address.new, :location => "given_location"
+    respond_with Address.new, location: "given_location"
   end
 
   def isolated_namespace

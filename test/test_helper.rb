@@ -1,35 +1,37 @@
-require 'bundler/setup'
-require 'minitest/autorun'
-require 'mocha/setup'
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "minitest/autorun"
+require "mocha/setup"
 
 # Configure Rails
 ENV["RAILS_ENV"] = "test"
 
-require 'active_support'
-require 'active_model'
-require 'rails/engine'
-require 'rails/railtie'
+require "active_support"
+require "active_model"
+require "rails/engine"
+require "rails/railtie"
 
-$:.unshift File.expand_path('../../lib', __FILE__)
-require 'responders'
+$:.unshift File.expand_path("../../lib", __FILE__)
+require "responders"
 
 I18n.enforce_available_locales = true
-I18n.load_path << File.expand_path('../locales/en.yml', __FILE__)
+I18n.load_path << File.expand_path("../locales/en.yml", __FILE__)
 I18n.reload!
 
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
 Responders::Routes.draw do
   resources :news
   ActiveSupport::Deprecation.silence do
-    get '/admin/:action', controller: 'admin/addresses'
-    get '/:controller(/:action(/:id))'
+    get "/admin/:action", controller: "admin/addresses"
+    get "/:controller(/:action(/:id))"
   end
 end
 
 class ApplicationController < ActionController::Base
   include Responders::Routes.url_helpers
 
-  self.view_paths = File.join(File.dirname(__FILE__), 'views')
+  self.view_paths = File.join(File.dirname(__FILE__), "views")
   respond_to :html, :xml
 end
 
@@ -41,8 +43,8 @@ class ActiveSupport::TestCase
   end
 end
 
-if ActionPack::VERSION::STRING >= '5.0.0'
-  require 'rails-controller-testing'
+if ActionPack::VERSION::STRING >= "5.0.0"
+  require "rails-controller-testing"
 
   ActionController::TestCase.include Rails::Controller::Testing::TestProcess
   ActionController::TestCase.include Rails::Controller::Testing::TemplateAssertions
@@ -96,7 +98,7 @@ class Model
     "<xml />"
   end
 
-  def initialize(updated_at=nil)
+  def initialize(updated_at = nil)
     @persisted = true
     self.updated_at = updated_at
   end

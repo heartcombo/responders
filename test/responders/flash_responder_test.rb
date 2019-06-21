@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class FlashResponder < ActionController::Responder
   include Responders::FlashResponder
@@ -12,18 +14,18 @@ class AddressesController < ApplicationController
   end
   self.responder = FlashResponder
 
-  respond_to :js, :only => :create
+  respond_to :js, only: :create
 
   FLASH_PARAM_VALUES = {
-    'true' => true,
-    'false' => false
+    "true" => true,
+    "false" => false
   }
 
   FLASH_NOW_PARAM_VALUES = {
-    'true' => true,
-    'false' => false,
-    'on_success' => :on_success,
-    'on_failure' => :on_failure
+    "true" => true,
+    "false" => false,
+    "on_success" => :on_success,
+    "on_failure" => :on_failure
   }
 
   def action
@@ -41,12 +43,12 @@ class AddressesController < ApplicationController
 
   def with_block
     respond_with(@resource) do |format|
-      format.html { render :html => "Success!" }
+      format.html { render html: "Success!" }
     end
   end
 
   def another
-    respond_with(@resource, :notice => "Yes, notice this!", :alert => "Warning, warning!")
+    respond_with(@resource, notice: "Yes, notice this!", alert: "Warning, warning!")
   end
 
   def with_html
@@ -63,7 +65,7 @@ class AddressesController < ApplicationController
   protected
 
   def flash_interpolation_options
-    { :reference => 'Ocean Avenue', :xss => '<script>alert(1)</script>' }
+    { reference: "Ocean Avenue", xss: "<script>alert(1)</script>" }
   end
 
   def set_resource
@@ -97,7 +99,7 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def test_sets_failure_flash_message_on_not_get_requests
-    post :create, :params => { :fail => true }
+    post :create, params: { fail: true }
     assert_equal "Resource could not be created", flash[:failure]
   end
 
@@ -107,7 +109,7 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def test_sets_flash_message_for_the_current_controller
-    put :update, :params => { :fail => true }
+    put :update, params: { fail: true }
     assert_equal "Oh no! We could not update your address!", flash[:failure]
   end
 
@@ -122,12 +124,12 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def test_does_not_set_flash_if_flash_false_is_given
-    post :create, :params => { :flash => false }
+    post :create, params: { flash: false }
     assert flash.empty?
   end
 
   def test_does_not_overwrite_the_flash_if_already_set
-    post :create, :params => { :set_flash => true }
+    post :create, params: { set_flash: true }
     assert_equal "Flash is set", flash[:success]
   end
 
@@ -137,24 +139,24 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def test_sets_now_flash_message_on_javascript_requests
-    post :create, :format => :js
+    post :create, format: :js
     assert_equal "Resource created with success", flash[:success]
     assert_flash_now :success
   end
 
   def test_sets_flash_message_can_be_set_to_now
-    post :create, :params => { :flash_now => true }
+    post :create, params: { flash_now: true }
     assert_equal "Resource created with success", @controller.flash.now[:success]
     assert_flash_now :success
   end
 
   def test_sets_flash_message_can_be_set_to_now_only_on_success
-    post :create, :params => { :flash_now => :on_success }
+    post :create, params: { flash_now: :on_success }
     assert_equal "Resource created with success", @controller.flash.now[:success]
   end
 
   def test_sets_flash_message_can_be_set_to_now_only_on_failure
-    post :create, :params => { :flash_now => :on_failure }
+    post :create, params: { flash_now: :on_failure }
     assert_not_flash_now :success
   end
 
@@ -164,7 +166,7 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def test_sets_message_based_on_alert_key_with_custom_keys
-    post :another, :params => { :fail => true }
+    post :another, params: { fail: true }
     assert_equal "Warning, warning!", flash[:failure]
   end
 
@@ -176,7 +178,7 @@ class FlashResponderTest < ActionController::TestCase
 
   def test_sets_message_based_on_alert_key
     Responders::FlashResponder.flash_keys = [ :notice, :alert ]
-    post :another, :params => { :fail => true }
+    post :another, params: { fail: true }
     assert_equal "Warning, warning!", flash[:alert]
   end
 
@@ -186,7 +188,7 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def test_sets_html_using_actions_scope
-    post :with_html, :params => { :fail => true }
+    post :with_html, params: { fail: true }
     assert_equal "<strong>OH NOES!</strong> You did it wrong!", flash[:failure]
   end
 
@@ -197,18 +199,18 @@ class FlashResponderTest < ActionController::TestCase
   end
 
   def test_sets_flash_now_on_failure_by_default
-    post :another, :params => { :fail => true }
+    post :another, params: { fail: true }
     assert_flash_now :failure
   end
 
   def test_does_not_set_flash_message_to_now_with_errors_and_redirect
-    delete :with_html, :params => { :fail => true }
+    delete :with_html, params: { fail: true }
     assert_not_flash_now :failure
     assert_equal "<strong>OH NOES!</strong> You did it wrong!", flash[:failure]
   end
 
   def test_never_set_flash_now
-    post :flexible, :params => { :fail => true, :responder_options => { :flash_now => false, :alert => "Warning" } }
+    post :flexible, params: { fail: true, responder_options: { flash_now: false, alert: "Warning" } }
     assert_not_flash_now :failure
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Responders
   # This responder modifies your current responder to redirect
   # to the collection page on POST/PUT/DELETE.

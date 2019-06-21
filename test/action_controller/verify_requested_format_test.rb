@@ -1,10 +1,12 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class ThingsController < ApplicationController
   clear_respond_to
 
   respond_to :js
-  respond_to :html, :only => [:show, :new]
+  respond_to :html, only: [:show, :new]
 
   before_action :verify_requested_format!
 
@@ -12,7 +14,7 @@ class ThingsController < ApplicationController
 
   def action
     @called = true
-    render :inline => action_name
+    render inline: action_name
   end
 
   alias :index :action
@@ -28,18 +30,18 @@ class VerifyRequestedFormatTest < ActionController::TestCase
       get :index
     end
 
-    refute @controller.called, 'action should not be executed.'
+    refute @controller.called, "action should not be executed."
   end
 
   def test_strict_mode_calls_action_with_right_format
-    get :index, :format => :js
+    get :index, format: :js
 
-    assert @controller.called, 'action should be executed.'
+    assert @controller.called, "action should be executed."
   end
 
   def test_strict_mode_respects_only_option
-    get :show, :format => :html
+    get :show, format: :html
 
-    assert @controller.called, 'action should be executed.'
+    assert @controller.called, "action should be executed."
   end
 end

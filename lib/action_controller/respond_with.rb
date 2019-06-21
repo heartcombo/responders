@@ -1,5 +1,7 @@
-require 'active_support/core_ext/array/extract_options'
-require 'action_controller/metal/mime_responds'
+# frozen_string_literal: true
+
+require "active_support/core_ext/array/extract_options"
+require "action_controller/metal/mime_responds"
 
 module ActionController #:nodoc:
   module RespondWith

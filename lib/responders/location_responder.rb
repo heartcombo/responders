@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Responders
   module LocationResponder
     def self.included(_base)

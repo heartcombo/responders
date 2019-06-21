@@ -1,4 +1,6 @@
-require 'active_support/json'
+# frozen_string_literal: true
+
+require "active_support/json"
 
 module ActionController #:nodoc:
   # Responsible for exposing a resource to different mime requests,
@@ -121,12 +123,12 @@ module ActionController #:nodoc:
     attr_reader :controller, :request, :format, :resource, :resources, :options
 
     DEFAULT_ACTIONS_FOR_VERBS = {
-      :post => :new,
-      :patch => :edit,
-      :put => :edit
+      post: :new,
+      patch: :edit,
+      put: :edit
     }
 
-    def initialize(controller, resources, options={})
+    def initialize(controller, resources, options = {})
       @controller = controller
       @request = @controller.request
       @format = @controller.formats.first
@@ -142,8 +144,8 @@ module ActionController #:nodoc:
       end
     end
 
-    delegate :head, :render, :redirect_to, :to => :controller
-    delegate :get?, :post?, :patch?, :put?, :delete?, :to => :request
+    delegate :head, :render, :redirect_to, to: :controller
+    delegate :get?, :post?, :patch?, :put?, :delete?, to: :request
 
     # Undefine :to_json and :to_yaml since it's defined on Object
     undef_method(:to_json) if method_defined?(:to_json)
@@ -213,7 +215,7 @@ module ActionController #:nodoc:
       if get?
         display resource
       elsif post?
-        display resource, :status => :created, :location => api_location
+        display resource, status: :created, location: api_location
       else
         head :no_content
       end
@@ -256,7 +258,7 @@ module ActionController #:nodoc:
     #
     #   render xml: @user, status: :created
     #
-    def display(resource, given_options={})
+    def display(resource, given_options = {})
       controller.render given_options.merge!(options).merge!(format => resource)
     end
 
@@ -291,7 +293,7 @@ module ActionController #:nodoc:
     end
 
     def json_resource_errors
-      {:errors => resource.errors}
+      { errors: resource.errors }
     end
 
     def response_overridden?

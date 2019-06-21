@@ -1,5 +1,7 @@
-require 'test_helper'
-require 'support/models'
+# frozen_string_literal: true
+
+require "test_helper"
+require "support/models"
 
 class RespondWithController < ApplicationController
   class CustomerWithJson < Customer
@@ -7,26 +9,26 @@ class RespondWithController < ApplicationController
   end
 
   respond_to :html, :json, :touch
-  respond_to :xml, :except => :using_resource_with_block
-  respond_to :js,  :only => [ :using_resource_with_block, :using_resource, 'using_hash_resource' ]
+  respond_to :xml, except: :using_resource_with_block
+  respond_to :js,  only: [ :using_resource_with_block, :using_resource, "using_hash_resource" ]
 
   def using_resource
     respond_with(resource)
   end
 
   def using_hash_resource
-    respond_with({:result => resource})
+    respond_with(result: resource)
   end
 
   def using_resource_with_block
     respond_with(resource) do |format|
-      format.csv { render :body => "CSV", content_type: 'text/csv' }
+      format.csv { render body: "CSV", content_type: "text/csv" }
     end
   end
 
   def using_resource_with_overwrite_block
     respond_with(resource) do |format|
-      format.html { render :html => "HTML" }
+      format.html { render html: "HTML" }
     end
   end
 
@@ -39,7 +41,7 @@ class RespondWithController < ApplicationController
   end
 
   def using_resource_with_status_and_location
-    respond_with(resource, :location => "http://test.host/", :status => :created)
+    respond_with(resource, location: "http://test.host/", status: :created)
   end
 
   def using_resource_with_json
@@ -52,22 +54,22 @@ class RespondWithController < ApplicationController
 
   def using_options_with_template
     @customer = resource
-    respond_with(@customer, :status => 123, :location => "http://test.host/")
+    respond_with(@customer, status: 123, location: "http://test.host/")
   end
 
   def using_resource_with_responder
-    responder = proc { |c, r, o| c.render :body => "Resource name is #{r.first.name}" }
-    respond_with(resource, :responder => responder)
+    responder = proc { |c, r, o| c.render body: "Resource name is #{r.first.name}" }
+    respond_with(resource, responder: responder)
   end
 
   def using_resource_with_action
-    respond_with(resource, :action => :foo) do |format|
+    respond_with(resource, action: :foo) do |format|
       format.html { raise ActionView::MissingTemplate.new([], "bar", ["foo"], {}, false) }
     end
   end
 
   def using_resource_with_rendering_options
-    rendering_options = { template: 'addresses/edit', status: :unprocessable_entity }
+    rendering_options = { template: "addresses/edit", status: :unprocessable_entity }
     respond_with(resource, render: rendering_options) do |format|
       format.html { raise ActionView::MissingTemplate.new([], "bar", ["foo"], {}, false) }
     end
@@ -75,20 +77,21 @@ class RespondWithController < ApplicationController
 
   def using_responder_with_respond
     responder = Class.new(ActionController::Responder) do
-      def respond; @controller.render :body => "respond #{format}"; end
+      def respond; @controller.render body: "respond #{format}"; end
     end
-    respond_with(resource, :responder => responder)
+    respond_with(resource, responder: responder)
   end
 
   def respond_with_additional_params
     @params = RespondWithController.params
-    respond_with({:result => resource}, @params)
+    respond_with({ result: resource }, @params)
   end
 
 protected
+
   def self.params
     {
-        :foo => 'bar'
+        foo: "bar"
     }
   end
 
@@ -103,7 +106,7 @@ class InheritedRespondWithController < RespondWithController
 
   def index
     respond_with(resource) do |format|
-      format.json { render :body => "JSON" }
+      format.json { render body: "JSON" }
     end
   end
 end
@@ -133,9 +136,9 @@ class RespondWithControllerTest < ActionController::TestCase
   def setup
     super
     @request.host = "www.example.com"
-    Mime::Type.register_alias('text/html', :iphone)
-    Mime::Type.register_alias('text/html', :touch)
-    Mime::Type.register('text/x-mobile', :mobile)
+    Mime::Type.register_alias("text/html", :iphone)
+    Mime::Type.register_alias("text/html", :touch)
+    Mime::Type.register("text/x-mobile", :mobile)
   end
 
   def teardown
@@ -201,7 +204,7 @@ class RespondWithControllerTest < ActionController::TestCase
     @request.accept = "*/*"
     get :using_resource_with_block
     assert_equal "text/html", @response.media_type
-    assert_equal 'Hello world!', @response.body
+    assert_equal "Hello world!", @response.body
 
     @request.accept = "text/csv"
     get :using_resource_with_block
@@ -244,7 +247,7 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_for_post_with_html_rerender_on_failure
     with_test_route_set do
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
       assert_equal "text/html", @response.media_type
@@ -268,7 +271,7 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_for_post_with_xml_yields_unprocessable_entity_on_failure
     with_test_route_set do
       @request.accept = "application/xml"
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
       assert_equal "application/xml", @response.media_type
@@ -281,12 +284,12 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_using_resource_for_post_with_json_yields_unprocessable_entity_on_failure
     with_test_route_set do
       @request.accept = "application/json"
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
       assert_equal "application/json", @response.media_type
       assert_equal 422, @response.status
-      errors = {:errors => errors}
+      errors = { errors: errors }
       assert_equal errors.to_json, @response.body
       assert_nil @response.location
     end
@@ -304,7 +307,7 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_for_patch_with_html_rerender_on_failure
     with_test_route_set do
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       patch :using_resource
       assert_equal "text/html", @response.media_type
@@ -316,7 +319,7 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_for_patch_with_html_rerender_on_failure_even_on_method_override
     with_test_route_set do
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       @request.env["rack.methodoverride.original_method"] = "POST"
       patch :using_resource
@@ -339,7 +342,7 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_for_put_with_html_rerender_on_failure
     with_test_route_set do
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       put :using_resource
 
@@ -352,7 +355,7 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_for_put_with_html_rerender_on_failure_even_on_method_override
     with_test_route_set do
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       @request.env["rack.methodoverride.original_method"] = "POST"
       put :using_resource
@@ -379,7 +382,7 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_for_put_with_xml_yields_unprocessable_entity_on_failure
     @request.accept = "application/xml"
-    errors = { :name => :invalid }
+    errors = { name: :invalid }
     Customer.any_instance.stubs(:errors).returns(errors)
     put :using_resource
     assert_equal "application/xml", @response.media_type
@@ -390,12 +393,12 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_for_put_with_json_yields_unprocessable_entity_on_failure
     @request.accept = "application/json"
-    errors = { :name => :invalid }
+    errors = { name: :invalid }
     Customer.any_instance.stubs(:errors).returns(errors)
     put :using_resource
     assert_equal "application/json", @response.media_type
     assert_equal 422, @response.status
-    errors = {:errors => errors}
+    errors = { errors: errors }
     assert_equal errors.to_json, @response.body
     assert_nil @response.location
   end
@@ -428,7 +431,7 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_for_delete_with_html_redirects_on_failure
     with_test_route_set do
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       Customer.any_instance.stubs(:destroyed?).returns(false)
       delete :using_resource
@@ -456,7 +459,7 @@ class RespondWithControllerTest < ActionController::TestCase
       assert_equal "<name>david</name>", @response.body
       assert_equal "http://www.example.com/quiz_stores/11/customers/13", @response.location
 
-      errors = { :name => :invalid }
+      errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
       assert_equal "application/xml", @response.media_type
@@ -477,16 +480,16 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_using_resource_with_action
     @controller.instance_eval do
-      def render(params={})
+      def render(params = {})
         self.response_body = "#{params[:action]} - #{formats}"
       end
     end
 
-    errors = { :name => :invalid }
+    errors = { name: :invalid }
     Customer.any_instance.stubs(:errors).returns(errors)
 
     post :using_resource_with_action
-    assert_equal "foo - #{[:html].to_s}", @controller.response.body
+    assert_equal "foo - #{[:html]}", @controller.response.body
   end
 
   def test_using_resource_with_rendering_options
@@ -495,7 +498,7 @@ class RespondWithControllerTest < ActionController::TestCase
     post :using_resource_with_rendering_options
 
     assert_response :unprocessable_entity
-    assert_equal 'edit.html.erb', @controller.response.body
+    assert_equal "edit.html.erb", @controller.response.body
   end
 
   def test_respond_as_responder_entry_point
@@ -550,7 +553,7 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_using_resource_with_status_and_location_with_invalid_resource
-    errors = { :name => :invalid }
+    errors = { name: :invalid }
     Customer.any_instance.stubs(:errors).returns(errors)
 
     @request.accept = "text/xml"
@@ -567,7 +570,7 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_using_invalid_resource_with_template
-    errors = { :name => :invalid }
+    errors = { name: :invalid }
     Customer.any_instance.stubs(:errors).returns(errors)
 
     @request.accept = "text/xml"
@@ -603,7 +606,7 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_using_resource_with_set_responder
-    RespondWithController.responder = proc { |c, r, o| c.render :body => "Resource name is #{r.first.name}" }
+    RespondWithController.responder = proc { |c, r, o| c.render body: "Resource name is #{r.first.name}" }
     get :using_resource
     assert_equal "Resource name is david", @response.body
   ensure
@@ -613,7 +616,7 @@ class RespondWithControllerTest < ActionController::TestCase
   def test_raises_missing_renderer_if_an_api_behavior_with_no_renderer
     @controller = CsvRespondWithController.new
     assert_raise ActionController::MissingRenderer do
-      get :index, format: 'csv'
+      get :index, format: "csv"
     end
   end
 
@@ -626,20 +629,21 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   private
-    def with_test_route_set
-      with_routing do |set|
-        set.draw do
+
+  def with_test_route_set
+    with_routing do |set|
+      set.draw do
+        resources :customers
+        resources :quiz_stores do
           resources :customers
-          resources :quiz_stores do
-            resources :customers
-          end
-          ActiveSupport::Deprecation.silence do
-            get ':controller/:action'
-          end
         end
-        yield
+        ActiveSupport::Deprecation.silence do
+          get ":controller/:action"
+        end
       end
+      yield
     end
+  end
 end
 
 class LocationsController < ApplicationController
@@ -652,11 +656,11 @@ class LocationsController < ApplicationController
   end
 
   def create
-    respond_with @resource, location: -> { 'given_location' }
+    respond_with @resource, location: -> { "given_location" }
   end
 
   def update
-    respond_with @resource, location: 'given_location'
+    respond_with @resource, location: "given_location"
   end
 
   def set_resource
@@ -670,16 +674,16 @@ class LocationResponderTest < ActionController::TestCase
 
   def test_redirects_to_block_location_on_success
     post :create
-    assert_redirected_to 'given_location'
+    assert_redirected_to "given_location"
   end
 
   def test_renders_page_on_fail
     post :create, params: { fail: true }
-    assert @response.body.include?('new.html.erb')
+    assert @response.body.include?("new.html.erb")
   end
 
   def test_redirects_to_plain_string
     post :update
-    assert_redirected_to 'given_location'
+    assert_redirected_to "given_location"
   end
 end

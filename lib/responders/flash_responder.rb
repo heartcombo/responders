@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Responders
   # Responder to automatically set flash messages based on I18n API. It checks for
   # message based on the current action, but also allows defaults to be set, using
@@ -94,7 +96,7 @@ module Responders
       ActionView::Helpers::TagHelper
     )
 
-    def initialize(controller, resources, options={})
+    def initialize(controller, resources, options = {})
       super
       @flash     = options.delete(:flash)
       @notice    = options.delete(:notice)
@@ -148,9 +150,9 @@ module Responders
 
     def mount_i18n_options(status) #:nodoc:
       options = {
-        :default => flash_defaults_by_namespace(status),
-        :resource_name => resource_name,
-        :downcase_resource_name => resource_name.downcase
+        default: flash_defaults_by_namespace(status),
+        resource_name: resource_name,
+        downcase_resource_name: resource_name.downcase
       }
 
       controller_options = controller_interpolation_options
@@ -180,13 +182,13 @@ module Responders
 
     def flash_defaults_by_namespace(status) #:nodoc:
       defaults = []
-      slices   = controller.controller_path.split('/')
+      slices   = controller.controller_path.split("/")
       lookup   = Responders::FlashResponder.namespace_lookup
 
       begin
-        controller_scope = :"flash.#{slices.fill(controller.controller_name, -1).join('.')}.#{controller.action_name}.#{status}"
+        controller_scope = :"flash.#{slices.fill(controller.controller_name, -1).join(".")}.#{controller.action_name}.#{status}"
 
-        actions_scope = lookup ? slices.fill('actions', -1).join('.') : :actions
+        actions_scope = lookup ? slices.fill("actions", -1).join(".") : :actions
         actions_scope = :"flash.#{actions_scope}.#{controller.action_name}.#{status}"
 
         defaults << :"#{controller_scope}_html"
