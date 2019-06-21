@@ -20,13 +20,13 @@ class RespondWithController < ApplicationController
 
   def using_resource_with_block
     respond_with(resource) do |format|
-      format.csv { render :body => "CSV" }
+      format.csv { render :body => "CSV", content_type: 'text/csv' }
     end
   end
 
   def using_resource_with_overwrite_block
     respond_with(resource) do |format|
-      format.html { render :body => "HTML" }
+      format.html { render :html => "HTML" }
     end
   end
 
