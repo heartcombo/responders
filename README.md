@@ -4,7 +4,7 @@
 [![Build Status](https://api.travis-ci.org/plataformatec/responders.svg?branch=master)](http://travis-ci.org/plataformatec/responders)
 [![Code Climate](https://codeclimate.com/github/plataformatec/responders.svg)](https://codeclimate.com/github/plataformatec/responders)
 
-A set of responders modules to dry up your Rails 4.2+ app.
+A set of responders modules to dry up your Rails app.
 
 ## Installation
 
