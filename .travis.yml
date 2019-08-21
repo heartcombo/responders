@@ -5,8 +5,10 @@ rvm:
   - 2.4.6
   - 2.5.5
   - 2.6.3
+  - ruby-head
 gemfile:
   - Gemfile
+  - gemfiles/Gemfile-rails.head
   - gemfiles/Gemfile-rails.6.0.x
   - gemfiles/Gemfile-rails.5.2.x
   - gemfiles/Gemfile-rails.5.1.x
@@ -15,6 +17,10 @@ matrix:
   exclude:
   - rvm: 2.4.6
     gemfile: gemfiles/Gemfile-rails.6.0.x
+  - rvm: 2.4.6
+    gemfile: gemfiles/Gemfile-rails.head
+  allow_failures:
+    - rvm: ruby-head
 notifications:
   email: false
   slack:
