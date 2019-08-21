@@ -21,6 +21,7 @@ matrix:
     gemfile: gemfiles/Gemfile-rails.head
   allow_failures:
     - rvm: ruby-head
+    - gemfile: gemfiles/Gemfile-rails.head
 notifications:
   email: false
   slack:
