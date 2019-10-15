@@ -179,19 +179,21 @@ class InvitationsController < ApplicationController
 end
 ```
 
-Now you would see the message "name@example.com was successfully created" instead of the default "Invitation was successfully created."
+Now you would see the message `"name@example.com was successfully created"` instead of the default `"Invitation was successfully created."`
 
 ## Generator
 
 This gem also includes a responders controller generator, so your scaffold can be customized
 to use `respond_with` instead of default `respond_to` blocks. From 2.1, you need to explicitly opt-in to use this generator by adding the following to your `config/application.rb`:
 
-    config.app_generators.scaffold_controller :responders_controller
+```ruby
+config.app_generators.scaffold_controller :responders_controller
+```
 
 ## Failure handling
 
 Responders don't use `valid?` to check for errors in models to figure out if
-the request was successfull or not, and relies on your controllers to call
+the request was successful or not, and relies on your controllers to call
 `save` or `create` to trigger the validations.
 
 ```ruby
@@ -219,7 +221,7 @@ end
 ## Verifying request formats
 
 `respond_with` will raise an `ActionController::UnknownFormat` if the request
-mime type was not configured through the class level `respond_to`, but the
+MIME type was not configured through the class level `respond_to`, but the
 action will still be executed and any side effects (like creating a new record)
 will still occur. To raise the `UnknownFormat` exception before your action
 is invoked you can set the `verify_requested_format!` method as a `before_action`
