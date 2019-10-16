@@ -190,7 +190,7 @@ module ActionController #:nodoc:
     # 2. <tt>:action</tt> - overwrites the default render action used after an
     #    unsuccessful html +post+ request.
     # 3. <tt>:render</tt> - allows to pass any options directly to the <tt>:render<tt/>
-    #    call after unsuccessful html +post+ request. Usefull if for example you
+    #    call after unsuccessful html +post+ request. Useful if for example you
     #    need to render a template which is outside of controller's path or you
     #    want to override the default http <tt>:status</tt> code, e.g.
     #
