@@ -128,7 +128,7 @@ module Responders
       return if controller.flash[status].present?
 
       options = mount_i18n_options(status)
-      message = Responders::FlashResponder.helper.t options[:default].shift, options
+      message = Responders::FlashResponder.helper.t options[:default].shift, **options
       set_flash(status, message)
     end
 
