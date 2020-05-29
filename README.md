@@ -1,8 +1,8 @@
 # Responders
 
 [![Gem Version](https://fury-badge.herokuapp.com/rb/responders.svg)](http://badge.fury.io/rb/responders)
-[![Build Status](https://api.travis-ci.org/plataformatec/responders.svg?branch=master)](http://travis-ci.org/plataformatec/responders)
-[![Code Climate](https://codeclimate.com/github/plataformatec/responders.svg)](https://codeclimate.com/github/plataformatec/responders)
+[![Build Status](https://api.travis-ci.org/plataformatec/responders.svg?branch=master)](http://travis-ci.org/heartcombo/responders)
+[![Code Climate](https://codeclimate.com/github/plataformatec/responders.svg)](https://codeclimate.com/github/heartcombo/responders)
 
 A set of responders modules to dry up your Rails app.
 
@@ -253,6 +253,6 @@ Want more examples ? Check out these blog posts:
 
 If you discover any bugs or want to drop a line, feel free to create an issue on GitHub.
 
-http://github.com/plataformatec/responders/issues
+http://github.com/heartcombo/responders/issues
 
-MIT License. Copyright 2009-2019 Plataformatec. http://plataformatec.com.br
+MIT License. Copyright 2020 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
