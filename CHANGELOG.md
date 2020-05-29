@@ -1,3 +1,7 @@
+## 3.0.1
+
+* Add support to Ruby 2.7
+
 ## 3.0.0
 
 * Remove support for Rails 4.2
