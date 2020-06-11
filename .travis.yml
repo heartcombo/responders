@@ -17,6 +17,8 @@ gemfile:
 matrix:
   exclude:
   - rvm: '2.4'
+    gemfile: Gemfile
+  - rvm: '2.4'
     gemfile: gemfiles/Gemfile-rails.6.0.x
   - rvm: '2.4'
     gemfile: gemfiles/Gemfile-rails.head
