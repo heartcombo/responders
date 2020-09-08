@@ -32,9 +32,4 @@ matrix:
     - rvm: ruby-head
     - gemfile: gemfiles/Gemfile-rails.head
 notifications:
-  email: false
-  slack:
-    on_pull_requests: false
-    on_success: change
-    on_failure: always
-    secure: Qr9/3LRW22qAoJ/9mynVKiI1p/AVIdW4GqcaymMjC6KH46EUwtbB4DxBa3K+gfBYOcfDKDe0vt3TUL/FMCgchqHum5QaNrAfSLj6k363sZqqW+dEuEMJO2e+QsIQUexBnDDQIJNSnr5DqoQ5+npZ8YwzWeAp8nRUs5uYI/RlXXo=
+  email: true
