@@ -665,7 +665,7 @@ class LocationsController < ApplicationController
 
   def set_resource
     @resource = Address.new
-    @resource.errors[:fail] << "FAIL" if params[:fail]
+    @resource.errors.add(:fail, "FAIL") if params[:fail]
   end
 end
 
