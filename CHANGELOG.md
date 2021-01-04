@@ -1,3 +1,9 @@
+## Unreleased
+
+* Add support for Ruby 3.0
+* Add support for Rails 6.1
+* Move CI to GitHub Actions
+
 ## 3.0.1
 
 * Add support to Ruby 2.7
