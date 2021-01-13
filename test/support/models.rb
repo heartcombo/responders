@@ -30,16 +30,6 @@ class Customer < Struct.new(:name, :id)
   end
 end
 
-class ValidatedCustomer < Customer
-  def errors
-    if name =~ /Sikachu/i
-      []
-    else
-      [{ name: "is invalid" }]
-    end
-  end
-end
-
 module Quiz
   class Question < Struct.new(:name, :id)
     extend ActiveModel::Naming
