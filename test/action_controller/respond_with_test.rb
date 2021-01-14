@@ -648,12 +648,7 @@ end
 
 class LocationsController < ApplicationController
   respond_to :html
-  # TODO: Remove this when we drop support for Rails 4.2.
-  if respond_to?(:before_action)
-    before_action :set_resource
-  else
-    before_filter :set_resource
-  end
+  before_action :set_resource
 
   def create
     respond_with @resource, location: -> { "given_location" }
