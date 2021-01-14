@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
 
 GEM
   remote: https://rubygems.org/

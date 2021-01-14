@@ -15,12 +15,11 @@ Gem::Specification.new do |s|
   s.authors     = ["José Valim"]
   s.license     = "MIT"
 
-
-  s.required_ruby_version = ">= 2.4.0"
+  s.required_ruby_version = ">= 2.5.0"
 
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "railties", ">= 5.0"
-  s.add_dependency "actionpack", ">= 5.0"
+  s.add_dependency "railties", ">= 5.2"
+  s.add_dependency "actionpack", ">= 5.2"
 end
