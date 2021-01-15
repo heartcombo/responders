@@ -19,8 +19,8 @@
 
 ## 2.4.0
 
-* `respond_with` now accepts a new kwargs called `:render` which goes straight to the `render`
-   call after an unsuccessful post request. Usefull if for example you need to render a template
+* `respond_with` now accepts a new kwarg called `:render` which goes straight to the `render`
+   call after an unsuccessful post request. Useful if for example you need to render a template
    which is outside of controller's path eg:
 
    `respond_with resource, render: { template: 'path/to/template' }`
