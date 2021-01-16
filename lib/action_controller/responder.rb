@@ -202,7 +202,7 @@ module ActionController #:nodoc:
       if get?
         raise error
       elsif has_errors? && default_action
-        render rendering_options
+        render error_rendering_options
       else
         redirect_to navigation_location
       end
@@ -300,11 +300,11 @@ module ActionController #:nodoc:
       @default_response.present?
     end
 
-    def rendering_options
+    def error_rendering_options
       if options[:render]
         options[:render]
       else
-        { action: default_action }
+        { action: default_action, status: :unprocessable_entity }
       end
     end
   end
