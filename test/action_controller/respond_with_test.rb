@@ -170,6 +170,17 @@ class RespondWithControllerTest < ActionController::TestCase
     get :using_resource
     assert_equal "text/javascript", @response.media_type
     assert_equal "alert(\"Hi\");", @response.body
+    assert_equal 200, @response.status
+  end
+
+  def test_using_resource_for_post_with_js_renders_the_template_and_yields_unprocessable_entity_on_failure
+    @request.accept = "text/javascript"
+    errors = { name: :invalid }
+    Customer.any_instance.stubs(:errors).returns(errors)
+    post :using_resource
+    assert_equal "text/javascript", @response.media_type
+    assert_equal "alert(\"Hi\");", @response.body
+    assert_equal 422, @response.status
   end
 
   def test_using_hash_resource_with_js_raises_an_error_if_template_cant_be_found
