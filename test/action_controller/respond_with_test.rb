@@ -188,9 +188,9 @@ class RespondWithControllerTest < ActionController::TestCase
     @request.accept = "application/json"
     get :using_hash_resource
     assert_equal "application/json", @response.media_type
-    assert @response.body.include?("result")
-    assert @response.body.include?('"name":"david"')
-    assert @response.body.include?('"id":13')
+    assert_includes @response.body, "result"
+    assert_includes @response.body, '"name":"david"'
+    assert_includes @response.body, '"id":13'
   end
 
   def test_using_hash_resource_with_post
@@ -674,7 +674,7 @@ class LocationResponderTest < ActionController::TestCase
 
   def test_renders_page_on_fail
     post :create, params: { fail: true }
-    assert @response.body.include?("new.html.erb")
+    assert_includes @response.body, "new.html.erb"
   end
 
   def test_redirects_to_plain_string
