@@ -212,7 +212,8 @@ assertions on this behavior for your controllers.
 def create
   @widget = Widget.new(widget_params)
   @widget.errors.add(:base, :invalid)
-  # `respond_with` will render the `new` template again.
+  # `respond_with` will render the `new` template again,
+  # and set the status to `422 Unprocessable Entity`.
   respond_with @widget
 end
 ```

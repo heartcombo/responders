@@ -49,7 +49,7 @@ module ActionController #:nodoc:
   #         format.html { redirect_to(@user) }
   #         format.xml { render xml: @user, status: :created, location: @user }
   #       else
-  #         format.html { render action: "new" }
+  #         format.html { render action: "new", status: :unprocessable_entity }
   #         format.xml { render xml: @user.errors, status: :unprocessable_entity }
   #       end
   #     end
@@ -113,7 +113,7 @@ module ActionController #:nodoc:
   #       if @task.save
   #         flash[:notice] = 'Task was successfully created.'
   #       else
-  #         format.html { render "some_special_template" }
+  #         format.html { render "some_special_template", status: :unprocessable_entity }
   #       end
   #     end
   #   end
@@ -202,7 +202,7 @@ module ActionController #:nodoc:
       if get?
         raise error
       elsif has_errors? && default_action
-        render rendering_options
+        render error_rendering_options
       else
         redirect_to navigation_location
       end
@@ -236,6 +236,8 @@ module ActionController #:nodoc:
     def default_render
       if @default_response
         @default_response.call(options)
+      elsif !get? && has_errors?
+        controller.render(options.merge(status: :unprocessable_entity))
       else
         controller.render(options)
       end
@@ -300,11 +302,11 @@ module ActionController #:nodoc:
       @default_response.present?
     end
 
-    def rendering_options
+    def error_rendering_options
       if options[:render]
         options[:render]
       else
-        { action: default_action }
+        { action: default_action, status: :unprocessable_entity }
       end
     end
   end

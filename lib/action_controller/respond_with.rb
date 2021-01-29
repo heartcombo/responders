@@ -95,7 +95,8 @@ module ActionController #:nodoc:
     #      i.e. its +show+ action.
     #   2. If there are validation errors, the response
     #      renders a default action, which is <tt>:new</tt> for a
-    #      +post+ request or <tt>:edit</tt> for +patch+ or +put+.
+    #      +post+ request or <tt>:edit</tt> for +patch+ or +put+,
+    #      and the status is set to <tt>422 Unprocessable Entity</tt>.
     #   Thus an example like this -
     #
     #     respond_to :html, :xml
@@ -116,8 +117,8 @@ module ActionController #:nodoc:
     #           format.html { redirect_to(@user) }
     #           format.xml { render xml: @user }
     #         else
-    #           format.html { render action: "new" }
-    #           format.xml { render xml: @user }
+    #           format.html { render action: "new", status: :unprocessable_entity }
+    #           format.xml { render xml: @user, status: :unprocessable_entity }
     #         end
     #       end
     #     end
@@ -194,7 +195,7 @@ module ActionController #:nodoc:
     #    need to render a template which is outside of controller's path or you
     #    want to override the default http <tt>:status</tt> code, e.g.
     #
-    #    respond_with(resource, render: { template: 'path/to/template', status: 422 })
+    #    respond_with(resource, render: { template: 'path/to/template', status: 418 })
     def respond_with(*resources, &block)
       if self.class.mimes_for_respond_to.empty?
         raise "In order to use respond_with, first you need to declare the " \
