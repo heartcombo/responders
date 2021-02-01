@@ -17,6 +17,8 @@ jobs:
           - 3.0
           - truffleruby-head
         exclude:
+          - ruby: truffleruby-head
+            gemfile: gemfiles/Gemfile-rails-head
           - ruby: 2.7
             gemfile: gemfiles/Gemfile-rails-5-2
           - ruby: 3.0
