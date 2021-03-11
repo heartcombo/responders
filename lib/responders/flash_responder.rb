@@ -72,7 +72,7 @@ module Responders
   #
   #     respond_with(@user, :notice => "Hooray! Welcome!", :alert => "Woot! You failed.")
   #
-  # * :flash_now - Sets the flash message using flash.now. Accepts true, :on_failure or :on_sucess.
+  # * :flash_now - Sets the flash message using flash.now. Accepts true, :on_failure or :on_success.
   #
   # == Configure status keys
   #
