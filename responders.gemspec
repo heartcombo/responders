@@ -14,6 +14,12 @@ Gem::Specification.new do |s|
   s.description = "A set of Rails responders to dry up your application"
   s.authors     = ["José Valim"]
   s.license     = "MIT"
+  s.metadata    = {
+    "homepage_uri"    => "https://github.com/heartcombo/responders",
+    "changelog_uri"   => "https://github.com/heartcombo/responders/blob/master/CHANGELOG.md",
+    "source_code_uri" => "https://github.com/heartcombo/responders",
+    "bug_tracker_uri" => "https://github.com/heartcombo/responders/issues",
+  }
 
   s.required_ruby_version = ">= 2.5.0"
 
