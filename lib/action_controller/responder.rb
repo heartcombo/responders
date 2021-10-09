@@ -179,6 +179,20 @@ module ActionController #:nodoc:
       default_render
     end
 
+    # to_turbo_stream tries to render a template. If no template is found, it will
+    # optionally redirect to the <code>:location</code> provided. The subsequent
+    # GET request will attempt to render a <code>turbo_stream</code> template if
+    # it exists, or render the HTML template instead.
+    def to_turbo_stream
+      default_render
+    rescue ActionView::MissingTemplate => e
+      if navigation_location
+        navigation_behavior(e)
+      else
+        render options.merge(formats: [:html])
+      end
+    end
+
     # All other formats follow the procedure below. First we try to render a
     # template, if the template is not available, we verify if the resource
     # responds to :to_format and display it.
