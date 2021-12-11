@@ -76,6 +76,16 @@ class PolymorphicAddesssController < AddressesController
   end
 end
 
+class InterpolatedResourceNameAddesssController < AddressesController
+  def flash_interpolation_options
+    { interpolation_value: "Funny" }
+  end
+
+  def create
+    respond_with(InterpolatedAddress.new)
+  end
+end
+
 module Admin
   class AddressesController < ::AddressesController
   end
@@ -271,5 +281,19 @@ class PolymorhicFlashResponderTest < ActionController::TestCase
   def test_polymorhic_respond_with
     post :create
     assert_equal "Address was successfully created.", flash[:notice]
+  end
+end
+
+class InterpolatedResourceNameFlashResponderTest < ActionController::TestCase
+  tests InterpolatedResourceNameAddesssController
+
+  def setup
+    Responders::FlashResponder.flash_keys = [ :notice, :alert ]
+    @controller.stubs(:polymorphic_url).returns("/")
+  end
+
+  def test_interpolated_resource_name_respond_with
+    post :create
+    assert_equal "Funny Address was successfully created.", flash[:notice]
   end
 end

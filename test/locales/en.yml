@@ -1,4 +1,7 @@
 en:
+  activemodel:
+    models:
+      interpolated_address: '%{interpolation_value} Address'
   flash:
     actions:
       create:

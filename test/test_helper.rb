@@ -82,6 +82,10 @@ end
 class Address < Model
 end
 
+class InterpolatedAddress < Model
+  extend ActiveModel::Naming
+end
+
 class User < Model
 end
 

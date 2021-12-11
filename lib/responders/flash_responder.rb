@@ -149,13 +149,14 @@ module Responders
     end
 
     def mount_i18n_options(status) #:nodoc:
+      controller_options = controller_interpolation_options
+
       options = {
         default: flash_defaults_by_namespace(status),
-        resource_name: resource_name,
-        downcase_resource_name: resource_name.downcase
+        resource_name: resource_name(controller_options),
+        downcase_resource_name: resource_name(controller_options).downcase
       }
 
-      controller_options = controller_interpolation_options
       if controller_options
         options.merge!(controller_options)
       end
@@ -172,9 +173,9 @@ module Responders
       end
     end
 
-    def resource_name
+    def resource_name(interpolation_options={})
       if resource.class.respond_to?(:model_name)
-        resource.class.model_name.human
+        resource.class.model_name.human(interpolation_options)
       else
         resource.class.name.underscore.humanize
       end
