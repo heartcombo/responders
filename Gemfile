@@ -4,8 +4,8 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "activemodel", "~> 7.0.0.rc1"
-gem "railties", "~> 7.0.0.rc1"
+gem "activemodel", "~> 7.0.0"
+gem "railties", "~> 7.0.0"
 gem "mocha"
 gem "rails-controller-testing"
 gem "rubocop"
