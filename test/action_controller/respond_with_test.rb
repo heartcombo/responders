@@ -639,6 +639,42 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
+  def test_redirect_status_for_post
+    with_test_route_set do
+      with_redirect_status(:see_other) do
+        post :using_resource
+        assert_equal 303, @response.status
+      end
+    end
+  end
+
+  def test_redirect_status_for_post
+    with_test_route_set do
+      with_redirect_status(:see_other) do
+        patch :using_resource
+        assert_equal 303, @response.status
+      end
+    end
+  end
+
+  def test_redirect_status_for_post
+    with_test_route_set do
+      with_redirect_status(:see_other) do
+        put :using_resource
+        assert_equal 303, @response.status
+      end
+    end
+  end
+
+  def test_redirect_status_for_post
+    with_test_route_set do
+      with_redirect_status(:see_other) do
+        delete :using_resource
+        assert_equal 303, @response.status
+      end
+    end
+  end
+
   private
 
   def with_test_route_set
@@ -654,6 +690,13 @@ class RespondWithControllerTest < ActionController::TestCase
       end
       yield
     end
+  end
+
+  def with_redirect_status(status)
+    old_status = ActionController::Responder.redirect_status
+    ActionController::Responder.redirect_status = status
+    yield
+    ActionController::Responder.redirect_status = old_status
   end
 end
 

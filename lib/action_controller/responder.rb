@@ -120,6 +120,7 @@ module ActionController #:nodoc:
   #
   # Using <code>respond_with</code> with a block follows the same syntax as <code>respond_to</code>.
   class Responder
+    cattr_accessor :redirect_status, default: :found
     attr_reader :controller, :request, :format, :resource, :resources, :options
 
     DEFAULT_ACTIONS_FOR_VERBS = {
@@ -204,7 +205,7 @@ module ActionController #:nodoc:
       elsif has_errors? && default_action
         render error_rendering_options
       else
-        redirect_to navigation_location
+        redirect_to navigation_location, status: redirect_status
       end
     end
 
