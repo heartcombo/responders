@@ -86,15 +86,11 @@ module Responders
   #
   module FlashResponder
     class << self
-      attr_accessor :flash_keys, :namespace_lookup, :helper
+      attr_accessor :flash_keys, :namespace_lookup
     end
 
     self.flash_keys = [ :notice, :alert ]
     self.namespace_lookup = false
-    self.helper = Object.new.extend(
-      ActionView::Helpers::TranslationHelper,
-      ActionView::Helpers::TagHelper
-    )
 
     def initialize(controller, resources, options = {})
       super
@@ -128,7 +124,7 @@ module Responders
       return if controller.flash[status].present?
 
       options = mount_i18n_options(status)
-      message = Responders::FlashResponder.helper.t options[:default].shift, **options
+      message = controller.helpers.t options[:default].shift, **options
       set_flash(status, message)
     end
 
