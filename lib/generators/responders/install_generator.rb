@@ -8,15 +8,15 @@ module Responders
       desc "Creates an initializer with default responder configuration and copy locale file"
 
       def create_responder_file
-        create_file "lib/application_responder.rb", <<-RUBY
-class ApplicationResponder < ActionController::Responder
-  include Responders::FlashResponder
-  include Responders::HttpCacheResponder
+        create_file "lib/application_responder.rb", <<~RUBY
+          class ApplicationResponder < ActionController::Responder
+            include Responders::FlashResponder
+            include Responders::HttpCacheResponder
 
-  # Redirects resources to the collection path (index action) instead
-  # of the resource path (show action) for POST/PUT/DELETE requests.
-  # include Responders::CollectionResponder
-end
+            # Redirects resources to the collection path (index action) instead
+            # of the resource path (show action) for POST/PUT/DELETE requests.
+            # include Responders::CollectionResponder
+          end
         RUBY
       end
 
