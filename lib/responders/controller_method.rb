@@ -37,6 +37,6 @@ module Responders
   end
 end
 
-ActiveSupport.on_load(:action_controller) do
+ActiveSupport.on_load(:action_controller_base) do
   ActionController::Base.extend Responders::ControllerMethod
 end
