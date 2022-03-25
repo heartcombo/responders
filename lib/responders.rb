@@ -20,6 +20,7 @@ module Responders
     config.responders = ActiveSupport::OrderedOptions.new
     config.responders.flash_keys = [:notice, :alert]
     config.responders.namespace_lookup = false
+    config.responders.redirect_status = :found
 
     # Add load paths straight to I18n, so engines and application can overwrite it.
     require "active_support/i18n"
@@ -28,6 +29,7 @@ module Responders
     initializer "responders.flash_responder" do |app|
       Responders::FlashResponder.flash_keys = app.config.responders.flash_keys
       Responders::FlashResponder.namespace_lookup = app.config.responders.namespace_lookup
+      ActionController::Responder.redirect_status = app.config.redirect_status
     end
   end
 end
