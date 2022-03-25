@@ -639,7 +639,7 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
-  def test_redirect_status_for_post
+  def test_redirect_status_configured_as_see_other
     with_test_route_set do
       with_redirect_status(:see_other) do
         post :using_resource
@@ -648,29 +648,11 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
-  def test_redirect_status_for_post
+  def test_redirect_status_configured_as_moved_permanently
     with_test_route_set do
-      with_redirect_status(:see_other) do
+      with_redirect_status(:moved_permanently) do
         patch :using_resource
-        assert_equal 303, @response.status
-      end
-    end
-  end
-
-  def test_redirect_status_for_post
-    with_test_route_set do
-      with_redirect_status(:see_other) do
-        put :using_resource
-        assert_equal 303, @response.status
-      end
-    end
-  end
-
-  def test_redirect_status_for_post
-    with_test_route_set do
-      with_redirect_status(:see_other) do
-        delete :using_resource
-        assert_equal 303, @response.status
+        assert_equal 301, @response.status
       end
     end
   end
