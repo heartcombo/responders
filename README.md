@@ -240,6 +240,16 @@ class WidgetsController < ApplicationController
 end
 ```
 
+## Configuring redirect statuses
+
+By default, `respond_with` will redirect to to other actions using the HTTP status code `302 Found`.
+
+You can configure this behavior by setting `config.responders.redirect_status` to the desired status code.
+
+```ruby
+config.responders.redirect_status = :see_other
+```
+
 ## Examples
 
 Want more examples ? Check out these blog posts:
