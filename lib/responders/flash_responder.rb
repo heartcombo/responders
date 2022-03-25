@@ -160,12 +160,7 @@ module Responders
     end
 
     def controller_interpolation_options
-      if controller.respond_to?(:flash_interpolation_options, true)
-        controller.send(:flash_interpolation_options)
-      elsif controller.respond_to?(:interpolation_options, true)
-        ActiveSupport::Deprecation.warn("[responders] `#{controller.class}#interpolation_options` is deprecated, please rename it to `flash_interpolation_options`.")
-        controller.send(:interpolation_options)
-      end
+      controller.send(:flash_interpolation_options) if controller.respond_to?(:flash_interpolation_options, true)
     end
 
     def resource_name

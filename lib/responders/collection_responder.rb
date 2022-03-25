@@ -20,6 +20,7 @@ module Responders
     #
     def navigation_location
       return options[:location] if options[:location]
+
       klass = resources.last.class
 
       if klass.respond_to?(:model_name)
