@@ -1,0 +1,19 @@
+name: RuboCop
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby 2.5
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.5
+        bundler-cache: true
+
+    - name: Run RuboCop
+      run: bundle exec rubocop --parallel
