@@ -3,7 +3,7 @@
 require "active_support/core_ext/array/extract_options"
 require "action_controller/metal/mime_responds"
 
-module ActionController #:nodoc:
+module ActionController # :nodoc:
   module RespondWith
     extend ActiveSupport::Concern
 
@@ -240,7 +240,7 @@ module ActionController #:nodoc:
 
     # Collect mimes declared in the class method respond_to valid for the
     # current action.
-    def collect_mimes_from_class_level #:nodoc:
+    def collect_mimes_from_class_level # :nodoc:
       action = action_name.to_sym
 
       self.class.mimes_for_respond_to.keys.select do |mime|

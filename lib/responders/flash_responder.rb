@@ -144,11 +144,11 @@ module Responders
         (default_action && (has_errors? ? @flash_now == :on_failure : @flash_now == :on_success))
     end
 
-    def set_flash_message? #:nodoc:
+    def set_flash_message? # :nodoc:
       !get? && @flash != false
     end
 
-    def mount_i18n_options(status) #:nodoc:
+    def mount_i18n_options(status) # :nodoc:
       options = {
         default: flash_defaults_by_namespace(status),
         resource_name: resource_name,
@@ -180,7 +180,7 @@ module Responders
       end
     end
 
-    def flash_defaults_by_namespace(status) #:nodoc:
+    def flash_defaults_by_namespace(status) # :nodoc:
       defaults = []
       slices   = controller.controller_path.split("/")
       lookup   = Responders::FlashResponder.namespace_lookup

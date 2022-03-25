@@ -2,7 +2,7 @@
 
 require "active_support/json"
 
-module ActionController #:nodoc:
+module ActionController # :nodoc:
   # Responsible for exposing a resource to different mime requests,
   # usually depending on the HTTP verb. The responder is triggered when
   # <code>respond_with</code> is called. The simplest case to study is a GET request:
