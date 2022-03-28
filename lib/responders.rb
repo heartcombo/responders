@@ -28,7 +28,7 @@ module Responders
     initializer "responders.flash_responder" do |app|
       Responders::FlashResponder.flash_keys = app.config.responders.flash_keys
       Responders::FlashResponder.namespace_lookup = app.config.responders.namespace_lookup
-      ActionController::Responder.redirect_status = app.config.redirect_status
+      ActionController::Responder.redirect_status = app.config.responders.redirect_status
     end
   end
 end
