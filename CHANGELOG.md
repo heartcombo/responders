@@ -1,7 +1,7 @@
 ## Unreleased
 
 * Responding to an `HTML` or `JS` request that has errors on the resource now sets the status to `422 Unprocessable Entity`. (instead of the default of `200 OK`.) This makes it more consistent with other statuses more commonly used in APIs (JSON/XML for example), and works by default with Turbo/Hotwire which expects a 422 on form error HTML responses. Note that this change may break your application if you're relying on the previous 2xx status to handle error cases.
-* Add support for Ruby 3.0 and 3.1, drop support for Ruby < 2.5.
+* Add support for Ruby 3.0, 3.1, and 3.2, drop support for Ruby < 2.5.
 * Add support for Rails 6.1 and 7.0, drop support for Rails < 5.2.
 * Move CI to GitHub Actions.
 
