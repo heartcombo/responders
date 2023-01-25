@@ -678,6 +678,7 @@ class RespondWithControllerTest < ActionController::TestCase
     old_status = ActionController::Responder.redirect_status
     ActionController::Responder.redirect_status = status
     yield
+  ensure
     ActionController::Responder.redirect_status = old_status
   end
 end
