@@ -10,7 +10,7 @@ class RespondWithController < ApplicationController
 
   respond_to :html, :json, :touch
   respond_to :xml, except: :using_resource_with_block
-  respond_to :js,  only: [ :using_resource_with_block, :using_resource, "using_hash_resource" ]
+  respond_to :js,  only: [ :using_resource_with_block, :using_resource, "using_hash_resource", :using_resource_with_status ]
 
   def using_resource
     respond_with(resource)
@@ -18,6 +18,10 @@ class RespondWithController < ApplicationController
 
   def using_hash_resource
     respond_with(result: resource)
+  end
+
+  def using_resource_with_status
+    respond_with(resource, status: 418, template: "respond_with/using_resource")
   end
 
   def using_resource_with_block
@@ -181,6 +185,16 @@ class RespondWithControllerTest < ActionController::TestCase
     assert_equal "text/javascript", @response.media_type
     assert_equal "alert(\"Hi\");", @response.body
     assert_equal 422, @response.status
+  end
+
+  def test_using_resource_for_post_with_js_renders_the_template_and_yields_given_status_on_failure
+    @request.accept = "text/javascript"
+    errors = { name: :invalid }
+    Customer.any_instance.stubs(:errors).returns(errors)
+    post :using_resource_with_status
+    assert_equal "text/javascript", @response.media_type
+    assert_equal "alert(\"Hi\");", @response.body
+    assert_equal 418, @response.status
   end
 
   def test_using_hash_resource_with_js_raises_an_error_if_template_cant_be_found

@@ -238,7 +238,7 @@ module ActionController # :nodoc:
       if @default_response
         @default_response.call(options)
       elsif !get? && has_errors?
-        controller.render(options.merge(status: :unprocessable_entity))
+        controller.render({ status: :unprocessable_entity }.merge!(options))
       else
         controller.render(options)
       end
