@@ -242,7 +242,7 @@ end
 
 ## Configuring redirect statuses
 
-By default, `respond_with` will redirect to to other actions using the HTTP status code `302 Found`.
+By default, `respond_with` will perform redirects using the HTTP status code `302 Found`.
 
 You can configure this behavior by setting `config.responders.redirect_status` to the desired status code.
 
