@@ -120,8 +120,9 @@ module ActionController # :nodoc:
   #
   # Using <code>respond_with</code> with a block follows the same syntax as <code>respond_to</code>.
   class Responder
-    cattr_accessor :error_status, default: :ok
-    cattr_accessor :redirect_status, default: :found
+    class_attribute :error_status, default: :ok, instance_writer: false, instance_predicate: false
+    class_attribute :redirect_status, default: :found, instance_writer: false, instance_predicate: false
+
     attr_reader :controller, :request, :format, :resource, :resources, :options
 
     DEFAULT_ACTIONS_FOR_VERBS = {
