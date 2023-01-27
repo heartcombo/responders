@@ -177,11 +177,23 @@ class RespondWithControllerTest < ActionController::TestCase
     assert_equal 200, @response.status
   end
 
-  def test_using_resource_for_post_with_js_renders_the_template_and_yields_unprocessable_entity_on_failure
+  def test_using_resource_for_post_with_js_renders_the_template_on_failure
     @request.accept = "text/javascript"
     errors = { name: :invalid }
     Customer.any_instance.stubs(:errors).returns(errors)
     post :using_resource
+    assert_equal "text/javascript", @response.media_type
+    assert_equal "alert(\"Hi\");", @response.body
+    assert_equal 200, @response.status
+  end
+
+  def test_using_resource_for_post_with_js_renders_the_template_and_yields_configured_error_status_on_failure
+    @request.accept = "text/javascript"
+    errors = { name: :invalid }
+    Customer.any_instance.stubs(:errors).returns(errors)
+    with_error_status(:unprocessable_entity) do
+      post :using_resource
+    end
     assert_equal "text/javascript", @response.media_type
     assert_equal "alert(\"Hi\");", @response.body
     assert_equal 422, @response.status
@@ -270,11 +282,25 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
-  def test_using_resource_for_post_with_html_rerender_and_yields_unprocessable_entity_on_failure
+  def test_using_resource_for_post_with_html_rerender_on_failure
     with_test_route_set do
       errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       post :using_resource
+      assert_equal "text/html", @response.media_type
+      assert_equal 200, @response.status
+      assert_equal "New world!\n", @response.body
+      assert_nil @response.location
+    end
+  end
+
+  def test_using_resource_for_post_with_html_rerender_and_yields_configured_error_status_on_failure
+    with_test_route_set do
+      errors = { name: :invalid }
+      Customer.any_instance.stubs(:errors).returns(errors)
+      with_error_status(:unprocessable_entity) do
+        post :using_resource
+      end
       assert_equal "text/html", @response.media_type
       assert_equal 422, @response.status
       assert_equal "New world!\n", @response.body
@@ -330,11 +356,25 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
-  def test_using_resource_for_patch_with_html_rerender_and_yields_unprocessable_entity_on_failure
+  def test_using_resource_for_patch_with_html_rerender_on_failure
     with_test_route_set do
       errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       patch :using_resource
+      assert_equal "text/html", @response.media_type
+      assert_equal 200, @response.status
+      assert_equal "Edit world!\n", @response.body
+      assert_nil @response.location
+    end
+  end
+
+  def test_using_resource_for_patch_with_html_rerender_and_yields_configured_error_status_on_failure
+    with_test_route_set do
+      errors = { name: :invalid }
+      Customer.any_instance.stubs(:errors).returns(errors)
+      with_error_status(:unprocessable_entity) do
+        patch :using_resource
+      end
       assert_equal "text/html", @response.media_type
       assert_equal 422, @response.status
       assert_equal "Edit world!\n", @response.body
@@ -342,12 +382,27 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
-  def test_using_resource_for_patch_with_html_rerender_and_yields_unprocessable_entity_on_failure_even_on_method_override
+  def test_using_resource_for_patch_with_html_rerender_on_failure_even_on_method_override
     with_test_route_set do
       errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       @request.env["rack.methodoverride.original_method"] = "POST"
       patch :using_resource
+      assert_equal "text/html", @response.media_type
+      assert_equal 200, @response.status
+      assert_equal "Edit world!\n", @response.body
+      assert_nil @response.location
+    end
+  end
+
+  def test_using_resource_for_patch_with_html_rerender_and_yields_configured_error_status_on_failure_even_on_method_override
+    with_test_route_set do
+      errors = { name: :invalid }
+      Customer.any_instance.stubs(:errors).returns(errors)
+      @request.env["rack.methodoverride.original_method"] = "POST"
+      with_error_status(:unprocessable_entity) do
+        patch :using_resource
+      end
       assert_equal "text/html", @response.media_type
       assert_equal 422, @response.status
       assert_equal "Edit world!\n", @response.body
@@ -365,12 +420,25 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
-  def test_using_resource_for_put_with_html_rerender_and_yields_unprocessable_entity_on_failure
+  def test_using_resource_for_put_with_html_rerender_on_failure
     with_test_route_set do
       errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       put :using_resource
+      assert_equal "text/html", @response.media_type
+      assert_equal 200, @response.status
+      assert_equal "Edit world!\n", @response.body
+      assert_nil @response.location
+    end
+  end
 
+  def test_using_resource_for_put_with_html_rerender_and_yields_configured_error_status_on_failure
+    with_test_route_set do
+      errors = { name: :invalid }
+      Customer.any_instance.stubs(:errors).returns(errors)
+      with_error_status(:unprocessable_entity) do
+        put :using_resource
+      end
       assert_equal "text/html", @response.media_type
       assert_equal 422, @response.status
       assert_equal "Edit world!\n", @response.body
@@ -378,12 +446,27 @@ class RespondWithControllerTest < ActionController::TestCase
     end
   end
 
-  def test_using_resource_for_put_with_html_rerender_and_yields_unprocessable_entity_on_failure_even_on_method_override
+  def test_using_resource_for_put_with_html_rerender_on_failure_even_on_method_override
     with_test_route_set do
       errors = { name: :invalid }
       Customer.any_instance.stubs(:errors).returns(errors)
       @request.env["rack.methodoverride.original_method"] = "POST"
       put :using_resource
+      assert_equal "text/html", @response.media_type
+      assert_equal 200, @response.status
+      assert_equal "Edit world!\n", @response.body
+      assert_nil @response.location
+    end
+  end
+
+  def test_using_resource_for_put_with_html_rerender_and_yields_configured_error_status_on_failure_even_on_method_override
+    with_test_route_set do
+      errors = { name: :invalid }
+      Customer.any_instance.stubs(:errors).returns(errors)
+      @request.env["rack.methodoverride.original_method"] = "POST"
+      with_error_status(:unprocessable_entity) do
+        put :using_resource
+      end
       assert_equal "text/html", @response.media_type
       assert_equal 422, @response.status
       assert_equal "Edit world!\n", @response.body
@@ -686,6 +769,14 @@ class RespondWithControllerTest < ActionController::TestCase
       end
       yield
     end
+  end
+
+  def with_error_status(status)
+    old_status = ActionController::Responder.error_status
+    ActionController::Responder.error_status = status
+    yield
+  ensure
+    ActionController::Responder.error_status = old_status
   end
 
   def with_redirect_status(status)

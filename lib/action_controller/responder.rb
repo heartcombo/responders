@@ -120,6 +120,7 @@ module ActionController # :nodoc:
   #
   # Using <code>respond_with</code> with a block follows the same syntax as <code>respond_to</code>.
   class Responder
+    cattr_accessor :error_status, default: :ok
     cattr_accessor :redirect_status, default: :found
     attr_reader :controller, :request, :format, :resource, :resources, :options
 
@@ -238,7 +239,7 @@ module ActionController # :nodoc:
       if @default_response
         @default_response.call(options)
       elsif !get? && has_errors?
-        controller.render({ status: :unprocessable_entity }.merge!(options))
+        controller.render({ status: error_status }.merge!(options))
       else
         controller.render(options)
       end
@@ -266,6 +267,8 @@ module ActionController # :nodoc:
     end
 
     def display_errors
+      # TODO: use `error_status` once we switch the default to be `unprocessable_entity`,
+      # otherwise we'd be changing this behavior here now.
       controller.render format => resource_errors, :status => :unprocessable_entity
     end
 
@@ -307,7 +310,7 @@ module ActionController # :nodoc:
       if options[:render]
         options[:render]
       else
-        { action: default_action, status: :unprocessable_entity }
+        { action: default_action, status: error_status }
       end
     end
   end

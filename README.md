@@ -213,7 +213,7 @@ def create
   @widget = Widget.new(widget_params)
   @widget.errors.add(:base, :invalid)
   # `respond_with` will render the `new` template again,
-  # and set the status to `422 Unprocessable Entity`.
+  # and set the status based on the configured `error_status`.
   respond_with @widget
 end
 ```
@@ -240,15 +240,28 @@ class WidgetsController < ApplicationController
 end
 ```
 
-## Configuring redirect statuses
+## Configuring error and redirect statuses
 
-By default, `respond_with` will perform redirects using the HTTP status code `302 Found`.
+By default, `respond_with` will respond to errors on `HTML` & `JS` requests using the HTTP status code `200 OK`,
+and perform redirects using the HTTP status code `302 Found`, both for backwards compatibility reasons.
 
-You can configure this behavior by setting `config.responders.redirect_status` to the desired status code.
+You can configure this behavior by setting `config.responders.error_status` and `config.responders.redirect_status` to the desired status codes.
 
 ```ruby
+config.responders.error_status = :unprocessable_entity
 config.responders.redirect_status = :see_other
 ```
+
+These can also be set in your custom `ApplicationResponder` if you have generated one: (see install instructions)
+
+```ruby
+class ApplicationResponder < ActionController::Responder
+  self.error_status = :unprocessable_entity
+  self.redirect_status = :see_other
+end
+```
+
+_Note: these defaults may change in a future major release of responders._
 
 ## Examples
 
