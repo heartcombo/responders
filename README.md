@@ -263,6 +263,12 @@ end
 
 _Note_: the application responder generated for new apps already configures a different set of defaults: `422 Unprocessable Entity` for errors, and `303 See Other` for redirects. _Responders may change the defaults to match these in a future major release._
 
+### Hotwire/Turbo and fetch APIs
+
+Hotwire/Turbo expects successful redirects after form submissions to respond with HTTP status `303 See Other`, and error responses to be 4xx or 5xx statuses, for example `422 Unprocessable Entity` for displaying form validation errors and `500 Internal Server Error` for other server errors. [Turbo documentation: Redirecting After a Form Submission](https://turbo.hotwired.dev/handbook/drive#redirecting-after-a-form-submission).
+
+The example configuration showed above matches the statuses that better integrate with Hotwire/Turbo.
+
 ## Examples
 
 Want more examples ? Check out these blog posts:
