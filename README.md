@@ -261,7 +261,7 @@ class ApplicationResponder < ActionController::Responder
 end
 ```
 
-_Note: these defaults may change in a future major release of responders._
+_Note_: the application responder generated for new apps already configures a different set of defaults: `422 Unprocessable Entity` for errors, and `303 See Other` for redirects. _Responders may change the defaults to match these in a future major release._
 
 ## Examples
 

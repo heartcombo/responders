@@ -97,6 +97,8 @@ module ActionController # :nodoc:
     #      renders a default action, which is <tt>:new</tt> for a
     #      +post+ request or <tt>:edit</tt> for +patch+ or +put+,
     #      and the status is set based on the configured `error_status`.
+    #      (defaults to `422 Unprocessable Entity` on new apps,
+    #       `200 OK` for compatibility reasons on old apps.)
     #   Thus an example like this -
     #
     #     respond_to :html, :xml
