@@ -213,7 +213,7 @@ def create
   @widget = Widget.new(widget_params)
   @widget.errors.add(:base, :invalid)
   # `respond_with` will render the `new` template again,
-  # and set the status to `422 Unprocessable Entity`.
+  # and set the status based on the configured `error_status`.
   respond_with @widget
 end
 ```
@@ -240,15 +240,34 @@ class WidgetsController < ApplicationController
 end
 ```
 
-## Configuring redirect statuses
+## Configuring error and redirect statuses
 
-By default, `respond_with` will perform redirects using the HTTP status code `302 Found`.
+By default, `respond_with` will respond to errors on `HTML` & `JS` requests using the HTTP status code `200 OK`,
+and perform redirects using the HTTP status code `302 Found`, both for backwards compatibility reasons.
 
-You can configure this behavior by setting `config.responders.redirect_status` to the desired status code.
+You can configure this behavior by setting `config.responders.error_status` and `config.responders.redirect_status` to the desired status codes.
 
 ```ruby
+config.responders.error_status = :unprocessable_entity
 config.responders.redirect_status = :see_other
 ```
+
+These can also be set in your custom `ApplicationResponder` if you have generated one: (see install instructions)
+
+```ruby
+class ApplicationResponder < ActionController::Responder
+  self.error_status = :unprocessable_entity
+  self.redirect_status = :see_other
+end
+```
+
+_Note_: the application responder generated for new apps already configures a different set of defaults: `422 Unprocessable Entity` for errors, and `303 See Other` for redirects. _Responders may change the defaults to match these in a future major release._
+
+### Hotwire/Turbo and fetch APIs
+
+Hotwire/Turbo expects successful redirects after form submissions to respond with HTTP status `303 See Other`, and error responses to be 4xx or 5xx statuses, for example `422 Unprocessable Entity` for displaying form validation errors and `500 Internal Server Error` for other server errors. [Turbo documentation: Redirecting After a Form Submission](https://turbo.hotwired.dev/handbook/drive#redirecting-after-a-form-submission).
+
+The example configuration showed above matches the statuses that better integrate with Hotwire/Turbo.
 
 ## Examples
 

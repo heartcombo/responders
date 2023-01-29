@@ -1,7 +1,7 @@
 ## Unreleased
 
 * Add config `responders.redirect_status` to allow overriding the redirect code/status used in redirects. The default is `302 Found`, which matches Rails, but it allows to change responders to redirect with `303 See Other` for example, to make it more compatible with how Hotwire/Turbo expects redirects to work.
-* Responding to an `HTML` or `JS` request that has errors on the resource now sets the status to `422 Unprocessable Entity`. (instead of the default of `200 OK`.) This makes it more consistent with other statuses more commonly used in APIs (JSON/XML for example), and works by default with Turbo/Hotwire which expects a 422 on form error HTML responses. Note that this change may break your application if you're relying on the previous 2xx status to handle error cases.
+* Add config `responders.error_status` to allow overriding the status code used to respond to `HTML` or `JS` requests that have errors on the resource. The default is `200 OK`, but it allows to change the response to be `422 Unprocessable Entity` in such cases for example, which makes it more consistent with other statuses more commonly used in APIs (like JSON/XML), and works by default with Turbo/Hotwire which expects a 422 on form error HTML responses. Note that changing this may break your application if you're relying on the previous 2xx status to handle error cases.
 * Add support for Ruby 3.0, 3.1, and 3.2, drop support for Ruby < 2.5.
 * Add support for Rails 6.1 and 7.0, drop support for Rails < 5.2.
 * Move CI to GitHub Actions.
