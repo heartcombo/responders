@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec path: '..'
 
-gem 'activemodel', github: 'rails/rails'
-gem 'railties', github: 'rails/rails'
+gem 'activemodel', github: 'rails/rails', branch: 'main'
+gem 'railties', github: 'rails/rails', branch: 'main'
 gem 'mocha'
 gem 'rails-controller-testing'
