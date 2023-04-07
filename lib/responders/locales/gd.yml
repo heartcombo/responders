@@ -1,0 +1,12 @@
+﻿gd:
+  flash:
+    actions:
+      create:
+        notice: 'Chaidh %{resource_name} a chruthachadh.'
+        # alert: 'Cha b’ urrainn dhuinn %{resource_name} a chruthachadh.'
+      update:
+        notice: 'Chaidh %{resource_name} ùrachadh.'
+        # alert: 'Cha b’ urrainn dhuinn %{resource_name} ùrachadh.'
+      destroy:
+        notice: 'Chaidh %{resource_name} a mhilleadh.'
+        alert: 'Cha b’ urrainn dhuinn %{resource_name} a mhilleadh.'
