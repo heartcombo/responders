@@ -131,6 +131,13 @@ module ActionController # :nodoc:
       put: :edit
     }
 
+    # See Responder#api_behavior
+    class MissingRenderer < LoadError
+      def initialize(format)
+        super "No renderer defined for format: #{format}"
+      end
+    end
+
     def initialize(controller, resources, options = {})
       @controller = controller
       @request = @controller.request
