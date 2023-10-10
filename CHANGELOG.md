@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Add support for Rails 7.1. (no changes required.)
 
 ## 3.1.0
 

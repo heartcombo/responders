@@ -2,10 +2,10 @@
 
 source "https://rubygems.org"
 
-gemspec
+gemspec path: ".."
 
-gem "activemodel", "~> 7.1.0"
-gem "railties", "~> 7.1.0"
+gem "activemodel", "~> 7.0.0"
+gem "railties", "~> 7.0.0"
 gem "mocha"
 gem "rails-controller-testing"
 gem "rubocop"

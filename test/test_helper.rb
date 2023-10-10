@@ -22,7 +22,7 @@ I18n.reload!
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
 Responders::Routes.draw do
   resources :news
-  ActiveSupport::Deprecation.silence do
+  (ActionDispatch.try(:deprecator) || ActiveSupport::Deprecation).silence do
     get "/admin/:action", controller: "admin/addresses"
     get "/:controller(/:action(/:id))"
   end

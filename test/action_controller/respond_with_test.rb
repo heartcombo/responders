@@ -763,7 +763,7 @@ class RespondWithControllerTest < ActionController::TestCase
         resources :quiz_stores do
           resources :customers
         end
-        ActiveSupport::Deprecation.silence do
+        (ActionDispatch.try(:deprecator) || ActiveSupport::Deprecation).silence do
           get ":controller/:action"
         end
       end
