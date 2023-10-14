@@ -3,6 +3,13 @@
 require "active_support/json"
 
 module ActionController # :nodoc:
+  # See Responder#api_behavior
+  class MissingRenderer < LoadError
+    def initialize(format)
+      super "No renderer defined for format: #{format}"
+    end
+  end
+
   # Responsible for exposing a resource to different mime requests,
   # usually depending on the HTTP verb. The responder is triggered when
   # <code>respond_with</code> is called. The simplest case to study is a GET request:
