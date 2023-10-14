@@ -274,7 +274,7 @@ Want more examples ? Check out these blog posts:
 
 * [Embracing REST with mind, body and soul](http://blog.plataformatec.com.br/2009/08/embracing-rest-with-mind-body-and-soul/)
 * [Three reasons to love ActionController::Responder](http://weblog.rubyonrails.org/2009/8/31/three-reasons-love-responder/)
-* [My five favorite things about Rails 3](https://www.cnblogs.com/only4agile/archive/2009/10/30/1593176.html)
+* [My five favorite things about Rails 3](https://web.archive.org/web/20201109041436/https://blog.engineyard.com/my-five-favorite-things-about-rails-3)
 
 ## Supported Ruby / Rails versions
 
