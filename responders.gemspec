@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Responders::VERSION.dup
   s.platform    = Gem::Platform::RUBY
   s.summary     = "A set of Rails responders to dry up your application"
-  s.email       = "heartcombo@googlegroups.com"
+  s.email       = "heartcombo.oss@gmail.com"
   s.homepage    = "https://github.com/heartcombo/responders"
   s.description = "A set of Rails responders to dry up your application"
   s.authors     = ["José Valim"]

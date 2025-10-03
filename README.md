@@ -287,4 +287,8 @@ and [Rails](https://guides.rubyonrails.org/maintenance_policy.html) maintenance 
 
 If you discover any bugs or want to drop a line, feel free to create an issue on GitHub.
 
-MIT License. Copyright 2020-2024 Rafael França, Carlos Antônio da Silva. Copyright 2009-2019 Plataformatec.
+## License
+
+MIT License.
+Copyright 2020-2025 Rafael França, Carlos Antonio da Silva.
+Copyright 2009-2019 Plataformatec.
