@@ -1,8 +1,7 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gemspec path: '..'
+gemspec path: ".."
 
-gem 'activemodel', github: 'rails/rails', branch: 'main'
-gem 'railties', github: 'rails/rails', branch: 'main'
-gem 'mocha'
-gem 'rails-controller-testing'
+gem "activemodel", github: "rails/rails", branch: "main"
+gem "railties", github: "rails/rails", branch: "main"
+

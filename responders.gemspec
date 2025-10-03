@@ -21,11 +21,14 @@ Gem::Specification.new do |s|
     "bug_tracker_uri" => "https://github.com/heartcombo/responders/issues",
   }
 
-  s.required_ruby_version = ">= 2.5.0"
+  s.required_ruby_version = ">= 2.7.0"
 
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "railties", ">= 5.2"
-  s.add_dependency "actionpack", ">= 5.2"
+  s.add_dependency "railties", ">= 7.0"
+  s.add_dependency "actionpack", ">= 7.0"
+
+  s.add_development_dependency "mocha"
+  s.add_development_dependency "rails-controller-testing"
 end
