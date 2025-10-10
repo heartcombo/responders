@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    responders (3.1.1)
+    responders (3.2.0)
       actionpack (>= 7.0)
       railties (>= 7.0)
 
