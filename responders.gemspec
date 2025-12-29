@@ -29,6 +29,8 @@ Gem::Specification.new do |s|
   s.add_dependency "railties", ">= 7.0"
   s.add_dependency "actionpack", ">= 7.0"
 
-  s.add_development_dependency "mocha"
   s.add_development_dependency "rails-controller-testing"
+  s.add_development_dependency "mocha"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "rdoc"
 end
