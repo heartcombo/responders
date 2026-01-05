@@ -290,5 +290,5 @@ If you discover any bugs or want to drop a line, feel free to create an issue on
 ## License
 
 MIT License.
-Copyright 2020-2025 Rafael França, Carlos Antonio da Silva.
+Copyright 2020-CURRENT Rafael França, Carlos Antonio da Silva.
 Copyright 2009-2019 Plataformatec.
