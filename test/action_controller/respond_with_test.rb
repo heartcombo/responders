@@ -723,7 +723,7 @@ class RespondWithControllerTest < ActionController::TestCase
 
   def test_raises_missing_renderer_if_an_api_behavior_with_no_renderer
     @controller = CsvRespondWithController.new
-    assert_raise ActionController::MissingRenderer do
+    assert_raise ActionController::Responder::MissingRenderer do
       get :index, format: "csv"
     end
   end
