@@ -309,6 +309,10 @@ module ActionController # :nodoc:
       { errors: resource.errors }
     end
 
+    def xml_resource_errors
+      resource.errors.to_a.to_xml({ root: "errors", skip_types: true })
+    end
+
     def response_overridden?
       @default_response.present?
     end
