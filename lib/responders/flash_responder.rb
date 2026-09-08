@@ -136,7 +136,7 @@ module Responders
     end
 
     def set_flash_now?
-      @flash_now == true || format == :js ||
+      @flash_now == true || format == :js || format == :turbo_stream ||
         (default_action && (has_errors? ? @flash_now == :on_failure : @flash_now == :on_success))
     end
 
