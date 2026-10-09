@@ -16,7 +16,6 @@ jobs:
         gemfile:
           - Gemfile
           - gemfiles/Gemfile-rails-main
-          - gemfiles/Gemfile-rails-8-1
           - gemfiles/Gemfile-rails-8-0
           - gemfiles/Gemfile-rails-7-2
           - gemfiles/Gemfile-rails-7-1
@@ -31,6 +30,8 @@ jobs:
           - '2.7'
         exclude:
           - gemfile: Gemfile
+            ruby: '3.2'
+          - gemfile: Gemfile
             ruby: '3.1'
           - gemfile: Gemfile
             ruby: '3.0'
@@ -43,14 +44,6 @@ jobs:
           - gemfile: gemfiles/Gemfile-rails-main
             ruby: '3.0'
           - gemfile: gemfiles/Gemfile-rails-main
-            ruby: '2.7'
-          - gemfile: gemfiles/Gemfile-rails-8-1
-            ruby: '3.2'
-          - gemfile: gemfiles/Gemfile-rails-8-1
-            ruby: '3.1'
-          - gemfile: gemfiles/Gemfile-rails-8-1
-            ruby: '3.0'
-          - gemfile: gemfiles/Gemfile-rails-8-1
             ruby: '2.7'
           - gemfile: gemfiles/Gemfile-rails-8-0
             ruby: '3.1'

@@ -20,13 +20,6 @@ I18n.load_path << File.expand_path("../locales/en.yml", __FILE__)
 I18n.reload!
 
 Responders::Routes = ActionDispatch::Routing::RouteSet.new
-Responders::Routes.draw do
-  resources :news
-  (ActionDispatch.try(:deprecator) || ActiveSupport::Deprecation).silence do
-    get "/admin/:action", controller: "admin/addresses"
-    get "/:controller(/:action(/:id))"
-  end
-end
 
 class ApplicationController < ActionController::Base
   include Responders::Routes.url_helpers
@@ -92,5 +85,28 @@ module MyEngine
   class Business < Rails::Engine
     isolate_namespace MyEngine
     extend ActiveModel::Naming
+  end
+end
+
+class ActionController::TestCase
+  setup do
+    draw_test_routes(@routes)
+  end
+
+  private
+
+  # Dynamic :controller/:action segments are not supported by Rails anymore,
+  # so we declare routes for the actions of the controller under test.
+  def draw_test_routes(routes, &block)
+    controller = @controller.class
+
+    routes.draw do
+      resources :news
+      instance_exec(&block) if block
+
+      controller.action_methods.each do |action|
+        match "#{controller.controller_path}/#{action}", controller: controller.controller_path, action: action, via: :all
+      end
+    end
   end
 end

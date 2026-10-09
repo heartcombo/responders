@@ -1,5 +1,7 @@
-## Unreleased
+## 3.2.1
 
+* Make default_render failures not set an error cause (#257)
+* Use public renderer API when available for better Rails 8.2 integration (#256)
 * Support `allow_other_host` option in `respond_with`, forwarded to `redirect_to` (#255)
 * Ruby 4.0 support (no changes required)
 

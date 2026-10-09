@@ -4,4 +4,3 @@ gemspec path: ".."
 
 gem "activemodel", github: "rails/rails", branch: "main"
 gem "railties", github: "rails/rails", branch: "main"
-

@@ -624,7 +624,7 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_clear_respond_to
-    @controller = InheritedRespondWithController.new
+    use_controller InheritedRespondWithController
     @request.accept = "text/html"
     assert_raises(ActionController::UnknownFormat) do
       get :index
@@ -632,7 +632,7 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_first_in_respond_to_has_higher_priority
-    @controller = InheritedRespondWithController.new
+    use_controller InheritedRespondWithController
     @request.accept = "*/*"
     get :index
     assert_equal "application/xml", @response.media_type
@@ -640,7 +640,7 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_block_inside_respond_with_is_rendered
-    @controller = InheritedRespondWithController.new
+    use_controller InheritedRespondWithController
     @request.accept = "application/json"
     get :index
     assert_equal "JSON", @response.body
@@ -726,14 +726,14 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_raises_missing_renderer_if_an_api_behavior_with_no_renderer
-    @controller = CsvRespondWithController.new
+    use_controller CsvRespondWithController
     assert_raise ActionController::MissingRenderer do
       get :index, format: "csv"
     end
   end
 
   def test_api_behavior_error_is_not_caused_by_missing_template
-    @controller = CsvRespondWithController.new
+    use_controller CsvRespondWithController
     error = assert_raise ActionController::MissingRenderer do
       get :index, format: "csv"
     end
@@ -741,7 +741,7 @@ class RespondWithControllerTest < ActionController::TestCase
   end
 
   def test_error_is_raised_if_no_respond_to_is_declared_and_respond_with_is_called
-    @controller = EmptyRespondWithController.new
+    use_controller EmptyRespondWithController
     @request.accept = "*/*"
     assert_raise RuntimeError do
       get :index
@@ -777,15 +777,17 @@ class RespondWithControllerTest < ActionController::TestCase
 
   private
 
+  def use_controller(controller_class)
+    @controller = controller_class.new
+    draw_test_routes(@routes)
+  end
+
   def with_test_route_set
     with_routing do |set|
-      set.draw do
+      draw_test_routes(set) do
         resources :customers
         resources :quiz_stores do
           resources :customers
-        end
-        (ActionDispatch.try(:deprecator) || ActiveSupport::Deprecation).silence do
-          get ":controller/:action"
         end
       end
       yield
