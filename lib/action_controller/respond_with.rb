@@ -37,7 +37,7 @@ module ActionController # :nodoc:
       # This specifies that the <tt>:create</tt> action and no other responds
       # to <tt>:json</tt>.
       def respond_to(*mimes)
-        options = mimes.extract_options!
+        options = mimes.extract_options!.dup
 
         only_actions   = Array(options.delete(:only)).map(&:to_sym)
         except_actions = Array(options.delete(:except)).map(&:to_sym)
