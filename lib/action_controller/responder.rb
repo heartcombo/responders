@@ -273,9 +273,7 @@ module ActionController # :nodoc:
     end
 
     def display_errors
-      # TODO: use `error_status` once we switch the default to be `unprocessable_entity`,
-      # otherwise we'd be changing this behavior here now.
-      controller.render format => resource_errors, :status => :unprocessable_entity
+      controller.render format => resource_errors, :status => error_status
     end
 
     # Check whether the resource has errors.
